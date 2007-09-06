@@ -21,12 +21,18 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   include AuthenticatedBase
 
+  has_and_belongs_to_many :roles
+
   composed_of :tz, :class_name => 'TZInfo::Timezone', :mapping => %w( time_zone time_zone )
 
   validates_uniqueness_of :login, :email, :case_sensitive => false
 
   # Protect internal methods from mass-update with update_attributes
   attr_accessible :login, :email, :password, :password_confirmation, :time_zone
+
+  def admin?
+    roles.map{ |role| role.title}.include? 'admin'
+  end
 
   def to_param
     login

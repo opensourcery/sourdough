@@ -9,22 +9,7 @@ protected
     @user = User.find_by_param(params[:id]) or raise ActiveRecord::RecordNotFound
   end
 
-  def check_auth
-    current_user == @user or raise AccessDenied
-  end
-
 public
-  # GET /users
-  # GET /users.xml
-  def index
-    @users = User.find(:all)
-
-    respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @users.to_xml }
-    end
-  end
-
   # GET /users/1
   # GET /users/1.xml
   def show

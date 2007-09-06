@@ -2,7 +2,16 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 1) do
+ActiveRecord::Schema.define(:version => 2) do
+
+  create_table "roles", :force => true do |t|
+    t.column "title", :string
+  end
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.column "role_id", :integer
+    t.column "user_id", :integer
+  end
 
   create_table "users", :force => true do |t|
     t.column "login",                     :string
@@ -16,7 +25,6 @@ ActiveRecord::Schema.define(:version => 1) do
     t.column "remember_token_expires_at", :datetime
     t.column "visits_count",              :integer,                :default => 0
     t.column "time_zone",                 :string,                 :default => "Etc/UTC"
-    t.column "permalink",                 :string
   end
 
 end

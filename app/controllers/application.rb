@@ -15,10 +15,17 @@ class ApplicationController < ActionController::Base
 
   around_filter :set_timezone
   around_filter :catch_errors
-  
+
   protected
+
     def self.protected_actions
       [ :edit, :update, :destroy ]
+    end
+
+    def check_auth
+      unless current_user == @user or current_user.admin?
+        raise AccessDenied
+      end
     end
 
   private

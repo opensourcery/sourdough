@@ -3,3 +3,7 @@ Welcome to Sourdough
 Installation Steps
 
 1. Install tzinfo gem
+
+2. rake db:fixtures:load
+
+3. Login as quentin/test
