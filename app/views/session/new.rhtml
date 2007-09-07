@@ -1,15 +1,16 @@
-
   <% form_tag(session_path) do -%>
-                <p><%= "Don't have an account?"[] %> <%= link_to "Create one now"[], new_user_path %>.</p>
-    <p><label for="login"><%= 'Login'[] %></label><br/>
-    <%= text_field_tag 'login'[] %></p>
+    <dl>
+      <dt><label for="login"><%= 'Login'[] %></label></dt>
+      <dd><%= text_field_tag 'login'[] %></dd>
 
-    <p><label for="password"><%= 'Password'[] %></label><br/>
-    <%= password_field_tag 'password'[] %></p>
+      <dt><label for="password"><%= 'Password'[] %></label></dt>
+      <dd><%= password_field_tag 'password'[] %></dd>
 
-    <p><label for="remember_me"><%= 'Remember me'[] %>:</label>
-    <%= check_box_tag 'remember_me'[] %></p>
+      <dt><label for="remember_me"><%= 'Remember me'[] %>:</label></dt>
+      <dd><%= check_box_tag 'remember_me'[] %></dd>
+    </dl>
 
-    <p><%= submit_tag 'Log in'[] %></p>
+    <p class=""><%= submit_tag 'Log in'[] %></p>
 
+    <p><%= "Don't have an account?"[] %> <%= link_to "Create one now"[], new_user_path %>.</p>
   <% end -%>

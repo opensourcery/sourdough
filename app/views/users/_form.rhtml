@@ -1,15 +1,16 @@
+<dl>
+  <dt><label for="login"><%= 'Login'[] %></label></dt>
+  <dd><%= form.text_field :login %></dd>
 
-    <p><label for="login"><%= 'Login'[] %></label><br/>
-    <%= form.text_field :login %></p>
+  <dt><label for="email"><%= 'Email'[] %></label></dt>
+  <dd><%= form.text_field :email %></dd>
 
-    <p><label for="email"><%= 'Email'[] %></label><br/>
-    <%= form.text_field :email %></p>
+  <dt><label for="password"><%= 'Password'[] %></label></dt>
+  <dd><%= form.password_field :password %></dd>
 
-    <p><label for="password"><%= 'Password'[] %></label><br/>
-    <%= form.password_field :password %></p>
+  <dt><label for="password_confirmation"><%= 'Confirm Password'[] %></label></dt>
+  <dd><%= form.password_field :password_confirmation %></dd>
 
-    <p><label for="password_confirmation"><%= 'Confirm Password'[] %></label><br/>
-    <%= form.password_field :password_confirmation %></p>
-
-    <p><label for="user_time_zone"><%= 'Default timezone'[] %></label>
-    <%= time_zone_select 'user', 'time_zone', TZInfo::Timezone.all.sort, :model => TZInfo::Timezone %></p>
+  <dt><label for="user_time_zone"><%= 'Default timezone'[] %></dt>
+  <dd><%= time_zone_select 'user', 'time_zone', TZInfo::Timezone.all.sort, :model => TZInfo::Timezone %></dd>
+</dl>
