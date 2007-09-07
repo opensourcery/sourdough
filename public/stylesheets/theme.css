@@ -1,0 +1,93 @@
+/* theme.css
+ * 
+ * This file defines the overall design of the site, e.g., fonts, colors,
+ * header, footers.
+ *
+ * Use for:  styles which affect the entire site, or most of it.
+ * Do not use for:  individual pages or elements; use content.css instead.
+ *
+ */
+/* colors {{{
+
+link:
+  color : #039;
+link on dark:
+  color : #6cf;
+dark brown:
+  color : #930;
+medium:
+  color : #fc6;
+light:
+  color : #ffe5b2;
+}}}*/
+/* global {{{*/
+body {
+  font-size : 107%;
+  background : url( /images/body_bg.png ) repeat-x;
+  margin : 0;
+}
+a:link,
+a:active,
+a:visited {
+  color : #039;
+  font-weight : bold;
+}
+/*}}}*/
+/* header {{{*/
+#header {
+  padding : 0 0 1em 0;
+  border-bottom : 2px solid #fc6;
+  margin : 50px 0 1em 0;
+}
+h1 a,
+h2 a {
+  color : #fff;
+  text-indent : -5000px;
+  text-align : left;
+  background : url( /images/sourdough.png ) no-repeat;
+  width : 501px;
+  height : 102px;
+  display : block;
+}
+h2 {
+  margin : -25px 0 0 115px;
+}
+h2 a {
+  background : url( /images/a_tasty_starter.png ) no-repeat;
+  width : 310px;
+  height : 23px;
+}
+#user_tools { /* FIXME: blueprint may have a better way to do this */
+  position : absolute;
+  top : 3px;
+  right : 10px;
+}
+#user_tools p {
+  color : #fff;
+}
+#user_tools a {
+  color : #6cf;
+}
+/*}}}*/
+/* mavigation {{{*/
+ul.navigation {
+  list-style : none;
+  margin : 0;
+}
+ul.navigation li {
+  float : left;
+  margin-right : 2em;
+}
+/*}}}*/
+/* footer {{{*/
+#footer {
+  margin : 5em 0 0 0;
+  border-top : 2px solid #fc6;
+}
+#footer p {
+  float : left;
+  margin-right : 2em;
+}
+/*}}}*/
+/* empty {{{*/
+/*}}}*/
