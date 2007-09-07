@@ -1,0 +1,16 @@
+<% @page_title = "Update Photo" %>
+
+<h3><%= @page_title %></h3>
+
+<% form_for(:photo, :url => photos_path(@user), :html => { :multipart => true }) do |f| -%>
+  <%= error_messages_for :photo %>
+
+  <% if @user.photo && @photo.errors.blank? %>
+    <%= avatar_for(@user) %>
+    <p><%= link_to 'Delete Photo'[], photos_path(@user), :confirm => 'Are you sure?', :method => :delete %></p>
+  <% end %>
+
+  <p><label for="new_photo"><%= 'New Photo'[] %>:</label> <%= f.file_field :uploaded_data %></p>
+  <p><%= submit_tag "Upload Photo"[], :class => "submit" %></p>
+
+<% end %>

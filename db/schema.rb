@@ -2,7 +2,20 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 2) do
+ActiveRecord::Schema.define(:version => 3) do
+
+  create_table "photos", :force => true do |t|
+    t.column "parent_id",    :integer
+    t.column "user_id",      :integer
+    t.column "content_type", :string
+    t.column "filename",     :string
+    t.column "thumbnail",    :string
+    t.column "size",         :integer
+    t.column "width",        :integer
+    t.column "height",       :integer
+    t.column "created_at",   :datetime
+    t.column "updated_at",   :datetime
+  end
 
   create_table "roles", :force => true do |t|
     t.column "title", :string
@@ -25,6 +38,7 @@ ActiveRecord::Schema.define(:version => 2) do
     t.column "remember_token_expires_at", :datetime
     t.column "visits_count",              :integer,                :default => 0
     t.column "time_zone",                 :string,                 :default => "Etc/UTC"
+    t.column "photo_id",                  :integer
   end
 
 end

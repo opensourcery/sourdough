@@ -2,7 +2,8 @@
 
 <p>Email: <%=h @user.email %></p>
 <p>Timezone: <%=h @user.time_zone %></p>
+<p><%= avatar_for(@user) %></p>
 
 <% can_edit? do %>
-  <%= link_to 'Edit', edit_user_path(@user) %>
+  <p><%= link_to 'Edit', edit_user_path(@user) %></p>
 <% end %>

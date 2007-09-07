@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :roles
 
+  belongs_to :photo
+
   composed_of :tz, :class_name => 'TZInfo::Timezone', :mapping => %w( time_zone time_zone )
 
   validates_uniqueness_of :login, :email, :case_sensitive => false

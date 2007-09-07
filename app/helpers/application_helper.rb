@@ -11,4 +11,13 @@ module ApplicationHelper
     end
   end
 
+  def avatar_for(user)
+    if user.photo
+      link_to_unless_current image_tag(user.photo.public_filename(:thumb)), user_path(user)
+    else
+      link_to_unless_current image_tag('no_photo_thumbnail.gif'), user_path(user)
+    end
+  end
+
+
 end

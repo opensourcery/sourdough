@@ -2,7 +2,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :session
   map.resource :admin, :member => { :users => :get }
-  map.resources :users
+  map.resources :users do |users|
+    users.resource :photos
+  end
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.login  '/login', :controller => 'session', :action => 'new'
   map.logout '/logout', :controller => 'session', :action => 'destroy'

@@ -4,12 +4,6 @@ class UsersController < ApplicationController
   before_filter :load_user, :except => [ :index, :create, :new ]
   before_filter :check_auth, :only => @protected_actions
 
-protected
-  def load_user
-    @user = User.find_by_param(params[:id]) or raise ActiveRecord::RecordNotFound
-  end
-
-public
   # GET /users/1
   # GET /users/1.xml
   def show
@@ -70,4 +64,10 @@ public
       format.xml  { head :ok }
     end
   end
+
+  protected
+  def load_user
+    @user = User.find_by_param(params[:id]) or raise ActiveRecord::RecordNotFound
+  end
+
 end
