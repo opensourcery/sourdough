@@ -9,6 +9,7 @@ class SpiderTest < ActionController::IntegrationTest
     get '/'
     assert_response :success
     spider(@response.body, '/',
+           :ignore_urls  => [%r{^.+prefect.opensourcery.com.?}],
            :ignore_forms => [])
   end
 
@@ -21,7 +22,7 @@ class SpiderTest < ActionController::IntegrationTest
     assert_redirected_to '/'
     follow_redirect!
     spider(@response.body, '/',
-           :ignore_urls  => [],
+           :ignore_urls  => [%r{^.+prefect.opensourcery.com.?}],
            :ignore_forms => [])
   end
 
