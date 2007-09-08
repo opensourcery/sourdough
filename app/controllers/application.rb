@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
   #before_filter :login_required
 
   around_filter :set_timezone
-  around_filter :catch_errors
 
   protected
 
@@ -28,29 +27,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def load_user
-    @user = User.find_by_param(params[:id]) or raise ActiveRecord::RecordNotFound
-  end
-
   private
 
   def set_timezone
-    TzTime.zone = logged_in? ? current_user.tz : TimeZone.new('Etc/UTC')
+    TzTime.zone = logged_in? ? current_user.tz : TimeZone.new('Pacific Time (US & Canada)')
     yield
     TzTime.reset!
-  end
-
-  def catch_errors
-    begin
-      yield
-
-    rescue AccessDenied
-      flash[:notice] = "You do not have access to that area."
-      redirect_to '/'
-    rescue ActiveRecord::RecordNotFound
-      flash[:notice] = "Sorry, can't find that record."
-      redirect_to '/'
-    end
   end
 
 end

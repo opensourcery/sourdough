@@ -12,5 +12,5 @@
   <dd><%= form.password_field :password_confirmation %></dd>
 
   <p><label for="user_time_zone"><%= 'Default timezone'[] %></label>
-  <%= time_zone_select 'user', 'time_zone', TzinfoTimezone.us_zones %></p>
+  <%= form.time_zone_select 'time_zone', TzinfoTimezone.us_zones %></p>
 
