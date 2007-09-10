@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_auth
-    unless current_user == @user or current_user.admin?
+    unless current_user == @user or (logged_in? and current_user.admin?)
       raise AccessDenied
     end
   end
