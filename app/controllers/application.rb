@@ -8,12 +8,11 @@ class ApplicationController < ActionController::Base
   class AccessDenied < StandardError; end
 
   # Pick a unique cookie name to distinguish our session data from others'
-  session :session_key => '_trunk_session_id'
+  session :session_key => '_sourdough_session_id'
 
-  # If you want timezones per-user, uncomment this:
-  #before_filter :login_required
+  before_filter :login_from_cookie
 
-  around_filter :set_timezone
+  around_filter :set_timezone, :catch_errors
 
   protected
 
@@ -27,12 +26,29 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def permission_denied
+    flash[:notice] = "You don't have privileges to access that area"
+    redirect_to '/'
+  end
+
   private
 
   def set_timezone
     TzTime.zone = logged_in? ? current_user.tz : TimeZone.new('Pacific Time (US & Canada)')
     yield
     TzTime.reset!
+  end
+
+  def catch_errors
+    begin
+      yield
+
+    rescue AccessDenied
+      flash[:notice] = "You do not have access to that area."
+      redirect_to '/'
+    rescue ActiveRecord::RecordNotFound
+      permission_denied
+    end
   end
 
 end

@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
 
-  before_filter :login_required
-  access_control :index => 'admin'
+  before_filter  :login_required
+  access_control :DEFAULT => 'admin'
 
   def users
     @users = User.find(:all)

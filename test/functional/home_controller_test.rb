@@ -12,7 +12,9 @@ class HomeControllerTest < Test::Unit::TestCase
   end
 
   # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_get_home_page
+    get 'index'
+    assert_template 'index'
   end
+
 end

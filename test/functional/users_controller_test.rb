@@ -57,10 +57,39 @@ class UsersControllerTest < Test::Unit::TestCase
     end
   end
 
+  def test_should_update_user
+    login_as(:aaron)
+    update_user('aaron', :email => 'updated@email.com')
+    assert assigns(:user)
+  end
+
+  def test_should_not_update_user_because_of_missing_login
+    login_as(:aaron)
+    update_user('aaron', :email => '')
+    assert_template 'edit'
+  end
+
+  def test_should_not_update_user_because_of_bad_permissions
+    login_as(:aaron)
+    update_user('quentin', :email => 'updated@email.com')
+    assert_redirected_to '/'
+  end
+
+  def test_should_update_user_because_they_are_admin
+    login_as(:quentin)
+    update_user('aaron', :email => 'updated@email.com')
+    assert assigns(:user)
+  end
+
   protected
 
   def create_user(options = {})
     post :create, :user => { :login => 'quire', :email => 'quire@example.com',
+         :password => 'quire', :password_confirmation => 'quire' }.merge(options)
+  end
+
+  def update_user(login, options = {})
+    post :update, :id => login, :user => { :login => 'quire', :email => 'quire@example.com',
          :password => 'quire', :password_confirmation => 'quire' }.merge(options)
   end
 

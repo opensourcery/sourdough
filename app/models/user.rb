@@ -27,7 +27,8 @@ class User < ActiveRecord::Base
 
   composed_of :tz, :class_name => 'TzinfoTimezone', :mapping => %w( time_zone time_zone )
 
-  validates_uniqueness_of :login, :email, :case_sensitive => false
+  validates_format_of :login, :with => /^\w+$/
+  validates_email_format_of :email
 
   # Protect internal methods from mass-update with update_attributes
   attr_accessible :login, :email, :password, :password_confirmation, :time_zone
