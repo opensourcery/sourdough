@@ -2,8 +2,10 @@ Welcome to Sourdough
 
 Installation Steps
 
-1. Install tzinfo gem
+1. copy email.example to email.yml
 
-2. rake db:fixtures:load
+2. copy database.example to database.yml
 
-3. Login as quentin/test
+3. rake db:fixtures:load
+
+4. Login as quentin/test

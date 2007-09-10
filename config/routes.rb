@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.resource :session
+  map.resource :session, :member => { :forgotten_password => :get,
+                                      :reset_password => :put}
   map.resource :admin, :member => { :users => :get }
   map.resources :users do |users|
     users.resource :photos

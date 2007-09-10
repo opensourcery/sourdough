@@ -100,6 +100,12 @@ class UserTest < Test::Unit::TestCase
     end
   end
 
+  def test_should_reset_password
+    old_password = users(:quentin).password
+    users(:quentin).reset_password!
+    assert_not_equal old_password, users(:quentin).password
+  end
+
   protected
     def create_user(options = {})
       User.create({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

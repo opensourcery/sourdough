@@ -49,4 +49,19 @@ class User < ActiveRecord::Base
     super( :only => [ :login, :time_zone, :last_login_at ] )
   end
 
+  def reset_password!
+    temporary_password = create_temporary_password
+    self.password, self.password_confirmation = temporary_password, temporary_password
+    save!
+  end
+
+  private
+
+  def create_temporary_password
+    chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+    temporary_password = ''
+    6.times { |i| temporary_password << chars[rand(chars.size-1)] }
+    temporary_password
+  end
+
 end

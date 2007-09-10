@@ -74,6 +74,22 @@ class SessionControllerTest < Test::Unit::TestCase
     assert !@controller.send(:logged_in?)
   end
 
+  def test_should_retrieve_forgotten_password_page
+    get 'forgotten_password'
+    assert_response :success
+    assert_template 'forgotten_password'
+  end
+
+  def test_should_reset_password
+    get 'reset_password', :email => 'quentin@example.com'
+    assert_redirected_to login_path
+  end
+
+  def test_should_not_reset_password
+    get 'reset_password', :email => 'quentin@bademail.com'
+    assert_redirected_to forgotten_password_session_path
+  end
+
   protected
     def auth_token(token)
       CGI::Cookie.new('name' => 'auth_token', 'value' => token)
