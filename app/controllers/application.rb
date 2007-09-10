@@ -16,10 +16,6 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def self.protected_actions
-    [ :edit, :update, :destroy ]
-  end
-
   def check_auth
     unless current_user == @user or (logged_in? and current_user.admin?)
       raise AccessDenied
@@ -44,10 +40,10 @@ class ApplicationController < ActionController::Base
       yield
 
     rescue AccessDenied
-      flash[:notice] = "You do not have access to that area."
-      redirect_to '/'
-    rescue ActiveRecord::RecordNotFound
       permission_denied
+    rescue ActiveRecord::RecordNotFound
+      flash[:notice] = "That item does not exist"
+      redirect_to '/'
     end
   end
 

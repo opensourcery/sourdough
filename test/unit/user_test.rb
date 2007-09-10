@@ -89,6 +89,17 @@ class UserTest < Test::Unit::TestCase
     assert users(:quentin).remember_token_expires_at.between?(before, after)
   end
 
+  def test_should_return_the_user_as_xml
+    assert users(:quentin).to_xml
+  end
+
+  def test_should_not_allow_login_with_punctuation
+    assert_no_difference User, :count do
+      user = create_user(:login => 'quire.')
+      assert user.errors.on(:login)
+    end
+  end
+
   protected
     def create_user(options = {})
       User.create({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

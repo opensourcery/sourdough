@@ -72,6 +72,7 @@ class UsersControllerTest < Test::Unit::TestCase
   def test_should_not_update_user_because_of_bad_permissions
     login_as(:aaron)
     update_user('quentin', :email => 'updated@email.com')
+    assert_equal "You don't have privileges to access that area", flash[:notice]
     assert_redirected_to '/'
   end
 
@@ -79,6 +80,25 @@ class UsersControllerTest < Test::Unit::TestCase
     login_as(:quentin)
     update_user('aaron', :email => 'updated@email.com')
     assert assigns(:user)
+  end
+
+  def test_should_display_user
+    login_as(:quentin)
+    get 'show', :id => 'quentin'
+    assert_response :success
+    assert_template 'show'
+  end
+
+  def test_should_destroy_user
+    login_as(:quentin)
+    delete 'destroy', :id => 'aaron'
+    assert_redirected_to 'admin/users'
+  end
+
+  def test_should_not_find_user
+    get 'show', :id => 'nobody'
+    assert_equal "That item does not exist", flash[:notice]
+    assert_redirected_to '/'
   end
 
   protected

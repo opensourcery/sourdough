@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def can_edit?
-    if current_user == @user or current_user.admin?
+    if current_user == @user or (logged_in? and current_user.admin?)
       yield
     end
   end
