@@ -24,7 +24,7 @@ class UserMailerTest < Test::Unit::TestCase
     @expected.date    = Time.now
     quentin = users(:quentin)
     quentin.password = 'temporary'
-    assert_equal @expected.body, UserMailer.create_forgotten_password(quentin, @request.host_with_port, @expected.date).body
+    assert_equal @expected.body, UserMailer.create_forgotten_password(quentin, @request.host_with_port).body
   end
 
   private

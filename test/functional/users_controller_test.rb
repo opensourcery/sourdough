@@ -101,6 +101,13 @@ class UsersControllerTest < Test::Unit::TestCase
     assert_redirected_to '/'
   end
 
+  def test_should_activate_user
+    get :activate, :id => users(:aaron).activation_code
+    assert_redirected_to '/'
+    assert_equal "Signup complete!", flash[:notice]
+    assert_equal users(:aaron), User.authenticate('aaron', 'test')
+  end
+
   protected
 
   def create_user(options = {})

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   @protected_actions = [ :edit, :update, :destroy ]
-  before_filter :load_user, :except => [ :index, :create, :new ]
+  before_filter :load_user, :except => [ :index, :create, :new, :activate ]
   before_filter :check_auth, :only => @protected_actions
 
   # GET /users/1
@@ -29,8 +29,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        self.current_user = @user
-        flash[:notice] = 'User was successfully created.'
+        flash[:notice] = 'User was successfully created.  Please check your email and activate your account.'
         format.html { redirect_to user_url(@user) }
         format.xml  { head :created, :location => user_url(@user) }
       else
@@ -64,6 +63,15 @@ class UsersController < ApplicationController
       format.html { redirect_to users_admin_url }
       format.xml  { head :ok }
     end
+  end
+
+  def activate
+    self.current_user = User.find_by_activation_code(params[:id])
+    if logged_in? && !current_user.activated?
+      current_user.activate
+      flash[:notice] = "Signup complete!"
+    end
+    redirect_back_or_default('/')
   end
 
   protected

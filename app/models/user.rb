@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   validates_email_format_of :email
 
   # Protect internal methods from mass-update with update_attributes
-  attr_accessible :login, :email, :password, :password_confirmation, :time_zone
+  attr_accessible :login, :email, :password, :password_confirmation, :time_zone, :activated_at, :activation_code
 
   def admin?
     roles.map{ |role| role.title}.include? 'admin'

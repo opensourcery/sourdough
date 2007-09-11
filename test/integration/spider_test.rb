@@ -9,8 +9,9 @@ class SpiderTest < ActionController::IntegrationTest
     get '/'
     assert_response :success
     spider(@response.body, '/',
+           :verbose => false,
            :ignore_urls  => [%r{^.+prefect.opensourcery.com.?}],
-           :ignore_forms => [])
+           :ignore_forms => [%r{^.+reset_password?}])
   end
 
   def test_spider_logged_in
@@ -22,8 +23,9 @@ class SpiderTest < ActionController::IntegrationTest
     assert_redirected_to '/'
     follow_redirect!
     spider(@response.body, '/',
+           :verbose => false,
            :ignore_urls  => [%r{^.+prefect.opensourcery.com.?}],
-           :ignore_forms => [])
+           :ignore_forms => [%r{ ^.+reset_password|users?}])
   end
 
 

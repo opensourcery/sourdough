@@ -30,6 +30,7 @@ quentin:
   photo_id: 1
   time_zone: US/Eastern
   created_at: <%= 5.days.ago.to_s :db %>
+  activated_at: <%= 5.days.ago.to_s :db %>
 
 aaron:
   id: 2
@@ -38,4 +39,5 @@ aaron:
   salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
   time_zone: US/Pacific
+  activation_code: activateme
   created_at: <%= 1.days.ago.to_s :db %>
