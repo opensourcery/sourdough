@@ -4,11 +4,11 @@
  * header, footers.
  *
  * Use for:  styles which affect the entire site, or most of it.
+ *
  * Do not use for:  individual pages or elements; use content.css instead.
  *
  */
 /* colors {{{
-
 link:
   color : #039;
 link on dark:
@@ -70,11 +70,14 @@ h2 a {
 }
 /*}}}*/
 /* errors & notices {{{*/
-#errorExplanation,
-#errorExplanation h6 {
+div.flash,
+div.flash h6 {
   border-bottom : 1px solid #900;
 }
-#errorExplanation h6 {
+div.flash {
+  margin-bottom : 1.5em;
+}
+div.flash h6 {
   font-weight : bold;
 }
 .fieldWithErrors * { /* FIXME when dl_form_for works, make this better */
@@ -99,6 +102,46 @@ ul.navigation li {
 #footer p {
   float : left;
   margin-right : 2em;
+}
+/*}}}*/
+/* lists {{{*/
+dl.inline dt {
+    text-align : right;
+    float : left;
+    clear : left;
+    margin : 0 0 5px 0;
+}
+dl.inline dd {
+    float : left;
+    clear : none;
+    margin : 0 0 5px 10px;
+    white-space : nowrap;
+}
+/*}}}*/
+/* forms {{{*/
+div.form_container form {
+  background-color : #ffe5b2;
+  background-color : #ffffe0;
+  padding : 1em;
+  border : 1px solid #fc6;
+}
+div.form_container form dl {
+  margin : 0;
+  clear : both;
+}
+div.form_container form dl.inline dt {
+  width : 10em;
+}
+div.form_container ul.navigation {
+  border-top : 1px solid #fc6;
+  margin-top : 1.5em;
+}
+div.form_container ul.navigation li {
+  float : none;
+}
+div.form_container p.send {
+  margin : 0 0 0 10em;
+  clear : both;
 }
 /*}}}*/
 /* empty {{{*/

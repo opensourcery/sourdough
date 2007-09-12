@@ -1,8 +1,10 @@
 /* content.css
  * 
- * This file defines the content of the site, e.g., styles for the home page.
+ * This file defines the design of content elements, e.g., styles for the home
+ * page.
  *
- * Use for:  styles which affect one page or element, or a small group of pages.
+ * Use for:  one page or element, or a small group of pages.
+ *
  * Do not use for:  styles which affect the entire site; use theme.css instead.
  *
  */

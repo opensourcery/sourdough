@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def sourdough_error_messages_for( *params )
-    error_messages_for( params, :header_tag => 'h6' )
+    error_messages_for( params, :header_tag => 'h6', :class => 'flash' )
   end
 
 end

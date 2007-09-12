@@ -12,9 +12,8 @@ class SessionController < ApplicationController
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
       redirect_back_or_default('/')
-      flash[:notice] = "Logged in successfully"
     else
-      flash.now[:error] = "Could not log you in.  Are you sure your username and password are correct?"
+      flash.now[:error] = "Login failed.  Are you sure your username and password are correct?"
       render :action => 'new'
     end
   end
@@ -24,7 +23,7 @@ class SessionController < ApplicationController
     cookies.delete :auth_token
     reset_session
     flash[:notice] = "You have been logged out."
-    redirect_back_or_default('/')
+    redirect_to :action => :new
   end
 
   def reset_password

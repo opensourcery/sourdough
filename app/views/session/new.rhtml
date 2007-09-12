@@ -1,16 +1,26 @@
+<% @page_title = 'Login'[] %>
+
+<div class="form_container column span-12 append-6 prepend-6 last">
+  <h3><%= @page_title %></h3>
+
   <% form_tag(session_path) do -%>
-    <dl>
+    <dl class="inline">
       <dt><label for="login"><%= 'Login'[] %></label></dt>
       <dd><%= text_field_tag 'login'[] %></dd>
 
       <dt><label for="password"><%= 'Password'[] %></label></dt>
-      <dd><%= password_field_tag 'password'[] %>  <%= link_to 'I forgot my password', forgotten_password_session_path %></dd>
+      <dd><%= password_field_tag 'password'[] %></dd>
 
-      <dt><label for="remember_me"><%= 'Remember me'[] %>:</label></dt>
-      <dd><%= check_box_tag 'remember_me'[] %></dd>
+      <dt></dt>
+      <dd><%= check_box_tag 'remember_me'[] %> <label for="remember_me"><%= 'Remember me next time?'[] %></label></dd>
     </dl>
 
-    <p class=""><%= submit_tag 'Log in'[] %></p>
+    <p class="send"><%= submit_tag 'Log in'[] %></p>
 
-    <p><%= "Don't have an account?"[] %> <%= link_to "Create one now"[], new_user_path %>.</p>
+    <ul class="navigation">
+      <li><%= "We can help if you've"[] %> <%= link_to 'forgotten your password', forgotten_password_session_path %>.</li>
+      <li><%= "If you don't have an account you can"[] %> <%= link_to "create one"[], new_user_path %>.</li>
+    </ul>
   <% end -%>
+</div>
+<script type="text/javascript">Event.observe( window, 'load', function() { $( 'login' ).focus() })</script>

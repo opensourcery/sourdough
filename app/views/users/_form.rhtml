@@ -1,4 +1,4 @@
-<dl>
+<dl class="inline">
   <dt><label for="login"><%= 'Login'[] %></label></dt>
   <dd><%= form.text_field :login %></dd>
 
@@ -11,6 +11,6 @@
   <dt><label for="password_confirmation"><%= 'Confirm Password'[] %></label></dt>
   <dd><%= form.password_field :password_confirmation %></dd>
 
-  <dt><label for="user_time_zone"><%= 'Default timezone'[] %></label></dt>
+  <dt><label for="user_time_zone"><%= 'Timezone'[] %></label></dt>
   <dd><%= form.time_zone_select 'time_zone', TzinfoTimezone.us_zones %></dd>
 </dl>
