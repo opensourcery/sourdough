@@ -6,6 +6,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users do |users|
     users.resource :photos
   end
+
+  map.home '/', :controller => 'home'
+  map.activate "/users/activate/:activation_code", :controller => 'users', :action => 'activate'
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.login  '/login', :controller => 'session', :action => 'new'
   map.logout '/logout', :controller => 'session', :action => 'destroy'

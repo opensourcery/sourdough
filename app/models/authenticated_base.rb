@@ -50,11 +50,6 @@ module AuthenticatedBase
     !! activation_code.nil?
   end
 
-  # Returns true if the user has just been activated.
-  def recently_activated?
-    @activated
-  end
-
   # Encrypts the password with the user salt
   def encrypt(password)
     self.class.encrypt(password, salt)

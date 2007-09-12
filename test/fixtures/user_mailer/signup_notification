@@ -1,0 +1,8 @@
+Your account has been created.
+
+  Username: quentin
+  Password: test
+
+Visit this url to activate your account:
+
+  test.host/users/activate/123456

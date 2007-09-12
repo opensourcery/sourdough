@@ -30,7 +30,7 @@ class SessionController < ApplicationController
     if @user = User.find_by_email(params[:email])
       flash[:notice] = "A temporary password has been sent to '#{CGI.escapeHTML @user.email}'"
       @user.reset_password!
-      UserMailer.deliver_forgotten_password(@user, login_url)
+      UserMailer.deliver_forgotten_password(@user, edit_user_path(@user))
       redirect_to login_path
     else
       flash[:error] = "I could not find an account with the email address #{CGI.escapeHTML params[:email]}. Did you type it correctly?"

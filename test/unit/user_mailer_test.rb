@@ -16,15 +16,25 @@ class UserMailerTest < Test::Unit::TestCase
     @expected = TMail::Mail.new
     @expected.set_content_type "text", "plain", { "charset" => CHARSET }
     @expected.mime_version = '1.0'
+    @quentin = users(:quentin)
   end
 
   def test_forgotten_password
-    @expected.subject = 'Your new Pronetos password'
     @expected.body    = read_fixture('forgotten_password')
-    @expected.date    = Time.now
-    quentin = users(:quentin)
-    quentin.password = 'temporary'
-    assert_equal @expected.body, UserMailer.create_forgotten_password(quentin, @request.host_with_port).body
+    @quentin.password = 'temporary'
+    assert_equal @expected.body, UserMailer.create_forgotten_password(@quentin, "#{@request.host_with_port}/users/quentin;edit").body
+  end
+
+  def test_signup_notification
+    @quentin.password = 'test'
+    @quentin.activation_code = '123456'
+    @expected.body    = read_fixture('signup_notification')
+    assert_equal @expected.body, UserMailer.create_signup_notification(@quentin, "#{@request.host_with_port}/users/activate/123456").body
+  end
+
+  def test_activation_notification
+    @expected.body    = read_fixture('activation')
+    assert_equal @expected.body, UserMailer.create_activation(@quentin, @request.host_with_port).body
   end
 
   private

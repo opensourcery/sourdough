@@ -2,22 +2,22 @@ class UserMailer < ActionMailer::Base
 
   cattr_accessor :from_address
 
-  def signup_notification(user)
+  def signup_notification(user, url)
     setup_email(user)
     @subject    += 'Please activate your new #{Sourdough[]} account'
-    @body[:url]  = "http://YOURSITE/activate/#{user.activation_code}"
+    @body[:url]  = url
   end
 
-  def activation(user)
+  def activation(user, url)
     setup_email(user)
     @subject    += 'Your #{Sourdough[]} account has been activated!'
-    @body[:url]  = "http://YOURSITE/"
+    @body[:url]  = url
   end
 
-  def forgotten_password(user, link)
+  def forgotten_password(user, url)
     setup_email(user)
     @subject     += 'Your new #{Sourdough[]} password'
-    @body[:url]  = link
+    @body[:url]  = url
   end
 
   protected
