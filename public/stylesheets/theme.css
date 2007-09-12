@@ -69,7 +69,19 @@ h2 a {
   color : #6cf;
 }
 /*}}}*/
-/* mavigation {{{*/
+/* errors & notices {{{*/
+#errorExplanation,
+#errorExplanation h6 {
+  border-bottom : 1px solid #900;
+}
+#errorExplanation h6 {
+  font-weight : bold;
+}
+.fieldWithErrors * { /* FIXME when dl_form_for works, make this better */
+  background : pink;
+}
+/*}}}*/
+/* navigation {{{*/
 ul.navigation {
   list-style : none;
   margin : 0;

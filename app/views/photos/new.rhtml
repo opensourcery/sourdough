@@ -1,9 +1,10 @@
 <% @page_title = "Update Photo" %>
 
 <h3><%= @page_title %></h3>
+<%= render :partial => 'users/subnav' %>
 
 <% form_for(:photo, :url => photos_path(@user), :html => { :multipart => true }) do |f| -%>
-  <%= error_messages_for :photo %>
+  <%= sourdough_error_messages_for :photo %>
 
   <% if @user.photo && @photo.errors.blank? %>
     <%= avatar_for(@user) %>

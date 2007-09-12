@@ -38,13 +38,13 @@
         <% end %>
         </p>
       </div>
+    </div>
+
+    <div id="body" class="column span-24">
 
       <% if flash.any? %>
         <div id="flash"><%= flash[:notice] %></div><% flash.clear %>
       <% end %>
-    </div>
-
-    <div id="body" class="column span-24">
 
         <%= yield %>
 

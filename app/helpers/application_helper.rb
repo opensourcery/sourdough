@@ -19,5 +19,8 @@ module ApplicationHelper
     end
   end
 
+  def sourdough_error_messages_for( *params )
+    error_messages_for( params, :header_tag => 'h6' )
+  end
 
 end
