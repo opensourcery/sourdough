@@ -1,17 +1,23 @@
-<% @page_title = "Update Photo" %>
+<% @section_title = 'photo' %>
+<%= render :partial => 'users/header' %>
 
-<h3><%= @page_title %></h3>
-<%= render :partial => 'users/subnav' %>
+<%= sourdough_error_messages_for :photo %>
 
-<% form_for(:photo, :url => photos_path(@user), :html => { :multipart => true }) do |f| -%>
-  <%= sourdough_error_messages_for :photo %>
+<div class="form_container photo column span-14 append-5 prepend-5 last">
+  <% form_for(:photo, :url => photos_path(@user), :html => { :multipart => true }) do |f| -%>
 
-  <% if @user.photo && @photo.errors.blank? %>
-    <%= avatar_for(@user) %>
-    <p><%= link_to 'Delete Photo'[], photos_path(@user), :confirm => 'Are you sure?', :method => :delete %></p>
+    <% if @user.photo && @photo.errors.blank? %>
+      <div class="user_photo">
+        <%= avatar_for(@user) %>
+        <p class="delete"><%= link_to 'user_delete_photo'[], photos_path(@user), :confirm => 'dialog_binary_confirmation'[], :method => :delete %></p>
+      </div>
+    <% end %>
+
+    <dl>
+      <dt><label for="new_photo"><%= 'user_upload_new_photo_label'[] %>:</label></dt>
+      <dd><%= f.file_field :uploaded_data %></dd>
+    </dl>
+    <p><%= submit_tag "user_upload_new_photo_submit"[], :class => "submit" %></p>
+
   <% end %>
-
-  <p><label for="new_photo"><%= 'New Photo'[] %>:</label> <%= f.file_field :uploaded_data %></p>
-  <p><%= submit_tag "Upload Photo"[], :class => "submit" %></p>
-
-<% end %>
+</div>

@@ -32,6 +32,15 @@ a:visited {
   color : #039;
   font-weight : bold;
 }
+table,
+th,
+td {
+  background : transparent;
+  border : 0;
+}
+th {
+  border-bottom : 2px solid #333;
+}
 /*}}}*/
 /* header {{{*/
 #header {
@@ -88,6 +97,7 @@ div.flash h6 {
 ul.navigation {
   list-style : none;
   margin : 0;
+  height : 3em;
 }
 ul.navigation li {
   float : left;
@@ -144,6 +154,18 @@ div.form_container p.save,
 div.form_container p.update {
   margin : 0 0 0 10em;
   clear : both;
+}
+/*}}}*/
+/* icons {{{*/
+.delete a {
+  color : #900;
+  padding-left : 18px;
+  background : url( /images/icon_delete.gif ) no-repeat center left;
+}
+.edit a {
+  color : #090;
+  padding-left : 18px;
+  background : url( /images/icon_edit.gif ) no-repeat center left;
 }
 /*}}}*/
 /* empty {{{*/

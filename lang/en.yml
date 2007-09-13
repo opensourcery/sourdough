@@ -1,1 +1,11 @@
-welcome_to_sourdough: Welcome to Sourdough
+# home page
+home_welcome: Welcome to Sourdough
+footer_copyright: '&copy; 2007 <a href="http://opensourcery.com">OpenSourcery, LLC</a>; all rights reserved.'
+
+# user settings
+user_upload_new_photo_label: Upload a new photo to replace this one
+user_upload_new_photo_submit: Upload
+user_delete_photo: Delete this photo
+
+# general
+dialog_binary_confirmation: Are you sure?

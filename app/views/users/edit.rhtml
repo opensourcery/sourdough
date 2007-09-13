@@ -1,12 +1,9 @@
-<% @page_title = "#{ 'Editing user'[]} #{ h @user.login }" %>
-
-<%= render :partial => 'subnav' %>
+<% @section_title = 'login &amp; password' %>
+<%= render :partial => 'header' %>
 
 <%= sourdough_error_messages_for :user %>
 
 <div class="form_container column span-14 append-5 prepend-5 last">
-  <h3><%= @page_title %></h3>
-
   <% form_for(:user, :url => user_path(@user), :html => { :method => :put }) do |f| %>
     <%= render :partial => 'form', :object => f %>
     <p class="update"><%= submit_tag 'Save changes'[] %></p>

@@ -1,25 +1,24 @@
-<% @page_title = 'Site administration | all users'[] %>
-<h3><%= @page_title %></h3>
+<% @section_title = 'users' %>
+<%= render :partial => 'header' %>
 
-<%= render :partial => 'subnav' %>
+<div class="column span-16">
+  <table id="user_list">
+    <tr>
+      <th>Login</th>
+      <th>E-mail</th>
+      <th colspan="2">Actions</th>
+    </tr>
+    <% @users.each do |u| %>
+      <tr>
+        <td><%= link_to h(u.login), user_path(u) %></td>
+        <td><%= u.email %></td>
+        <td class="edit"><%= link_to 'Edit', edit_user_path(u) %></td>
+        <td class="delete"><%= link_to 'Delete', user_path(u), :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
 
-<table>
-<thead>
-  <tr>
-    <th>Name</th>
-    <th colspan="3">Actions</th>
-  </tr>
-</thead>
-<% for user in @users %>
-  <tr>
-    <td><%= link_to h(user.login), user_path(user) %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Change Photo', new_photos_path(user) %></td>
-    <td><%= link_to 'Destroy', user_path(user), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New user', signup_path %>
+<div class="column span-8 last">
+  <p><%= link_to 'Create a new user &#187;'[], signup_path %></p>
+</div>
