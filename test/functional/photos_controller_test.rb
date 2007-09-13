@@ -26,7 +26,7 @@ class PhotosControllerTest < Test::Unit::TestCase
 
   def test_should_upload_photo
     upload_file :filename => 'photos/rails.png', :content_type => 'image/png'
-    #assert_redirected_to url_for(:action => 'new')
+    #assert_redirected_to photos_path(users(:quentin))
     assert_valid assigns(:photo)
     assert_equal 'rails.png', assigns(:photo).filename
     assert_equal 2, Photo.count

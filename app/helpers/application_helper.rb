@@ -33,12 +33,12 @@ module ApplicationHelper
     return false
   end
 
-  def new_photos_path( *user )
+  def new_photos_path(user)
     return admin_new_photos_path(user) if in_administration_area?
     super
   end
 
-  def photos_path( *user )
+  def photos_path(user)
     return admin_photos_path(user) if in_administration_area?
     super
   end
@@ -48,17 +48,17 @@ module ApplicationHelper
     super
   end
 
-  def new_user_path( *user )
-    return admin_new_user_path(user) if in_administration_area?
+  def new_user_path
+    return admin_new_user_path if in_administration_area?
     super
   end
 
-  def edit_user_path( *user )
+  def edit_user_path(user)
     return admin_edit_user_path(user) if in_administration_area?
     super
   end
 
-  def user_path( *user )
+  def user_path(user)
     return admin_user_path(user) if in_administration_area?
     super
   end
