@@ -4,6 +4,9 @@
 # you don't control web/app server and can't set it the proper way
 # ENV['RAILS_ENV'] ||= 'production'
 
+# Specifies order to load fixtures to prevent foreign key problems
+ENV['FIXTURES'] ||= 'users,photos,roles,roles_users'
+
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '1.2.3' unless defined? RAILS_GEM_VERSION
 
@@ -58,6 +61,8 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
+require 'open_sourcery/migration_helpers'
+
 ExceptionNotifier.exception_recipients = %w( your_email@test.com )
 
 email_config = Hash.new

@@ -13,6 +13,8 @@ class CreatePhotos < ActiveRecord::Migration
       t.column "updated_at",   :datetime
     end
 
+    foreign_key :photos, :user_id, :users
+
   end
 
   def self.down

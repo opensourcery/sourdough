@@ -9,6 +9,9 @@ class CreateAclSystem < ActiveRecord::Migration
       t.column "user_id", :integer
     end
 
+    foreign_key :roles_users, :role_id, :roles
+    foreign_key :roles_users, :user_id, :users
+
   end
 
   def self.down
