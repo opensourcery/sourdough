@@ -1,9 +1,16 @@
-<h3><%=h @user.login %></h3>
+<% @page_title = @user.login %>
 
-<p>Email: <%=h @user.email %></p>
-<p>Timezone: <%=h @user.time_zone %></p>
+<h3>
+  <%= h @page_title %>
+  <% can_edit? do %><%= link_to '[ edit ]', edit_user_path(@user), :class => 'edit' %><% end %>
+</h3>
 <p><%= avatar_for(@user) %></p>
 
-<% can_edit? do %>
-  <p><%= link_to 'Edit', edit_user_path(@user) %></p>
-<% end %>
+<dl class="inline">
+  <dt>Email:</dt>
+  <dd><%=h @user.email %></dd>
+
+  <dt>Timezone:</dt>
+  <dd><%=h @user.time_zone %></dd>
+</dl>
+

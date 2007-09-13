@@ -32,6 +32,10 @@ a:visited {
   color : #039;
   font-weight : bold;
 }
+a:hover {
+  color : #6cf;
+  text-decoration : underline;
+}
 table,
 th,
 td {
@@ -76,6 +80,11 @@ h2 a {
 }
 #user_tools a {
   color : #6cf;
+}
+/*}}}*/
+/* headings, etc {{{*/
+h3 a.edit {
+  font-size : .7em;
 }
 /*}}}*/
 /* errors & notices {{{*/
