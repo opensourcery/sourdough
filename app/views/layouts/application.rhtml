@@ -27,10 +27,10 @@
         <p>
         <% if logged_in? %>
           Logged in as <%= link_to current_user.login, edit_user_path(current_user) %>
-          <% restrict_to "admin" do %>
-            <%= link_to "Site Administration", admin_path %>
-          <% end %>
           <%= link_to "Logout", logout_path, :method => :delete %>
+          <% restrict_to "admin" do %>
+            | <%= link_to "Site Administration", admin_path %>
+          <% end %>
         <% else %>
           <%= link_to "Login", login_path %>
           or

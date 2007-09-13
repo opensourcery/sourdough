@@ -1,3 +1,4 @@
-<h1>Admin Area</h1>
+<% @page_title = 'Site Administration'[] %>
+<h3><%= @page_title %></h3>
 
-<%= link_to 'User Management', users_admin_path %>
+<%= render :partial => 'subnav' %>

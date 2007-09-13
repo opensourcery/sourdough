@@ -139,7 +139,9 @@ div.form_container ul.navigation {
 div.form_container ul.navigation li {
   float : none;
 }
-div.form_container p.send {
+div.form_container p.send,
+div.form_container p.save,
+div.form_container p.update {
   margin : 0 0 0 10em;
   clear : both;
 }
