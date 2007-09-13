@@ -43,6 +43,35 @@ class UserTest < ActionController::IntegrationTest
     assert_response :success
     assert_template "home/index"
 
+    # look at user page
+    get edit_user_path(user)
+    assert_response :success
+
+    get new_photos_path(user)
+    assert_response :success
+
+    get logout_path
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    assert_template "session/new"
+
+  end
+
+  def test_user_admin_area
+    # sign in?
+    post session_path, :login => 'quentin', :password => 'test'
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    assert_template "home/index"
+
+    get 'admin'
+    assert_response :success
+
+    get users_admin_path
+    assert_response :success
+
   end
 
   private
