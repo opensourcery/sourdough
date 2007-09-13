@@ -80,6 +80,7 @@ h2 a {
 }
 #user_tools a {
   color : #6cf;
+  padding : 0 .2em;
 }
 /*}}}*/
 /* headings, etc {{{*/
