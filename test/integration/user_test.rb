@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
 class UserTest < ActionController::IntegrationTest
-  # fixtures :your, :models
+  fixtures :users, :roles, :roles_users
 
   # Replace this with your real tests.
   def test_sign_up_and_log_in
@@ -66,10 +66,10 @@ class UserTest < ActionController::IntegrationTest
     assert_response :success
     assert_template "home/index"
 
-    get 'admin'
+    get admin_path
     assert_response :success
 
-    get users_admin_path
+    get admin_users_path
     assert_response :success
 
   end

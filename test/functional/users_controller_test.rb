@@ -89,12 +89,6 @@ class UsersControllerTest < Test::Unit::TestCase
     assert_template 'show'
   end
 
-  def test_should_destroy_user
-    login_as(:quentin)
-    delete 'destroy', :id => 'aaron'
-    assert_redirected_to 'admin/users'
-  end
-
   def test_should_not_find_user
     get 'show', :id => 'nobody'
     assert_equal "That item does not exist", flash[:notice]

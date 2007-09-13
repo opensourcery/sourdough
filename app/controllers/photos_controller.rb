@@ -15,7 +15,7 @@ class PhotosController < ApplicationController
     respond_to do |format|
       if @photo.valid? and @user.valid? and @user.save
         flash[:notice] = 'Your photo has been uploaded.'
-        format.html { redirect_to user_url(@user) }
+        format.html { redirect_to new_photos_path(@user)}
       else
         format.html { render :action => "new" }
       end
@@ -28,7 +28,7 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       flash[:notice] = 'Your photo has been deleted'
-      format.html { redirect_to user_url(@user) }
+      format.html { redirect_to new_photos_path(@user) }
     end
   end
 

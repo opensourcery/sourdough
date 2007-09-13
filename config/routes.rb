@@ -1,10 +1,15 @@
 ActionController::Routing::Routes.draw do |map|
-
   map.resource :session, :member => { :forgotten_password => :get,
                                       :reset_password => :put}
-  map.resource :admin, :member => { :users => :get }
+#  map.resource :admin, :member => { :users => :get }
   map.resources :users do |users|
     users.resource :photos
+  end
+
+  map.resource :admin, :controller => 'admin/home' do |admin|
+    admin.resources :users, :controller => 'admin/users', :name_prefix => 'admin_' do |users|
+      users.resource :photos, :controller => 'admin/photos', :name_prefix => 'admin_'
+    end
   end
 
   map.home '/', :controller => 'home'

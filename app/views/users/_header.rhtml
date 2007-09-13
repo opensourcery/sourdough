@@ -6,6 +6,6 @@
 </h3>
 
 <ul class="navigation">
-    <li><%= link_to 'Login &amp; password', edit_user_path(current_user) %></li>
-    <li><%= link_to 'Photo', new_photos_path(current_user) %></li>
+    <li><%= link_to 'Login &amp; password', in_administration_area?  ?  admin_edit_user_path(@user) : edit_user_path(@user) %></li>
+    <li><%= link_to 'Photo', in_administration_area? ? admin_new_photos_path(@user) : new_photos_path(@user) %></li>
 </ul>

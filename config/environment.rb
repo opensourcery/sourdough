@@ -62,6 +62,8 @@ end
 
 # Include your application configuration below
 require 'open_sourcery/migration_helpers'
+require 'administration_system'
+ActionController::Base.send(:include, Administration)
 
 ExceptionNotifier.exception_recipients = %w( your_email@test.com )
 

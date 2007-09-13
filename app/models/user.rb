@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
 
   belongs_to :photo
 
+  has_many :photos, :dependent => :destroy
+
   composed_of :tz, :class_name => 'TzinfoTimezone', :mapping => %w( time_zone time_zone )
 
   validates_format_of :login, :with => /^\w+$/

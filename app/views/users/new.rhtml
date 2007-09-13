@@ -1,10 +1,14 @@
 <% @page_title = 'Sign up'[] %>
 
+<% administration_area_only do %>
+  <%= link_to '&#171; Return to User Management', admin_users_path %>
+<% end %>
+
 <%= sourdough_error_messages_for :user %>
 
 <div class="form_container column span-14 append-5 prepend-5 last">
   <h3><%= @page_title %></h3>
-  <% form_for :user, :url => users_path do |f| -%>
+  <% form_for :user, :url => in_administration_area? ? admin_users_path : users_path do |f| -%>
     <%= render :partial => 'form', :object => f %>
     <p class="save"><%= submit_tag 'Sign up'[] %></p>
   <% end -%>

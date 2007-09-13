@@ -1,8 +1,12 @@
 <% @page_title = @user.login %>
 
+<% administration_area_only do %>
+  <%= link_to '&#171; Return to User Management', admin_users_path %>
+<% end %>
+
 <h3>
   <%= h @page_title %>
-  <% can_edit? do %><%= link_to '[ edit ]', edit_user_path(@user), :class => 'edit' %><% end %>
+    <% can_edit? do %><%= link_to '[ edit ]', in_administration_area? ? admin_edit_user_path(@user) : edit_user_path(@user), :class => 'edit' %><% end %>
 </h3>
 <p><%= avatar_for(@user) %></p>
 

@@ -1,4 +1,9 @@
 <% @section_title = 'photo' %>
+
+<% administration_area_only do %>
+  <%= link_to '&#171; Return to User Management', admin_users_path %>
+<% end %>
+
 <%= render :partial => 'users/header' %>
 
 <%= sourdough_error_messages_for :photo %>

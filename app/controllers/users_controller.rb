@@ -46,23 +46,12 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = 'User was successfully updated.'
-        format.html { redirect_to user_url(@user) }
+        format.html { redirect_to edit_user_path(@user) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @user.errors.to_xml }
       end
-    end
-  end
-
-  # DELETE /users/1
-  # DELETE /users/1.xml
-  def destroy
-    @user.destroy
-
-    respond_to do |format|
-      format.html { redirect_to users_admin_url }
-      format.xml  { head :ok }
     end
   end
 

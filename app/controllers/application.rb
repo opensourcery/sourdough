@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include ExceptionNotifiable
+  include ApplicationHelper
 
   class AccessDenied < StandardError; end
 
