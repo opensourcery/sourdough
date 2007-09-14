@@ -66,9 +66,9 @@
     <div id="footer" class="column span-24">
       <p><%= 'footer_copyright'[] %></p>
       <ul class="navigation">
-        <li><a href="https://prefect.opensourcery.com:444/projects-internal/lib/wiki/SourDough">Trac wiki</a></li>
-        <li><a href="https://prefect.opensourcery.com:444/projects-internal/lib/browser/sourdough">Subversion repository</a></li>
         <% if RAILS_ENV == 'development' %>
+          <li><a href="https://prefect.opensourcery.com:444/projects-internal/lib/wiki/SourDough">Trac wiki</a></li>
+          <li><a href="https://prefect.opensourcery.com:444/projects-internal/lib/browser/sourdough">Subversion repository</a></li>
           <li><a onclick="show_debug_popup(); return false;" href="#">Debugging</a></li>
           <%= debug_popup %>
         <% end %>
