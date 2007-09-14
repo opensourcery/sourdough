@@ -59,8 +59,9 @@ class UsersControllerTest < Test::Unit::TestCase
 
   def test_should_update_user
     login_as(:aaron)
-    update_user('aaron', :email => 'updated@email.com')
+    update_user('aaron', :email => 'updated@email.com', :login => 'aaron')
     assert assigns(:user)
+    assert_redirected_to edit_user_path(User.find_by_login('aaron'))
   end
 
   def test_should_not_update_user_because_of_missing_login
@@ -89,6 +90,12 @@ class UsersControllerTest < Test::Unit::TestCase
     assert_template 'show'
   end
 
+  def test_should_display_user_without_avatar
+    get 'show', :id => 'aaron'
+    assert_response :success
+    assert_template 'show'
+  end
+
   def test_should_not_find_user
     get 'show', :id => 'nobody'
     assert_equal "That item does not exist", flash[:notice]
@@ -100,18 +107,6 @@ class UsersControllerTest < Test::Unit::TestCase
     assert_redirected_to '/'
     assert_equal "Signup complete!", flash[:notice]
     assert_equal users(:aaron), User.authenticate('aaron', 'test')
-  end
-
-  protected
-
-  def create_user(options = {})
-    post :create, :user => { :login => 'quire', :email => 'quire@example.com',
-         :password => 'quire', :password_confirmation => 'quire' }.merge(options)
-  end
-
-  def update_user(login, options = {})
-    post :update, :id => login, :user => { :login => 'quire', :email => 'quire@example.com',
-         :password => 'quire', :password_confirmation => 'quire' }.merge(options)
   end
 
 end

@@ -26,7 +26,7 @@ class PhotosControllerTest < Test::Unit::TestCase
 
   def test_should_upload_photo
     upload_file :filename => 'photos/rails.png', :content_type => 'image/png'
-    #assert_redirected_to photos_path(users(:quentin))
+    assert_redirected_to new_photos_path(users(:quentin))
     assert_valid assigns(:photo)
     assert_equal 'rails.png', assigns(:photo).filename
     assert_equal 2, Photo.count
@@ -43,17 +43,12 @@ class PhotosControllerTest < Test::Unit::TestCase
     assert_equal 1, Photo.count
     delete :destroy, :user_id => users(:quentin).login
     assert_equal 0, Photo.count
+    assert_redirected_to new_photos_path(users(:quentin))
   end
 
   def should_display_upload
     get :new
     assert_response :success
-  end
-
-  protected
-
-  def upload_file(options = {})
-    post :create, :user_id => users(:quentin).login, :photo => {:uploaded_data => fixture_file_upload(options[:filename], options[:content_type])}, :html => { :multipart => true}
   end
 
 end

@@ -28,4 +28,21 @@ class Test::Unit::TestCase
   # Add more helper methods to be used by all tests here...
   include AuthenticatedTestHelper
 
+
+  protected
+
+  def create_user(options = {})
+    post :create, :user => { :login => 'quire', :email => 'quire@example.com',
+         :password => 'quire', :password_confirmation => 'quire' }.merge(options)
+  end
+
+  def update_user(login, options = {})
+    post :update, :id => login, :user => { :login => 'quire', :email => 'quire@example.com',
+         :password => 'quire', :password_confirmation => 'quire' }.merge(options)
+  end
+
+  def upload_file(options = {})
+    post :create, :user_id => users(:quentin).login, :photo => {:uploaded_data => fixture_file_upload(options[:filename], options[:content_type])}, :html => { :multipart => true}
+  end
+
 end

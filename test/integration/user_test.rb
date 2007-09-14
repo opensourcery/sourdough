@@ -74,6 +74,22 @@ class UserTest < ActionController::IntegrationTest
 
   end
 
+  def test_try_to_break_into_admin_area
+    # sign in?
+    get admin_path
+    assert_response :redirect
+
+    get admin_users_path
+    assert_response :redirect
+
+    get admin_user_path(users(:quentin))
+    assert_response :redirect
+
+    get admin_photos_path(users(:quentin))
+    assert_response :redirect
+
+  end
+
   private
 
   def go_home
