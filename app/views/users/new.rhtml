@@ -10,6 +10,9 @@
   <h3><%= @page_title %></h3>
   <% form_for :user, :url => in_administration_area? ? admin_users_path : users_path do |f| -%>
     <%= render :partial => 'form', :object => f %>
-    <p class="save"><%= submit_tag 'Sign up'[] %></p>
+
+    <p class="terms">By clicking on 'I accept' below you agree to accept our <%= link_to 'terms of use', terms_path %></p>
+
+    <p class="save"><%= submit_tag 'I accept. Create my account'[] %></p>
   <% end -%>
 </div>

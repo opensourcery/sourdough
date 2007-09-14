@@ -1,5 +1,5 @@
 /* theme.css
- * 
+ *
  * This file defines the overall design of the site, e.g., fonts, colors,
  * header, footers.
  *
@@ -161,10 +161,17 @@ div.form_container ul.navigation li {
 }
 div.form_container p.send,
 div.form_container p.save,
+div.form_container p.terms,
 div.form_container p.update {
   margin : 0 0 0 10em;
   clear : both;
 }
+
+div.form_container p.terms {
+  font-size: .7em;
+  padding-bottom: 10px;
+}
+
 /*}}}*/
 /* icons {{{*/
 .delete a {

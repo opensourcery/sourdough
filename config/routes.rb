@@ -12,6 +12,7 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
+  map.terms 'terms', :controller => 'home', :action => 'terms'
   map.edit_profile  '/users/:login;edit', :controller => 'users', :action => 'edit'
   map.home '/', :controller => 'home'
   map.activate "/users/activate/:activation_code", :controller => 'users', :action => 'activate'

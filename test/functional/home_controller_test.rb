@@ -17,4 +17,10 @@ class HomeControllerTest < Test::Unit::TestCase
     assert_template 'index'
   end
 
+  # Replace this with your real tests.
+  def test_get_terms
+    get 'terms'
+    assert_template 'terms'
+  end
+
 end
