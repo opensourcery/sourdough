@@ -14,6 +14,7 @@ module AuthenticatedBase
     base.validates_confirmation_of :password,                   :if => :password_required?
     base.validates_length_of       :login,    :within => 3..40
     base.validates_length_of       :email,    :within => 3..100
+    base.validates_uniqueness_of   :login, :email, :case_sensitive => false
     base.before_save :encrypt_password
     base.before_create :make_activation_code
 
