@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         flash[:notice] = 'User was successfully created.  Please check your email and activate your account.'
-        UserMailer.deliver_signup_notification(@user, activate_path(@user.activation_code))
+        UserMailer.deliver_signup_notification(@user, request.host_with_port + activate_path(@user.activation_code))
         format.html { redirect_to home_path }
         format.xml  { head :created, :location => home_path }
       else
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
     self.current_user = User.find_by_activation_code(params[:activation_code])
     if logged_in? && !current_user.activated?
       current_user.activate
-      UserMailer.deliver_activation(current_user, home_path)
+      UserMailer.deliver_activation(current_user, request.host_with_port + home_path)
       flash[:notice] = "Signup complete!"
     end
     redirect_back_or_default('/')

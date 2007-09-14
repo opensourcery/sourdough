@@ -161,15 +161,9 @@ div.form_container ul.navigation li {
 }
 div.form_container p.send,
 div.form_container p.save,
-div.form_container p.terms,
 div.form_container p.update {
   margin : 0 0 0 10em;
   clear : both;
-}
-
-div.form_container p.terms {
-  font-size: .7em;
-  padding-bottom: 10px;
 }
 
 /*}}}*/
