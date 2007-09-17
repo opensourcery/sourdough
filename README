@@ -1,5 +1,7 @@
 Welcome to Sourdough
 
+Sourdough is a starter application that provides login and security for your application
+
 Installation Steps
 
 1. copy email.example to email.yml
