@@ -8,6 +8,10 @@
  * Administration
  * User Permissions
  * Internationalization
+ * Clean CSS using Blueprint
+ * Site spidering test harness
+ * View debugging helper
+ * Sample Capistrano deployment file
 
 == Installation ==
 
@@ -37,8 +41,8 @@ Let's say we want to change the behavior of the user controller to add a method 
 
  * create a new file in app/controllers/users.rb
 
+{{{
 # Import the class from sourdough
-
 require File.expand_path(File.dirname(__FILE__) + '/../../vendor/plugins/sourdough/app/controllers/users_controller')
 
 # Add, or overwrite any methods you want
@@ -49,3 +53,4 @@ class UsersController < ApplicationController
   end
 
 end
+}}}
