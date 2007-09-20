@@ -1,0 +1,178 @@
+/* theme.css
+ *
+ * This file defines the overall design of the site, e.g., fonts, colors,
+ * header, footers.
+ *
+ * Use for:  styles which affect the entire site, or most of it.
+ *
+ * Do not use for:  individual pages or elements; use content.css instead.
+ *
+ */
+/* colors {{{
+link:
+  color : #039;
+link on dark:
+  color : #6cf;
+dark brown:
+  color : #930;
+medium:
+  color : #fc6;
+light:
+  color : #ffe5b2;
+}}}*/
+/* global {{{*/
+body {
+  font-size : 107%;
+  background : url( /plugin_assets/sourdough/images/body_bg.png ) repeat-x;
+  margin : 0;
+}
+a:link,
+a:active,
+a:visited {
+  color : #039;
+  font-weight : bold;
+}
+a:hover {
+  color : #6cf;
+  text-decoration : underline;
+}
+table,
+th,
+td {
+  background : transparent;
+  border : 0;
+}
+th {
+  border-bottom : 2px solid #333;
+}
+/*}}}*/
+/* header {{{*/
+#header {
+  padding : 0 0 1em 0;
+  border-bottom : 2px solid #fc6;
+  margin : 50px 0 1em 0;
+}
+h1 a,
+h2 a  {
+  text-align : left;
+  width : 497px;
+  height : 0px;
+}
+h2 {
+  margin : -25px 0 0 115px;
+}
+h2 a {
+  width : 310px;
+  height : 0px;
+}
+#user_tools { /* FIXME: blueprint may have a better way to do this */
+  position : absolute;
+  top : 3px;
+  right : 10px;
+}
+#user_tools p {
+  color : #fff;
+}
+#user_tools a {
+  color : #6cf;
+  padding : 0 .2em;
+}
+/*}}}*/
+/* headings, etc {{{*/
+h3 a.edit {
+  font-size : .7em;
+}
+/*}}}*/
+/* errors & notices {{{*/
+div.flash,
+div.flash h6 {
+  border-bottom : 1px solid #900;
+}
+div.flash {
+  margin-bottom : 1.5em;
+}
+div.flash h6 {
+  font-weight : bold;
+}
+.fieldWithErrors * { /* FIXME when dl_form_for works, make this better */
+  background : pink;
+}
+/*}}}*/
+/* navigation {{{*/
+ul.navigation {
+  list-style : none;
+  margin : 0;
+  height : 3em;
+}
+ul.navigation li {
+  float : left;
+  margin-right : 2em;
+}
+/*}}}*/
+/* footer {{{*/
+#footer {
+  margin : 5em 0 0 0;
+  border-top : 2px solid #fc6;
+}
+#footer p {
+  float : left;
+  margin-right : 2em;
+}
+/*}}}*/
+/* lists {{{*/
+dl.inline dt {
+    text-align : right;
+    float : left;
+    clear : left;
+    margin : 0 0 5px 0;
+}
+dl.inline dd {
+    float : left;
+    clear : none;
+    margin : 0 0 5px 10px;
+    white-space : nowrap;
+}
+/*}}}*/
+/* forms {{{*/
+div.form_container form {
+  background-color : #ffe5b2;
+  background-color : #ffffe0;
+  padding : 1em;
+  border : 1px solid #fc6;
+}
+div.form_container form dl {
+  margin : 0;
+  clear : both;
+}
+div.form_container form dl.inline dt {
+  width : 10em;
+}
+div.form_container ul.navigation {
+  border-top : 1px solid #fc6;
+  margin-top : 1.5em;
+}
+div.form_container ul.navigation li {
+  float : none;
+}
+div.form_container p.send,
+div.form_container p.save,
+div.form_container p.update {
+  margin : 0 0 0 10em;
+  clear : both;
+}
+
+/*}}}*/
+/* icons {{{*/
+.delete a {
+  color : #900;
+  padding-left : 18px;
+  background : url( /plugin_assets/sourdough/images/icon_delete.gif ) no-repeat center left;
+}
+.edit a {
+  color : #090;
+  padding-left : 18px;
+  background : url( /plugin_assets/sourdough/images/icon_edit.gif ) no-repeat center left;
+}
+/*}}}*/
+/* empty {{{*/
+/*}}}*/
