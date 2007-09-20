@@ -24,3 +24,6 @@
  * modify the language files to reflect the language of your application
  * script/generate plugin_migration && rake db:migrate
  * rm public/index.html
+
+== Running Tests ==
+ * rake test:plugins PLUGIN=sourdough
