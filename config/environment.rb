@@ -5,7 +5,6 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies order to load fixtures to prevent foreign key problems
-ENV['FIXTURES'] ||= 'users,photos,roles,roles_users'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '1.2.3' unless defined? RAILS_GEM_VERSION
