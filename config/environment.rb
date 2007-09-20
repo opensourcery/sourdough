@@ -61,13 +61,3 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
-require 'open_sourcery/migration_helpers'
-require 'administration_system'
-ActionController::Base.send(:include, Administration)
-
-ExceptionNotifier.exception_recipients = %w( your_email@test.com )
-
-email_config = Hash.new
-yaml = YAML.load_file("#{RAILS_ROOT}/config/email.yml")
-yaml.each_pair {|k,v| email_config[k.to_sym] = v}
-UserMailer.from_address = email_config[:from_address]

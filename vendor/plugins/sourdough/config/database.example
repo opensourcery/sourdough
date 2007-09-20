@@ -1,0 +1,19 @@
+# PostgreSQL setup.
+# sudo gem install postgres
+
+login: &login
+  adapter: postgresql
+  username:
+  password:
+
+development:
+  database: sourdough_development
+  <<: *login
+
+test:
+  database: sourdough_test
+  <<: *login
+
+production:
+  database: sourdough_production
+  <<: *login

@@ -1,0 +1,25 @@
+/* content.css
+ * 
+ * This file defines the design of content elements, e.g., styles for the home
+ * page.
+ *
+ * Use for:  one page or element, or a small group of pages.
+ *
+ * Do not use for:  styles which affect the entire site; use theme.css instead.
+ *
+ */
+/* admin, user {{{*/
+#user_list td {
+  padding-right : 1em;
+}
+/*}}}*/
+/* user, photo {{{*/
+div.form_container.photo div.user_photo {
+  border-bottom : 1px solid #fc6;
+  margin-bottom : 1.5em;
+}
+div.form_container.photo div.user_photo p.delete {
+}
+/*}}}*/
+/* empty {{{*/
+/*}}}*/

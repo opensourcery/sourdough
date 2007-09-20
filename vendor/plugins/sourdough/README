@@ -1,0 +1,26 @@
+= Sourdough - An Application Starter in Ruby on Rails =
+
+''' Sourdough is an application framework with the following features '''
+
+ * Account Management
+ * Picture Uploading
+ * Time Zone Support
+ * Administration
+ * User Permissions
+ * Internationalization
+
+== Installation ==
+
+ * create a new rails application
+ * add the following to your config/routes.rb file:
+    * map.from_plugin :sourdough
+ * rm app/controllers/application.rb
+ * rm app/helpers/application_helper.rb
+ * rm -rf vendor
+ * add the sourdough vendors directory to your rails application
+ * cp vendor/plugins/sourdough/config/* config/
+ * rename the example flies to .yml files and modify them accordingly
+ * cp vendor/plugins/sourdough/lang .
+ * modify the language files to reflect the language of your application
+ * script/generate plugin_migration && rake db:migrate
+ * rm public/index.html
