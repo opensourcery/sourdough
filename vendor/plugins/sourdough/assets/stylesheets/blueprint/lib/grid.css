@@ -14,19 +14,17 @@
    
    If you need fewer or more columns, use this 
    formula to find the new total width: 
+   Total width = (columns * 40) - 10
    
-   Total width = (columns * 30) - 10
+   Read more about using a grid here:
+   * subtraction.com/archives/2007/0318_oh_yeeaahh.php
    
 -------------------------------------------------------------- */
 
-body { margin:1.5em 0; }
-
 /* A container should group all your columns. */
 .container {
-  position: relative;
-  padding: 0;
-  margin: 0 auto;   /* Centers layout */
-  width: 950px;     /* Total width */
+  width: 950px;
+  margin: 0 auto;
 }
 
 
@@ -34,26 +32,18 @@ body { margin:1.5em 0; }
 -------------------------------------------------------------- */
 
 /* Use this class together with the .span-x classes
-   to create any composition of columns in a layout.
-   Nesting columns works like a charm.
-   (remember class="last" on the last column in a row). */
+   to create any composition of columns in a layout. */
    
 .column {
   float: left;
   margin-right: 10px;
-  padding: 0;
 }
 
-/* Add this class to a column if you want a border on its 
-   right hand side. This should be customized to fit your needs. */
 
-.border {
-  padding-right: 4px;
-  margin-right: 5px;
-  border-right: 1px solid #ddd;
-}
+/* The last column in a row needs this class. */
+.last { margin-right: 0; }
 
-/* Use these classes to set how wide a column should be. */
+/* Use these classes to set the width of a column. */
 .span-1   { width: 30px; }
 .span-2   { width: 70px; }
 .span-3   { width: 110px; }
@@ -78,9 +68,6 @@ body { margin:1.5em 0; }
 .span-22  { width: 870px; }
 .span-23  { width: 910px; }
 .span-24  { width: 950px; margin: 0; }
-
-/* The last element in a multi-column block needs this class. */
-.last     { margin-right: 0; }
 
 /* Add these to a column to append empty cols. */
 .append-1   { padding-right: 40px; }  
@@ -133,6 +120,21 @@ body { margin:1.5em 0; }
 .prepend-23  { padding-left: 920px; } 
 
 
+/* Border on right hand side of a column. */
+.border {
+  padding-right: 4px;
+  margin-right: 5px;
+  border-right: 1px solid #eee;
+}
+
+/* Border with more whitespace, spans one column. */
+.colborder {
+  padding-right: 24px;
+  margin-right: 25px;
+  border-right: 1px solid #eee;
+}
+
+
 /* Use these classes on an element to push it into the 
    next column, or to pull it into the previous column. */
 
@@ -141,11 +143,12 @@ body { margin:1.5em 0; }
 .pull-3  { margin-left: -120px; }
 .pull-4  { margin-left: -160px; }
 
-.push-0  { margin: 0 0 0 18px;      float: right; }
-.push-1  { margin: 0 -40px 0 18px;  float: right; }
-.push-2  { margin: 0 -80px 0 18px;  float: right; }
-.push-3  { margin: 0 -120px 0 18px; float: right; }
-.push-4  { margin: 0 -160px 0 18px; float: right; }
+.push-0  { margin: 0 0 0 18px; }
+.push-1  { margin: 0 -40px 0 18px; }
+.push-2  { margin: 0 -80px 0 18px; }
+.push-3  { margin: 0 -120px 0 18px; }
+.push-4  { margin: 0 -160px 0 18px; }
+.push-0, .push-1, .push-2, .push-3, .push-4 { float: right; }
 
 
 /* Misc classes and elements
@@ -168,6 +171,10 @@ hr {
   height: .1em;
   margin: 0 0 1.4em;
   border: none; 
+}
+hr.space {
+  background: #fff;
+  color: #fff;
 }
 
 /* Clearing floats without extra markup

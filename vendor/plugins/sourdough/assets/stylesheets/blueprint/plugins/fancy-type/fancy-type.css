@@ -1,12 +1,19 @@
 /* -------------------------------------------------------------- 
   
-   Fancy-type.css
+   fancy-type.css
    * Lots of pretty advanced classes for manipulating text.
    
-   See Readme.txt in this folder for additional instructions.
+   See the Readme file in this folder for additional instructions.
 
 -------------------------------------------------------------- */
 
+/* Indentation instead of line shifts for sibling paragraphs. */
+   p + p { text-indent:2em; margin-top:-1.5em; }
+
+/* Ornaments on first paragraph.
+   Commented out by default. Use with care.
+   p:before { content: "\2767"; padding-right: 0.4em; }
+   p + p:before { content: ""; padding:0; } */
 
 /* For great looking type, use this code instead of asdf: 
    <span class="alt">asdf</span>  
@@ -15,9 +22,8 @@
 .alt { 
   color: #666; 
   font-family: "Warnock Pro", "Goudy Old Style","Palatino","Book Antiqua", Georgia, serif; 
-  font-size: 1.2em;
-  line-height: 1%; /* Maintain correct baseline */
   font-style: italic;
+  font-weight: normal;
 }
 
 
@@ -26,7 +32,7 @@
    (That is, when the title starts with a quote mark). 
    (You may have to change this value depending on your font size). */  
    
-.dquo { margin-left: -.7em; } 
+.dquo { margin-left: -.5em; } 
 
 
 /* Reduced size type with incremental leading
@@ -64,15 +70,5 @@ p.incr, .incr p {
   font-size:1.2em;
   line-height:1%;
   font-weight:bold;
+  padding:0 2px;
 }
-
-
-/* Icons for links that go to external pages or e-mail.
-   Contributed by Marc Morgan. */
-
-a[href^="http:"] { background: url("icons/external.png") no-repeat right top; padding-right:16px; } 
-a[href^="mailto:"] { background: url("icons/email.png") no-repeat right top; padding-right:22px; }
-a[href^="http:"]:visited { background: url("icons/visited.png") no-repeat right top; padding-right:16px; }
-
-
-
