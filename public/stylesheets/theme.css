@@ -173,10 +173,16 @@ div.form_container p.update {
   padding-left : 18px;
   background : url( /images/icon_delete.gif ) no-repeat center left;
 }
+.delete a:hover {
+  color : #f00;
+}
 .edit a {
   color : #090;
   padding-left : 18px;
   background : url( /images/icon_edit.gif ) no-repeat center left;
+}
+.edit a:hover {
+  color : #0c0;
 }
 /*}}}*/
 /* empty {{{*/
