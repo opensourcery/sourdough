@@ -5,8 +5,9 @@ module ApplicationHelper
     TzTime.zone.utc_to_local(time_at.utc)
   end
 
-  def can_edit?
-    if current_user == @user or (logged_in? and current_user.admin?)
+  def can_edit?( model = nil )
+    owner = @user || (model.user unless model.nil?)
+    if current_user == owner or (logged_in? and current_user.admin?)
       yield
     end
   end
