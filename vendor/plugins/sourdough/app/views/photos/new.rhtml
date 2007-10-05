@@ -9,12 +9,12 @@
 <%= sourdough_error_messages_for :photo %>
 
 <div class="form_container photo column span-14 append-5 prepend-5 last">
-  <% form_for(:photo, :url => photos_path(@user), :html => { :multipart => true }) do |f| -%>
+  <% form_for(:photo, :url => user_photos_path(@user), :html => { :multipart => true }) do |f| -%>
 
     <% if @user.photo && @photo.errors.blank? %>
       <div class="user_photo">
         <%= avatar_for(@user) %>
-        <p class="delete"><%= link_to 'user_delete_photo'[], photos_path(@user), :confirm => 'dialog_binary_confirmation'[], :method => :delete %></p>
+        <p class="delete"><%= link_to 'user_delete_photo'[], user_photos_path(@user), :confirm => 'dialog_binary_confirmation'[], :method => :delete %></p>
       </div>
     <% end %>
 

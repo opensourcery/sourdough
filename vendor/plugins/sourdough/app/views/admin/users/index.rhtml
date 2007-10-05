@@ -12,7 +12,7 @@
       <tr>
         <td><%= link_to h(u.login), admin_user_path(u) %></td>
         <td><%= u.email %></td>
-        <td class="edit"><%= link_to 'Edit', admin_edit_user_path(u) %></td>
+        <td class="edit"><%= link_to 'Edit', edit_admin_user_path(u) %></td>
         <td class="delete"><%= link_to 'Delete', admin_user_path(u), :confirm => 'Are you sure?', :method => :delete %></td>
       </tr>
     <% end %>
@@ -20,5 +20,5 @@
 </div>
 
 <div class="column span-8 last">
-  <p><%= link_to 'Create a new user &#187;'[], admin_new_user_path %></p>
+  <p><%= link_to 'Create a new user &#187;'[], new_admin_user_path %></p>
 </div>

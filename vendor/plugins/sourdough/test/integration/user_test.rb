@@ -54,7 +54,7 @@ class UserIntegrationTest < ActionController::IntegrationTest
     get edit_user_path(user)
     assert_response :success
 
-    get new_photos_path(user)
+    get new_user_photos_path(user)
     assert_response :success
 
     get logout_path

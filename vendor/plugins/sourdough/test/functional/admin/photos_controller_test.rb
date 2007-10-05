@@ -23,7 +23,7 @@ class Admin::PhotosControllerTest < Test::Unit::TestCase
 
   def test_should_upload_photo
     upload_file :filename => 'photos/rails.png', :content_type => 'image/png'
-    assert_redirected_to admin_new_photos_path(users(:quentin))
+    assert_redirected_to new_admin_photos_path(users(:quentin))
     assert_valid assigns(:photo)
     assert_equal 'rails.png', assigns(:photo).filename
     assert_equal 2, Photo.count
@@ -35,7 +35,7 @@ class Admin::PhotosControllerTest < Test::Unit::TestCase
     assert_equal 1, Photo.count
     delete :destroy, :user_id => users(:quentin).login
     assert_equal 0, Photo.count
-    assert_redirected_to admin_new_photos_path(users(:quentin))
+    assert_redirected_to new_admin_photos_path(users(:quentin))
   end
 
   def should_display_upload

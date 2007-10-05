@@ -12,7 +12,7 @@ class SpiderTest < ActionController::IntegrationTest
     spider(@response.body, '/',
            :verbose => false,
            :ignore_urls  => [%r{^.+prefect.opensourcery.com.?}],
-           :ignore_forms => [%r{^.+reset_password?}])
+           :ignore_forms => [%r{}])
   end
 
   def test_spider_logged_in
@@ -26,7 +26,7 @@ class SpiderTest < ActionController::IntegrationTest
     spider(@response.body, '/',
            :verbose => false,
            :ignore_urls  => [%r{^.+prefect.opensourcery.com.?}],
-           :ignore_forms => [%r{ ^.+reset_password|users?}])
+           :ignore_forms => [%r{}])
   end
 
 

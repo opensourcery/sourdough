@@ -42,11 +42,11 @@ class PhotosController < ApplicationController
   private
 
   def create_redirection_path
-    new_photos_path(@user)
+    new_user_photos_path(@user)
   end
 
   def destroy_redirection_path
-    new_photos_path(@user)
+    new_user_photos_path(@user)
   end
 
 end

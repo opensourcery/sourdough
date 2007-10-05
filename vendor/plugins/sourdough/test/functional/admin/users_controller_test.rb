@@ -31,7 +31,7 @@ class Admin::UsersControllerTest < Test::Unit::TestCase
     login_as(:quentin)
     update_user('aaron', :email => 'updated@email.com')
     assert assigns(:user)
-    assert_redirected_to admin_edit_user_path(users(:aaron))
+    assert_redirected_to edit_admin_user_path(users(:aaron))
   end
 
   def test_should_not_update_user_because_of_bad_permissions
