@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 1) do
     t.column "photo_id",                  :integer
     t.column "activation_code",           :string,   :limit => 40
     t.column "activated_at",              :datetime
+    t.column "deleted_at",                :datetime
   end
 
 end

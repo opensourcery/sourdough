@@ -5,6 +5,7 @@
 require 'digest/sha1'
 module AuthenticatedBase
   def self.included(base)
+    base.acts_as_paranoid
 
     base.set_table_name base.name.tableize
 
@@ -28,7 +29,7 @@ module AuthenticatedBase
     base.composed_of :tz, :class_name => 'TzinfoTimezone', :mapping => %w( time_zone time_zone )
     base.validates_format_of :login, :with => /^\w+$/
     base.validates_email_format_of :email
-
+    base.acts_as_paranoid
     # Protect internal methods from mass-update with update_attributes
     base.attr_accessible :login, :email, :password, :password_confirmation, :time_zone, :activated_at, :activation_code
 
