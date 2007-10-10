@@ -15,15 +15,15 @@ class Admin::UsersControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  def test_should_not_destroy_user
+  def test_should_not_ban_user
     login_as(:sam)
-    delete 'destroy', :id => 'aaron'
+    delete 'ban', :id => 'aaron'
     assert_redirected_to home_path
   end
 
-  def test_should_destroy_user
+  def test_should_ban_user
     login_as(:quentin)
-    delete 'destroy', :id => 'aaron'
+    delete 'ban', :id => 'aaron'
     assert_redirected_to admin_users_path
   end
 

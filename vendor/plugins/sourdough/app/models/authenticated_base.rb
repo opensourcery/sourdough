@@ -5,8 +5,6 @@
 require 'digest/sha1'
 module AuthenticatedBase
   def self.included(base)
-    base.acts_as_paranoid
-
     base.set_table_name base.name.tableize
 
     base.validates_presence_of     :login, :email
@@ -29,7 +27,6 @@ module AuthenticatedBase
     base.composed_of :tz, :class_name => 'TzinfoTimezone', :mapping => %w( time_zone time_zone )
     base.validates_format_of :login, :with => /^\w+$/
     base.validates_email_format_of :email
-    base.acts_as_paranoid
     # Protect internal methods from mass-update with update_attributes
     base.attr_accessible :login, :email, :password, :password_confirmation, :time_zone, :activated_at, :activation_code
 
@@ -42,7 +39,7 @@ module AuthenticatedBase
 
     ## Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
     def authenticate(login, password)
-      u = find :first, :conditions => ['login = ? and activated_at IS NOT NULL', login] # need to get the salt
+      u = find :first, :conditions => ['login = ? and activated_at IS NOT NULL and banned_at IS NULL', login] # need to get the salt
       u && u.authenticated?(password) ? u : nil
     end
 
@@ -55,6 +52,16 @@ module AuthenticatedBase
       find_by_login *args
     end
 
+  end
+
+  def ban!
+    self.banned_at = Time.now
+    save!
+  end
+
+  def remove_ban!
+    self.banned_at = nil
+    save!
   end
 
   def to_xml

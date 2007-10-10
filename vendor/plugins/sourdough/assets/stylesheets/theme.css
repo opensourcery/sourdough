@@ -163,7 +163,7 @@ div.form_container p.update {
 
 /*}}}*/
 /* icons {{{*/
-.delete a {
+.ban a {
   color : #900;
   padding-left : 18px;
   background : url( /plugin_assets/sourdough/images/icon_delete.gif ) no-repeat center left;

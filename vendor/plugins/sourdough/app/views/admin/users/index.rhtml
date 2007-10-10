@@ -13,7 +13,11 @@
         <td><%= link_to h(u.login), admin_user_path(u) %></td>
         <td><%= u.email %></td>
         <td class="edit"><%= link_to 'Edit', edit_admin_user_path(u) %></td>
-        <td class="delete"><%= link_to 'Delete', admin_user_path(u), :confirm => 'Are you sure?', :method => :delete %></td>
+        <% if u.banned_at %>
+          <td class="ban"><%= link_to 'Remove Ban', remove_ban_admin_user_path(u), :confirm => 'Are you sure?', :method => :post %></td>
+        <% else %>
+          <td class="ban"><%= link_to 'Ban', ban_admin_user_path(u), :confirm => 'Are you sure?', :method => :post %></td>
+        <% end %>
       </tr>
     <% end %>
   </table>

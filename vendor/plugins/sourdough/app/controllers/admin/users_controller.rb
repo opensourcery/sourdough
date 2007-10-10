@@ -12,12 +12,14 @@ class Admin::UsersController < UsersController
     render :file => 'admin/users/index', :use_full_path => true, :layout => true
   end
 
-  def destroy
-    @user.destroy
+  def ban
+    @user.ban!
+    redirect_to admin_users_path
+  end
 
-    respond_to do |format|
-      format.html { redirect_to admin_users_url }
-    end
+  def remove_ban
+    @user.remove_ban!
+    redirect_to admin_users_path
   end
 
 end

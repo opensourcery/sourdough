@@ -1,13 +1,13 @@
 # This file is part of Sourdough.  Copyright 2006,2007 OpenSourcery, LLC.  This program is free software, licensed under the terms of the GNU General Public License.  Please see the COPYING file in this distribution for more information, or see http://www.gnu.org/copyleft/gpl.html.
-resource :session, :member => { :forgotten_password => :get,
-  :reset_password => :put}
+resource :session, :member => { :forgotten_password => :get, :reset_password => :put}
 #  resource :admin, :member => { :users => :get }
 resources :users do |users|
   users.resource :photos
 end
 
+
 resource :admin, :controller => 'admin/home' do |admin|
-  admin.resources :users, :controller => 'admin/users', :name_prefix => 'admin_' do |users|
+  admin.resources :users, :member => { :remove_ban => :post, :ban => :post }, :controller => 'admin/users', :name_prefix => 'admin_' do |users|
     users.resource :photos, :controller => 'admin/photos', :name_prefix => 'admin_'
   end
 end
