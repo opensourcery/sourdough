@@ -14,7 +14,7 @@ class SessionController < ApplicationController
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-      redirect_back_or_default('/')
+      redirect_back_or_default(create_redirection_path)
     else
       flash.now[:error] = "Login failed.  Are you sure your username and password are correct?"
       render :action => 'new'
@@ -42,6 +42,12 @@ class SessionController < ApplicationController
   end
 
   def forgotten_password
+  end
+
+  protected
+
+  def create_redirection_path
+    '/'
   end
 
 end
