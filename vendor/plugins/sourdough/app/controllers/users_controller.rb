@@ -50,7 +50,7 @@ class UsersController < ApplicationController
         format.html { redirect_to update_redirection_path(@user) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => update_render_action }
         format.xml  { render :xml => @user.errors.to_xml }
       end
     end
@@ -80,6 +80,10 @@ class UsersController < ApplicationController
 
   def create_redirection_path
     home_path
+  end
+
+  def update_render_action
+    "edit"
   end
 
 end
