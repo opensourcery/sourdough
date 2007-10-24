@@ -4,6 +4,7 @@ namespace :test do
   task :coverage do
     rm_f "coverage"
     rm_f "coverage.data"
+    system("rake db:test:prepare")
     rcov = "rcov --rails --aggregate coverage.data --text-summary -Ilib"
     system("#{rcov} --no-html test/unit/*_test.rb")
     system("#{rcov} --no-html test/functional/*_test.rb")
