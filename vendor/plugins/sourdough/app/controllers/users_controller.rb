@@ -63,7 +63,7 @@ class UsersController < ApplicationController
       UserMailer.deliver_activation(current_user, request.protocol + request.host_with_port + home_path)
       flash[:notice] = "Signup complete!"
     end
-    redirect_back_or_default('/')
+    redirect_back_or_default(activation_redirection_path)
   end
 
   protected
@@ -73,6 +73,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def activation_redirection_path
+    home_path
+  end
 
   def update_redirection_path(user)
     edit_user_path(user)
