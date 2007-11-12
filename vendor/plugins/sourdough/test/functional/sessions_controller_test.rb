@@ -28,6 +28,14 @@ class SessionControllerTest < Test::Unit::TestCase
     post :create, :login => 'quentin', :password => 'bad password'
     assert_nil session[:user]
     assert_response :success
+    assert_select '.flash ul li',  'Login failed.  Are you sure your username and password are correct?'
+  end
+
+  def test_should_fail_login_and_warn_that_the_user_is_not_activated
+    post :create, :login => 'aaron', :password => 'bad password'
+    assert_nil session[:user]
+    assert_response :success
+    assert_select '.flash ul li',  'You have not yet activated your account.  Please check your email and click on the activation link.' 
   end
 
   def test_should_logout

@@ -16,7 +16,11 @@ class SessionController < ApplicationController
       end
       redirect_back_or_default(create_redirection_path)
     else
-      flash.now[:error] = "Login failed.  Are you sure your username and password are correct?"
+      if User.find_by_login(params[:login]) and not User.activated?(params[:login])
+        flash.now[:error] = "You have not yet activated your account.  Please check your email and click on the activation link."
+      else
+        flash.now[:error] = "Login failed.  Are you sure your username and password are correct?"
+      end
       render :action => 'new'
     end
   end

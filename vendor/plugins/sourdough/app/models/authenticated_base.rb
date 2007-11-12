@@ -43,6 +43,11 @@ module AuthenticatedBase
       u && u.authenticated?(password) ? u : nil
     end
 
+    def activated?(login)
+      u = find_by_login(login)
+      u && u.activated_at
+    end
+
     # Encrypts some data with the salt.
     def encrypt(password, salt)
       Digest::SHA1.hexdigest("--#{salt}--#{password}--")
