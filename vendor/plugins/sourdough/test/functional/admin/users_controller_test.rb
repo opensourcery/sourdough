@@ -27,6 +27,12 @@ class Admin::UsersControllerTest < Test::Unit::TestCase
     assert_redirected_to admin_users_path
   end
 
+  def test_should_revoke_ban
+    login_as(:quentin)
+    post 'remove_ban', :id => 'aaron'
+    assert_redirected_to admin_users_path
+  end
+
   def test_should_update_user
     login_as(:quentin)
     update_user('aaron', :email => 'updated@email.com')

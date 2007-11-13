@@ -61,12 +61,12 @@ module AuthenticatedBase
 
   def ban!
     self.banned_at = Time.now
-    save!
+    save_with_validation(false)
   end
 
   def remove_ban!
     self.banned_at = nil
-    save!
+    save_with_validation(false)
   end
 
   def to_xml
@@ -76,7 +76,7 @@ module AuthenticatedBase
   def reset_password!
     temporary_password = create_temporary_password
     self.password, self.password_confirmation = temporary_password, temporary_password
-    save!
+    save_with_validation(false)
   end
 
   def admin?

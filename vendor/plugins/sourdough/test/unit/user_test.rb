@@ -95,6 +95,40 @@ class UserTest < Test::Unit::TestCase
     assert_not_equal old_password, users(:quentin).password
   end
 
+  def test_should_reset_password_of_an_invalid_user
+    quentin = users(:quentin)
+    old_password = quentin.password
+    quentin.login = nil
+    quentin.reset_password!
+    assert_not_equal old_password, users(:quentin).password
+  end
+
+  def test_should_ban_user
+    quentin = users(:quentin)
+    quentin.ban!
+    assert_not_nil quentin.banned_at
+  end
+
+  def test_should_ban_invalid_user
+    quentin = users(:quentin)
+    quentin.login = nil
+    quentin.ban!
+    assert_not_nil quentin.banned_at
+  end
+
+  def test_should_revoke_ban
+    quentin = users(:quentin)
+    quentin.remove_ban!
+    assert_nil quentin.banned_at
+  end
+
+  def test_should_revoke_ban_on_invalid_user
+    quentin = users(:quentin)
+    quentin.login = nil
+    quentin.remove_ban!
+    assert_nil quentin.banned_at
+  end
+
   protected
     def create_user(options = {})
       User.create({ :login => 'quire', :email => 'quire@example.com',
