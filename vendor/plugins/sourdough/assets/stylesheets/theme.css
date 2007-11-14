@@ -173,6 +173,12 @@ div.form_container p.update {
   padding-left : 18px;
   background : url( /plugin_assets/sourdough/images/icon_edit.gif ) no-repeat center left;
 }
+.reset-password a {
+  color : #900;
+  padding-left : 18px;
+  width: 200px;
+  background : url( /plugin_assets/sourdough/images/icon_delete.gif ) no-repeat center left;
+}
 /*}}}*/
 /* empty {{{*/
 /*}}}*/

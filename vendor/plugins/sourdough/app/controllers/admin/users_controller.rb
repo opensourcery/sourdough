@@ -22,4 +22,17 @@ class Admin::UsersController < UsersController
     redirect_to admin_users_path
   end
 
+  def admin_activate
+    @user.activate
+    flash[:notice] = "#{@user.login} has been successfully activated"
+    redirect_to admin_users_path
+  end
+
+  def admin_reset_password
+    @user.reset_password!
+    UserMailer.deliver_forgotten_password(@user, request.protocol + request.host_with_port)
+    flash[:notice] = "#{@user.login} has been mailed a new password"
+    redirect_to admin_users_path
+  end
+
 end

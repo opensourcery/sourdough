@@ -7,7 +7,7 @@ end
 
 
 resource :admin, :controller => 'admin/home' do |admin|
-  admin.resources :users, :member => { :remove_ban => :post, :ban => :post }, :controller => 'admin/users', :name_prefix => 'admin_' do |users|
+  admin.resources :users, :member => { :remove_ban => :post, :ban => :post, :admin_activate => :post, :admin_reset_password => :post }, :controller => 'admin/users', :name_prefix => 'admin_' do |users|
     users.resource :photos, :controller => 'admin/photos', :name_prefix => 'admin_'
   end
 end

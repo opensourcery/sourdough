@@ -27,9 +27,23 @@ class Admin::UsersControllerTest < Test::Unit::TestCase
     assert_redirected_to admin_users_path
   end
 
-  def test_should_revoke_ban
+  def test_should_activate_user
     login_as(:quentin)
-    post 'remove_ban', :id => 'aaron'
+    post 'admin_activate', :id => 'aaron'
+
+    assert_redirected_to admin_users_path
+  end
+
+  def test_should_activate_user
+    login_as(:quentin)
+    post 'admin_activate', :id => 'aaron'
+    assert_redirected_to admin_users_path
+    assert_not_nil User.find_by_login('aaron').activated_at
+  end
+
+  def test_should_reset_password
+    login_as(:quentin)
+    post 'admin_reset_password', :id => 'aaron'
     assert_redirected_to admin_users_path
   end
 
