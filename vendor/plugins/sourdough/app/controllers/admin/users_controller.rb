@@ -8,7 +8,7 @@ class Admin::UsersController < UsersController
   end
 
   def index
-    @users = User.find(:all)
+    @users = User.find(:all, :order => 'email asc')
     render :file => 'admin/users/index', :use_full_path => true, :layout => true
   end
 
