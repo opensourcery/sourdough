@@ -41,6 +41,10 @@ class UserTest < Test::Unit::TestCase
     assert_equal users(:quentin), User.authenticate('quentin', 'test')
   end
 
+  def test_should_authenticate_user_with_email_address
+    assert_equal users(:quentin), User.authenticate('quentin@example.com', 'test')
+  end
+
   def test_should_set_remember_token
     users(:quentin).remember_me
     assert_not_nil users(:quentin).remember_token

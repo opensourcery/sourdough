@@ -39,7 +39,7 @@ module AuthenticatedBase
 
     ## Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
     def authenticate(login, password)
-      u = find :first, :conditions => ['login = ? and activated_at IS NOT NULL and banned_at IS NULL', login] # need to get the salt
+      u = find :first, :conditions => ['(login = ? or email = ?) and activated_at IS NOT NULL and banned_at IS NULL', login, login] # need to get the salt
       u && u.authenticated?(password) ? u : nil
     end
 
