@@ -125,15 +125,29 @@ ul.navigation li {
 /* lists {{{*/
 dl.inline dt {
     text-align : right;
+    padding-right : 1em;
+    margin : 0 0 5px 0;
+    height : 1.5em;
     float : left;
     clear : left;
-    margin : 0 0 5px 0;
 }
 dl.inline dd {
-    float : left;
-    clear : none;
-    margin : 0 0 5px 10px;
-    white-space : nowrap;
+    margin : 0 0 5px 0px;
+    height : 1.5em;
+}
+dl.inline dd.double {
+  height : 3.5em;
+}
+dl.inline dd.triple {
+  height : 5em;
+}
+ul.radio {
+  list-style : none;
+  margin-right : 0;
+  margin-bottom : 0;
+}
+dl.inline dd ul.radio {
+  margin-left : 0;
 }
 /*}}}*/
 /* forms {{{*/
