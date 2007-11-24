@@ -9,11 +9,10 @@
   <meta name="MSSmartTagsPreventParsing" content="true" />
   <meta name="ROBOTS" content="ALL" />
 
-  <%= stylesheet_link_tag 'blueprint/screen', :media => 'screen, projection', :plugin => 'sourdough' %>
+  <%= render :partial => 'layouts/blueprint', :locals => { :media => 'screen,projection', :styles => [ 'reset', 'typography', 'grid' ]} %>
   <%= stylesheet_link_tag 'blueprint/print', :media => 'print', :plugin => 'sourdough' %>
   <%= stylesheet_link_tag 'theme', :media => 'screen, projection', :plugin => 'sourdough' %>
   <%= stylesheet_link_tag 'content', :media => 'screen, projection', :plugin => 'sourdough' %>
-
   <%= javascript_include_tag 'jquery', 'application', :plugin => 'sourdough' %>
 </head>
 
