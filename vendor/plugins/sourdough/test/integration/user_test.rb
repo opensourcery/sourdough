@@ -23,7 +23,7 @@ class UserIntegrationTest < ActionController::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
-    assert_template "home/index"
+    assert_template "session/new"
 
     # sign in?
     post session_path, :login => 'alexkroman', :password => '123456'

@@ -17,7 +17,7 @@ class SessionController < ApplicationController
       redirect_back_or_default(create_redirection_path)
     else
       if User.find_by_login(params[:login]) and not User.activated?(params[:login])
-        flash.now[:error] = "You have not yet activated your account.  Please check your email and click on the activation link."
+        flash.now[:error] = "The email address you have entered has already been registered, but your account has not been activated.  You will get an email shortly telling you how to confirm your account."
       else
         flash.now[:error] = "Login failed.  Are you sure your username and password are correct?"
       end

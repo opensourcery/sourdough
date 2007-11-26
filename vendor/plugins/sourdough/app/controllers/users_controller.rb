@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        flash[:notice] = 'User was successfully created.  Please check your email and activate your account.'
+        flash[:notice] = "Thank you for signing up!  We just sent you a confirmation email to #{@user.email}.  Please click on the activation link in the email to complete your sign up."
         UserMailer.deliver_signup_notification(@user, request.protocol + request.host_with_port + activate_path(@user.activation_code))
         format.html { redirect_to create_redirection_path }
         format.xml  { head :created, :location => home_path }
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
   end
 
   def create_redirection_path
-    home_path
+    login_path
   end
 
   def update_render_action

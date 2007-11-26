@@ -35,7 +35,7 @@ class SessionControllerTest < Test::Unit::TestCase
     post :create, :login => 'aaron', :password => 'bad password'
     assert_nil session[:user]
     assert_response :success
-    assert_select '.flash ul li',  'You have not yet activated your account.  Please check your email and click on the activation link.' 
+    assert_select '.flash ul li', 'The email address you have entered has already been registered, but your account has not been activated.  You will get an email shortly telling you how to confirm your account.'
   end
 
   def test_should_logout
