@@ -17,9 +17,9 @@ class SessionController < ApplicationController
       redirect_back_or_default(create_redirection_path)
     else
       if User.find_by_login(params[:login]) and not User.activated?(params[:login])
-        flash.now[:error] = "The email address you have entered has already been registered, but your account has not been activated.  You will get an email shortly telling you how to confirm your account. You can always <a href=\"/session/resend_activation?login=#{params[:login]}\">resend the activation email</a>."
+        flash.now[:error] = "The email address you have entered has already been registered, but your account has not been activated.  You will get an email shortly telling you how to confirm your account. You can always <a href=\"/session/resend_activation?login=#{params[:login]}\">resend the activation email</a>."[:user_not_activated]
       else
-        flash.now[:error] = "Login failed.  Are you sure your username and password are correct?"
+        flash.now[:error] = "Login failed.  Are you sure your username and password are correct?"[:login_failed]
       end
       render :action => 'new'
     end
@@ -29,7 +29,7 @@ class SessionController < ApplicationController
     self.current_user.forget_me if logged_in?
     cookies.delete :auth_token
     reset_session
-    flash[:notice] = "You have been logged out."
+    flash[:notice] = "You have been logged out."[:logged_out]
     redirect_to :action => :new
   end
 
@@ -37,19 +37,19 @@ class SessionController < ApplicationController
     user = User.find_by_login(params[:login])
     unless user.activated_at
       UserMailer.deliver_signup_notification(user, request.protocol + request.host_with_port + activate_path(user.activation_code))
-      flash[:notice] = 'We have resent your activation email'
+      flash[:notice] = 'We have resent your activation email'[:resent_activation_email]
     end
     redirect_to login_path
   end
 
   def reset_password
     if @user = User.find_by_email(params[:email])
-      flash[:notice] = "A temporary password has been sent to '#{CGI.escapeHTML @user.email}'"
+      flash[:notice] = "A temporary password has been sent to '#{CGI.escapeHTML @user.email}'"[:temporary_password_sent]
       @user.reset_password!
       UserMailer.deliver_forgotten_password(@user, request.protocol + request.host_with_port)
       redirect_to login_path
     else
-      flash[:error] = "I could not find an account with the email address #{CGI.escapeHTML params[:email]}. Did you type it correctly?"
+      flash[:error] = "I could not find an account with the email address #{CGI.escapeHTML params[:email]}. Did you type it correctly?"[:reset_password_failed]
       redirect_to forgotten_password_session_path
     end
   end
