@@ -35,7 +35,7 @@ class SessionControllerTest < Test::Unit::TestCase
     post :create, :login => 'aaron', :password => 'bad password'
     assert_nil session[:user]
     assert_response :success
-    assert_select '.flash ul li', 'The email address you have entered has already been registered, but your account has not been activated.  You will get an email shortly telling you how to confirm your account.'
+    assert_select '.flash ul li', 'The email address you have entered has already been registered, but your account has not been activated.  You will get an email shortly telling you how to confirm your account. You can always resend the activation email.'
   end
 
   def test_should_logout
@@ -97,6 +97,11 @@ class SessionControllerTest < Test::Unit::TestCase
   def test_should_not_reset_password
     get 'reset_password', :email => 'quentin@bademail.com'
     assert_redirected_to forgotten_password_session_path
+  end
+
+  def test_should_resend_activation_email
+    put 'resend_activation', :login => 'aaron'
+    assert_redirected_to login_path
   end
 
   protected

@@ -17,7 +17,7 @@ class SessionController < ApplicationController
       redirect_back_or_default(create_redirection_path)
     else
       if User.find_by_login(params[:login]) and not User.activated?(params[:login])
-        flash.now[:error] = "The email address you have entered has already been registered, but your account has not been activated.  You will get an email shortly telling you how to confirm your account."
+        flash.now[:error] = "The email address you have entered has already been registered, but your account has not been activated.  You will get an email shortly telling you how to confirm your account. You can always <a href=\"/session/resend_activation?login=#{params[:login]}\">resend the activation email</a>."
       else
         flash.now[:error] = "Login failed.  Are you sure your username and password are correct?"
       end
@@ -31,6 +31,15 @@ class SessionController < ApplicationController
     reset_session
     flash[:notice] = "You have been logged out."
     redirect_to :action => :new
+  end
+
+  def resend_activation
+    user = User.find_by_login(params[:login])
+    unless user.activated_at
+      UserMailer.deliver_signup_notification(user, request.protocol + request.host_with_port + activate_path(user.activation_code))
+      flash[:notice] = 'We have resent your activation email'
+    end
+    redirect_to login_path
   end
 
   def reset_password
