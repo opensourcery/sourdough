@@ -166,6 +166,7 @@ div.form_container form dl.inline dt {
 }
 div.form_container form dd {
   margin-left: 0px;
+  height: auto;
 }
 div.form_container ul.navigation {
   border-top : 1px solid #fc6;
