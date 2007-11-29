@@ -1,0 +1,15 @@
+<div class="column span-10">
+  <table id="user_list">
+    <tr>
+      <th>E-mail</th>
+      <th>Status</th>
+    </tr>
+    <% @users.each do |u| %>
+      <tr <% if @user == u  %>class="selected"<% end %>>
+        <td> <%= link_to u.email, admin_user_path(u) %></td>
+        <td><em><%= u.status %></em></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+

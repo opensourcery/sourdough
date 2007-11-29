@@ -52,3 +52,25 @@ sam:
   activation_code:
   activated_at: <%= 5.days.ago.to_s :db %>
   created_at: <%= 1.days.ago.to_s :db %>
+
+banned:
+  id: 4
+  login: banned
+  email: banned@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  time_zone: US/Pacific
+  activation_code:
+  activated_at: <%= 5.days.ago.to_s :db %>
+  created_at: <%= 1.days.ago.to_s :db %>
+  banned_at: <%= 1.days.ago.to_s :db %>
+
+not_activated:
+  id: 5
+  login: not_activated
+  email: not_activated@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  time_zone: US/Pacific
+  activation_code: activate_me
+  created_at: <%= 1.days.ago.to_s :db %>

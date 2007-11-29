@@ -5,7 +5,7 @@ class UserTest < Test::Unit::TestCase
   # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead.
   # Then, you can remove it from this and the functional test.
   include AuthenticatedTestHelper
-  fixtures :users
+  fixtures :users, :roles, :roles_users
 
   def test_should_create_user
     user = create_user
@@ -122,15 +122,45 @@ class UserTest < Test::Unit::TestCase
 
   def test_should_revoke_ban
     quentin = users(:quentin)
+    banned = users(:banned)
     quentin.remove_ban!
     assert_nil quentin.banned_at
+    assert_not_nil banned.banned_at
   end
 
   def test_should_revoke_ban_on_invalid_user
     quentin = users(:quentin)
+    banned = users(:banned)
     quentin.login = nil
     quentin.remove_ban!
     assert_nil quentin.banned_at
+    assert_not_nil banned.banned_at
+  end
+
+  def test_should_activate_a_user
+    not_activated = users(:not_activated)
+    not_activated.activate
+    assert_not_nil not_activated.activated_at
+    assert_nil not_activated.activation_code
+  end
+
+  def test_should_turn_a_user_into_an_admin
+    sam = users(:sam)
+    aaron = users(:aaron)
+    assert_equal false, sam.admin?
+    sam.make_admin!
+    assert_equal true, sam.admin?
+    assert_equal false, aaron.admin?
+  end
+  
+  def test_should_revoke_admin_from_a_user
+    sam = users(:sam)
+    quentin = users(:quentin)
+    sam.make_admin!
+    assert_equal true, sam.admin?
+    sam.revoke_admin!
+    assert_equal false, sam.admin?
+    assert_equal true, quentin.admin?
   end
 
   protected

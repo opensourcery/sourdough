@@ -69,6 +69,14 @@ module AuthenticatedBase
     save_with_validation(false)
   end
 
+  def make_admin!
+    self.roles << Role.find_by_title('admin')
+  end
+
+  def revoke_admin!
+    self.roles.delete(Role.find_by_title('admin'))
+  end
+
   def to_xml
     super( :only => [ :login, :time_zone, :last_login_at ] )
   end
@@ -147,6 +155,13 @@ module AuthenticatedBase
 
   def make_activation_code
     self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
+  end
+
+  def status
+    return 'Admin' if admin?
+    return 'Not Activated' if activation_code
+    return 'Banned' if banned_at
+    return ''
   end
 
   private

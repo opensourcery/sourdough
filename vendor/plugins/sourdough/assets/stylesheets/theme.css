@@ -200,6 +200,9 @@ div.form_container p.update {
   width: 200px;
   background : url( /plugin_assets/sourdough/images/icon_delete.gif ) no-repeat center left;
 }
+#user_list tr.selected {
+  background-color:#FFCC66;
+}
 /*}}}*/
 /* empty {{{*/
 /*}}}*/

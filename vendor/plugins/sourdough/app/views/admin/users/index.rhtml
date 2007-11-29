@@ -1,36 +1,3 @@
 <% @section_title = 'users' %>
 <%= render :partial => 'admin/home/header' %>
-
-<div class="column span-2020202020202020202020202020202020202020">
-  <table id="user_list">
-    <tr>
-      <th>Login</th>
-      <th>E-mail</th>
-      <th colspan="2">Actions</th>
-    </tr>
-    <% @users.each do |u| %>
-      <tr>
-        <td><%= link_to h(u.login), admin_user_path(u) %></td>
-        <td><%= u.email %></td>
-        <td class="edit"><%= link_to 'Edit', edit_admin_user_path(u) %></td>
-        <td class="reset-password">
-              <%= link_to 'Send a new password', admin_reset_password_admin_user_path(u), :confirm => 'Are you sure?', :method => :post %>
-        </td>
-        <td class="edit">
-            <% unless u.activated_at %>
-              <%= link_to 'Activate', admin_activate_admin_user_path(u), :confirm => 'Are you sure?', :method => :post %>
-            <% end %>
-        </td>
-        <% if u.banned_at %>
-          <td class="ban"><%= link_to 'Remove Ban', remove_ban_admin_user_path(u), :confirm => 'Are you sure?', :method => :post %></td>
-        <% else %>
-          <td class="ban"><%= link_to 'Ban', ban_admin_user_path(u), :confirm => 'Are you sure?', :method => :post %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </table>
-</div>
-
-<div class="column span-8 last">
-  <p><%= link_to 'Create a new user &#187;'[], new_admin_user_path %></p>
-</div>
+<%= render :partial => 'list' %>

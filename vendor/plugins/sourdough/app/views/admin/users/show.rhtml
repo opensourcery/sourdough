@@ -1,0 +1,38 @@
+<% @section_title = 'users' %>
+<%= render :partial => 'admin/home/header' %>
+<%= render :partial => 'list' %>
+
+<div class="column span-10 last">
+  <strong>Editing user:</strong> <%= @user.email %>
+  <p></p>
+  <div class="form_container">  
+    <dl class="inline">
+      <% form_for(:user, :url => admin_user_path(@user), :html => { :method => :put }) do |f| %>
+        <dt><%= label_for :user, :email %></dt>
+        <dd><%= f.text_field :email %></dd>
+        <p></p>
+        <%= submit_tag 'Update user information' %>
+        <p></p>
+        <hr />
+        You can also:
+        <br />
+        <ul>
+          <% if @user.activation_code %>
+            <li><%= link_to 'Activate this user', admin_activate_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
+          <% end %>
+          <li><%= link_to 'Reset the password', admin_reset_password_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
+          <% if @user.banned_at %>
+            <li><%= link_to 'Remove the ban on this user', remove_ban_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
+          <% else %>
+            <li><%= link_to 'Ban this user', ban_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
+          <% end %>
+          <% if @user.admin? %>
+            <li><%= link_to 'Revoke administrator access for this user', revoke_admin_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
+          <% else %>
+            <li><%= link_to 'Make this user an administrator', make_admin_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </dl>
+  </div>
+</div>
