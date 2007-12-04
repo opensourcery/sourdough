@@ -24,10 +24,14 @@
           <% if @user.banned_at %>
             <li><%= link_to 'Remove the ban on this user', remove_ban_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
           <% else %>
-            <li><%= link_to 'Ban this user', ban_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
+            <% if @user != current_user %>
+              <li><%= link_to 'Ban this user', ban_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
+            <% end %>
           <% end %>
           <% if @user.admin? %>
-            <li><%= link_to 'Revoke administrator access for this user', revoke_admin_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
+            <% if @user != current_user %>
+              <li><%= link_to 'Revoke administrator access for this user', revoke_admin_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
+            <% end %>
           <% else %>
             <li><%= link_to 'Make this user an administrator', make_admin_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
           <% end %>
