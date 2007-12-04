@@ -161,7 +161,7 @@ module AuthenticatedBase
     return 'Admin' if admin?
     return 'Not Activated' if activation_code
     return 'Banned' if banned_at
-    return ''
+    return 'Active'
   end
 
   private
