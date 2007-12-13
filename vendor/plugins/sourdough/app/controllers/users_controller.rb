@@ -2,6 +2,7 @@
 class UsersController < ApplicationController
 
   @protected_actions = [ :edit, :update, :destroy ]
+  before_filter :login_required, :except => [:new, :create, :activate, :show]
   before_filter :load_user, :except => [ :index, :create, :new, :activate ]
   before_filter :check_auth, :only => @protected_actions
 

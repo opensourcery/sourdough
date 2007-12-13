@@ -1,5 +1,7 @@
 # This file is part of Sourdough.  Copyright 2006,2007 OpenSourcery, LLC.  This program is free software, licensed under the terms of the GNU General Public License.  Please see the COPYING file in this distribution for more information, or see http://www.gnu.org/copyleft/gpl.html.
 class Admin::UsersController < UsersController
+  # TODO: this is being skipped and then reused in acts_as_administration
+  skip_before_filter :login_required
   acts_as_administration
   before_filter :list_users, :only => [:index, :show]
 
