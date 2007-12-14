@@ -13,7 +13,7 @@ resource :admin, :controller => 'admin/home' do |admin|
 end
 
 terms 'terms', :controller => 'home', :action => 'terms'
-edit_profile  '/users/:login;edit', :controller => 'users', :action => 'edit'
+edit_profile  '/users/:login/edit', :controller => 'users', :action => 'edit'
 home '/', :controller => 'home'
 activate "/users/activate/:activation_code", :controller => 'users', :action => 'activate'
 signup '/signup', :controller => 'users', :action => 'new'
