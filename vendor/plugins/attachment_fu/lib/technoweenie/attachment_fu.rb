@@ -82,7 +82,10 @@ module Technoweenie # :nodoc:
             when nil
               processors = Technoweenie::AttachmentFu.default_processors.dup
               begin
-                include Technoweenie::AttachmentFu::Processors.const_get("#{processors.first}Processor") if processors.any?
+                if processors.any?
+                  attachment_options[:processor] = "#{processors.first}Processor"
+                  include Technoweenie::AttachmentFu::Processors.const_get(attachment_options[:processor])
+                end
               rescue LoadError, MissingSourceFile
                 processors.shift
                 retry
@@ -183,7 +186,7 @@ module Technoweenie # :nodoc:
       
       # Returns true/false if an attachment is thumbnailable.  A thumbnailable attachment has an image content type and the parent_id attribute.
       def thumbnailable?
-        image? && respond_to?(:parent_id)
+        image? && respond_to?(:parent_id) && parent_id.nil?
       end
 
       # Returns the class used to create new thumbnails for this attachment.
@@ -198,6 +201,8 @@ module Technoweenie # :nodoc:
         basename = filename.gsub /\.\w+$/ do |s|
           ext = s; ''
         end
+        # ImageScience doesn't create gif thumbnails, only pngs
+        ext.sub!(/gif$/, 'png') if attachment_options[:processor] == "ImageScienceProcessor"
         "#{basename}_#{thumbnail}#{ext}"
       end
 
