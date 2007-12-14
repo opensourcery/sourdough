@@ -9,7 +9,7 @@ module AuthenticatedSystem
     # Accesses the current <%= file_name %> from the session.  Set it to :false if login fails
     # so that future calls do not hit the database.
     def current_<%= file_name %>
-      @current_user ||= (login_from_session || login_from_basic_auth || login_from_cookie || :false)
+      @current_<%= file_name %> ||= (login_from_session || login_from_basic_auth || login_from_cookie || :false)
     end
     
     # Store the given <%= file_name %> in the session.
@@ -85,7 +85,7 @@ module AuthenticatedSystem
     # Redirect to the URI stored by the most recent store_location call or
     # to the passed default.
     def redirect_back_or_default(default)
-      session[:return_to] ? redirect_to_url(session[:return_to]) : redirect_to(default)
+      redirect_to(session[:return_to] || default)
       session[:return_to] = nil
     end
     
@@ -117,7 +117,8 @@ module AuthenticatedSystem
     end
 
   private
-    @@http_auth_headers = %w(X-HTTP_AUTHORIZATION HTTP_AUTHORIZATION Authorization)
+    @@http_auth_headers = %w(Authorization HTTP_AUTHORIZATION X-HTTP_AUTHORIZATION X_HTTP_AUTHORIZATION REDIRECT_X_HTTP_AUTHORIZATION)
+
     # gets BASIC auth info
     def get_auth_data
       auth_key  = @@http_auth_headers.detect { |h| request.env.has_key?(h) }
