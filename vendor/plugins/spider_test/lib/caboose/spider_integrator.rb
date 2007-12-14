@@ -64,7 +64,7 @@ require 'caboose'
 # SpiderTester is an automated integration-testing script that iterates over every page in your application.
 # It performs a few valuable tasks for you:
 # 
-# * parses the html of every page, so if you have invalid html, you will be warned.
+# * parses the html of every page, so if you have invalid html or xml, you will be warned.
 # * finds every link to within your site and follows it, whether static or dynamic.
 # * finds every Ajax.Updater link and follows it.
 # * finds every form and tries to submit it, filling in values where possible.
@@ -112,11 +112,19 @@ module Caboose::SpiderIntegrator
   # You probably don't want to be calling these from within your test.
 
   # Use HTML::Document to suck the links and forms out of the spidered page.
-  # todo: use hpricot or something else more fun.
+  # todo: use hpricot or something else more fun (we will need to validate 
+  # the html in this case since HTML::Document does it by default)
   def consume_page( html, url )
     body = HTML::Document.new html
     body.find_all(:tag=>'a').each do |tag|
       queue_link( tag, url )
+    end
+    body.find_all(:tag=>'link').each do |tag|
+      # Strip appended browser-caching numbers from asset paths like ?12341234
+      queue_link( tag, url )
+    end
+    body.find_all(:tag => 'input', :attributes => { :name => nil }) do |input|
+      queue_link( tag, url ) if tag['onclick']
     end
     body.find_all(:tag =>'form').each do |form|
       form = SpiderableForm.new form
@@ -171,11 +179,11 @@ module Caboose::SpiderIntegrator
      end
     
     @ignore[:url_patterns].keys.each do |pattern|
-        if pattern.match(uri)
-          console  "- #{uri} ( Ignored by pattern #{pattern.inspect})"
-          @visited_urls[uri] = true
-          return true 
-        end
+      if pattern.match(uri)
+        console  "- #{uri} ( Ignored by pattern #{pattern.inspect})"
+        @visited_urls[uri] = true
+        return true 
+      end
     end
     return false
   end
@@ -201,27 +209,31 @@ module Caboose::SpiderIntegrator
     until @links_to_visit.empty?
       next_link = @links_to_visit.shift
       next if spider_should_ignore_url?(next_link.uri)
-
-      if next_link.uri =~ /\.(html|png|jpg|gif)$/ # static file, probably.
-        if File.exist?("#{RAILS_ROOT}/public/#{next_link.uri}")
-          @response.body = File.open("#{RAILS_ROOT}/public/#{next_link.uri}").read
-          console  ". #{next_link.uri}"
+      
+      get next_link.uri
+      if %w( 200 201 302 401 ).include?( @response.code )
+        console "GET '#{next_link.uri}'"
+      elsif @response.code == '404'
+        #if next_link.uri =~ /\.(html|png|jpg|gif)$/ # static file, probably.
+        if exists = File.exist?(File.expand_path("#{RAILS_ROOT}/public/#{next_link.uri}"))
+          console "STATIC: #{next_link.uri}"
+          case File.extname(next_link.uri)
+          when /jpe?g|gif|psd|png|eps|pdf/
+            console "Not parsing #{next_link.uri} because it looks like non-text" 
+          when /html|te?xt|css|js/
+            @response.body = File.open("#{RAILS_ROOT}/public/#{next_link.uri}").read
+          else
+            console "I don't know how to handle static file #{next_link.uri}. Send patches!"
+          end
         else
-          console  "? #{next_link.uri} ( File not found from #{next_link.source} )"
+          console  "? #{next_link.uri} ( 404 File not found from #{next_link.source} and File exist is #{exists})"          
           @errors[next_link.uri] = "File not found: #{next_link.uri} from #{next_link.source}"
         end
       else
-        get next_link.uri
-        if %w( 200 302 401 ).include?( @response.code )
-          console  ". #{next_link.uri}"
-        elsif @response.code == 404
-          console  "? #{next_link.uri} ( 404 File not found from #{next_link.source} )"
-        else
-          console  "! #{ next_link.uri } ( Received response code #{ @response.code }  - from #{ next_link.source } )"
-          @errors[next_link.uri] = "Received response code #{ @response.code } for URI #{ next_link.uri } from #{ next_link.source }"
-            
-          @stacktraces[next_link.uri] = @response.body
-        end
+        console  "! #{ next_link.uri } ( Received response code #{ @response.code }  - from #{ next_link.source } )"
+        @errors[next_link.uri] = "Received response code #{ @response.code } for URI #{ next_link.uri } from #{ next_link.source }"
+          
+        @stacktraces[next_link.uri] = @response.body
       end
       consume_page( @response.body, next_link.uri )
       @visited_urls[next_link.uri] = true
@@ -239,11 +251,11 @@ module Caboose::SpiderIntegrator
         (@errors[next_form.action]||=[]) << "Could not spider page :#{next_form.method} '#{next_form.action}' with #{next_form.query.inspect} because of error #{err.message}"
         @stacktraces[next_form.action] = err.inspect
       end
-      unless %w( 200 302 401 ).include?( @response.code )
+      unless %w( 200 201 302 401 ).include?( @response.code )
         @errors[next_form.action] = "Received response code #{ @response.code } for #{next_form.method} '#{ next_form.action }' with " + \
           next_form.query.inspect + " from #{ next_form.source }"
-        console @response.body
-        @stacktraces[next_form.action] = @response.body
+        # console @response.body
+        @stacktraces[next_form.action] = @response.body.gsub("<head>.*?</head>", "") # unless @response.code == 404 # don't show 404s
       end
       consume_page( @response.body, next_form.action )
       @visited_forms[next_form.action] = true
@@ -275,6 +287,7 @@ module Caboose::SpiderIntegrator
   end
 
   # Adds all <a href=..> links to the list of links to be spidered.
+  # Adds all <link href=..> references to the list of pages to be spidered.
   # If it finds an Ajax.Updater url, it'll call that too.
   # Potentially there are other ajax links here to follow (TODO!)
   #
@@ -282,13 +295,15 @@ module Caboose::SpiderIntegrator
   # * external links (starting with http://). This means, if you call foo_url in your app it will be ignored.
   # * mailto: links
   # * hex-encoded links (&#109;&#97;) generally encoded email addresses
-  # * empty or purely anchor links (<a href="#"></a>)
-  # * links where there is an ajax action, e.g. <a href="/foo/bar" onclick="new Ajax.Updater(...)"> (todo!)
-  #   only the ajax action will be followed in that case.
+  # * empty or purely anchor links (<a href="#foo"></a>)
+  # * links where there is an ajax action, e.g. <a href="/foo/bar" onclick="new Ajax.Updater(...)">
+  #   only the ajax action will be followed in that case.  This behavior probably should be changed
   #
   def queue_link( tag, source )
     dest = (tag.attributes['onclick'] =~ /^new Ajax.Updater\(['"].*?['"], ['"](.*?)['"]/i) ? $1 : tag.attributes['href']
-    unless dest =~ %r{^(http://|mailto:|#|&#)}
+    return if dest.nil?
+    dest.gsub!(/([?]\d+)$/, '') # fix asset caching
+    unless dest =~ %r{^(http://|mailto:|#|&#)} 
       dest = dest.split('#')[0] if dest.index("#") # don't want page anchors
       @links_to_visit << Caboose::SpiderIntegrator::Link.new( dest, source ) if dest.any? # could be empty, make sure there's no empty links queueing
     end

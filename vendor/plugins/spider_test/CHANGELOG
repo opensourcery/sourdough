@@ -1,3 +1,7 @@
+Fixed: Workaround for inputs without a name (e.g. input type="button" onclick="...")
+Fixed: Now accepts form method="GET" as well as "get"
+Fixed: Better static file checking (checks if rails can generate it, THEN checks if the static file exists
+Added: now checks LINK tags
 Added: Input fields with existing values will now be mutated (aka heckled) to show you any errors in your association handling
 Added: Form errors now show the query
 Added: Better form-based error messages (now you can just copy/paste them into a new integration test)

@@ -33,7 +33,7 @@ fixtures.
   
   class SpiderTest < ActionController::IntegrationTest
     fixtures :users, :roles, :images, :categories
-    include SpiderIntegrator
+    include Caboose::SpiderIntegrator
   
     def test_spider
       get '/'
@@ -50,7 +50,7 @@ If you require a login for your app, you'll need to specifically log in. I do it
   
   class SpiderTest < ActionController::IntegrationTest
     fixtures :users, :roles, :images, :categories
-    include SpiderIntegrator
+    include Caboose::SpiderIntegrator
   
     def test_spider
       get '/sessions/new'
@@ -60,9 +60,12 @@ If you require a login for your app, you'll need to specifically log in. I do it
       assert_response :redirect
       assert_redirected_to '/'
       follow_redirect!
-  
-      spider(@response.body, '/')
-    end
+
+      spider(@response.body, '/', 
+               :verbose => true,
+               :ignore_urls => ['/login', %r{^.+logout}, %r{^.+delete.?}, %r{^.+/destroy.?}], 
+               :ignore_forms => [])
+     end
   
   end
 
