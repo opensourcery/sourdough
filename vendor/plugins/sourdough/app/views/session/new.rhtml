@@ -5,10 +5,10 @@
 
   <% form_tag(session_path) do -%>
     <dl class="inline">
-      <dt><%= label_for(:session, :login) %></dt>
+      <dt><%= label_for(:user, :login) %></dt>
       <dd><%= text_field_tag 'login'[], nil, :class => 'autofocus', :size => 20 %></dd>
 
-      <dt><%= label_for(:session, :password) %></dt>
+      <dt><%= label_for(:user, :password) %></dt>
       <dd><%= password_field_tag 'password'[], nil, :size => 20 %></dd>
 
       <dt></dt>
