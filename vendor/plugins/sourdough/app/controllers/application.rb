@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   class AccessDenied < StandardError; end
 
   # Pick a unique cookie name to distinguish our session data from others'
-  session :session_key => '_sourdough_session_id'
+  session :session_key => '_sourdough_session_id', :secret => 'Shoow2Qu thae2eeJ uiri7OoH Chu5shoz oom6Phei ithier5P Oohei7Ee naesh8Xe'
 
   before_filter :login_from_cookie
 
