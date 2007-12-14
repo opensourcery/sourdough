@@ -1,6 +1,6 @@
 # This file is part of Sourdough.  Copyright 2006,2007 OpenSourcery, LLC.  This program is free software, licensed under the terms of the GNU General Public License.  Please see the COPYING file in this distribution for more information, or see http://www.gnu.org/copyleft/gpl.html.
 # This controller handles the login/logout function of the site.
-class SessionController < ApplicationController
+class SessionsController < ApplicationController
 
   before_filter :login_required, :only => 'destroy'
 

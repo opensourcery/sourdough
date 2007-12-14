@@ -16,9 +16,9 @@ class SpiderTest < ActionController::IntegrationTest
   end
 
   def test_spider_logged_in
-    get '/session/new'
+    get '/sessions/new'
     assert_response :success
-    post '/session/create', :login => 'quentin', :password => 'test'
+    post '/sessions/create', :login => 'quentin', :password => 'test'
     assert session[:user]
     assert_response :redirect
     assert_redirected_to '/'

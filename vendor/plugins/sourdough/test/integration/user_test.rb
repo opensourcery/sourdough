@@ -10,7 +10,7 @@ class UserIntegrationTest < ActionController::IntegrationTest
 
     get login_path
     assert_response :success
-    assert_template "session/new"
+    assert_template "sessions/new"
 
     get signup_path
     assert_response :success
@@ -23,12 +23,12 @@ class UserIntegrationTest < ActionController::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
-    assert_template "session/new"
+    assert_template "sessions/new"
 
     # sign in?
     post session_path, :login => 'alexkroman', :password => '123456'
     assert_response :success # not activated yet
-    assert_template "session/new"
+    assert_template "sessions/new"
 
     # activate
     go_home
@@ -61,7 +61,7 @@ class UserIntegrationTest < ActionController::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
-    assert_template "session/new"
+    assert_template "sessions/new"
 
   end
 
