@@ -3,12 +3,20 @@ module OpenSourcery
   module MigrationHelpers
 
     # Agile Web Development with Rails example Chapter 16
-    def foreign_key(from_table, from_column, to_table)
-      execute %{ alter table #{ from_table}
-                add foreign key (#{ from_column})
-                references #{ to_table}(id)}
+    def add_foreign_key(from_table, from_column, to_table, to_field="id")
+      execute %{alter table #{from_table}
+                add constraint 
+                  fk_#{from_table}_#{from_column}_#{to_table}_#{to_field}
+                foreign key (#{from_column})
+                references #{to_table}(#{to_field})}
     end
-
+ 
+    def remove_foreign_key(from_table, from_column, to_table, to_field="id")
+      execute %{alter table #{from_table}
+                drop constraint
+                  fk_#{from_table}_#{from_column}_#{to_table}_#{to_field}}
+    end
+ 
   end
 end
 

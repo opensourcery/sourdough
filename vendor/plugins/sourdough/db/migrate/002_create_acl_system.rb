@@ -10,16 +10,16 @@ class CreateAclSystem < ActiveRecord::Migration
         t.column "user_id", :integer
       end
 
-      foreign_key :roles_users, :role_id, :roles
-      foreign_key :roles_users, :user_id, :users
+      add_foreign_key :roles_users, :role_id, :roles
+      add_foreign_key :roles_users, :user_id, :users
 
   end
 
   def self.down
     User.transaction do
       Role.delete_all
-      drop_table :roles
       drop_table :roles_users
+      drop_table :roles
     end
   end
 end
