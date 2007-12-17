@@ -5,10 +5,19 @@ class ApplicationHelperTest < HelperTestCase
 
   include ApplicationHelper
 
-  fixtures :users, :photos
+  fixtures :users, :photos, :roles_users
 
   def setup
     super
+  end
+
+  def test_tz
+    TzTime.zone = TimeZone.new('Pacific Time (US & Canada)')
+    assert tz(Time.now)
+  end
+
+  def test_date
+    assert date(Time.now)
   end
 
 end

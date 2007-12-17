@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
 
   def permission_denied
     flash[:notice] = "You don't have privileges to access that area"
-    redirect_to '/'
+    access_denied
   end
 
   private

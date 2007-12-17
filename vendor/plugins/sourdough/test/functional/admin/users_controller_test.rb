@@ -85,4 +85,10 @@ class Admin::UsersControllerTest < Test::Unit::TestCase
     end
   end
 
+  def test_should_look_at_index
+    login_as(:quentin)
+    get :index
+    assert_response :success
+  end
+  
 end

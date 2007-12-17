@@ -14,8 +14,7 @@ namespace :test do
   desc 'Measures test coverage'
   task :coverage do
     rm_f "coverage"
-    rm_f "coverage.data"
-    rcov = "rcov --rails --text-summary -Ilib"
+    rcov = "rcov --rails -Ilib"
     system("#{rcov} --html test/**/*_test.rb")
   end
 end

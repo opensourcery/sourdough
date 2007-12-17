@@ -65,7 +65,7 @@ class UsersControllerTest < Test::Unit::TestCase
     login_as(:aaron)
     update_user('quentin', :email => 'updated@email.com')
     assert_equal "You don't have privileges to access that area", flash[:notice]
-    assert_redirected_to '/'
+    assert_redirected_to new_session_path
   end
 
   def test_should_update_user_because_they_are_admin
@@ -98,6 +98,12 @@ class UsersControllerTest < Test::Unit::TestCase
     assert_redirected_to '/'
     assert_equal "Signup complete!", flash[:notice]
     assert_equal users(:aaron), User.authenticate('aaron', 'test')
+  end
+
+  def test_should_get_new
+    get 'new'
+    assert_response :success
+    assert_template 'new'
   end
 
 end
