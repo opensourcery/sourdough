@@ -17,13 +17,40 @@
 
  * export the sourdough project to a new directory that you will use as the base for your project
  * mv database.example to database.yml and edit it with your database information
+ * mv email.example to email.yml and edit it with the name of the email account you want your server to be using
  * rake db:migrate
  * modify the language files in the lang/ directory to reflect the language of your application
 
+== Upgrading ==
+
+ * You should be pointing all plugins as an svn:external at the sourdough directory.
+ * Performing an svn up will get you a new version of sourdough and all dependent plugins.
+ * You then need to migrate the database
+ * Rails engines has a mechanism to upgrade the schema.  If a new migration exists in sourdough/db/migrate you should be able to create a new migration in your project that is using sourdough and:
+
+ {{{
+    Rails.plugins["sourdough"].migrate(4)
+ }}}
+
+== Upgrading a plugin in the sourdough repository ==
+
+ * We are using Piston to manage plugins within sourdough.  To upgrade a plugin you need to
+   * sudo gem install piston
+ * Go into the vendor directory and:
+   * piston update name_of_plugin
+
+== Release a new version of sourdough ==
+
+ * To release a new version of sourdough create an svn tag in the format 2007-12-12a
+ * Go to the project that is using sourdough and update all of your externals to point to this tag
+ * svn up within your project directory and you should receive all of the new code
+
 == Importing Fixture Data ==
+
  * rake db:fixtures:plugins:load PLUGIN=sourdough # This is broken because rails doesn't support foreign keys
 
-== Running Tests ==
+== Running Tests on the Sourdough Framework ==
+
  * rake test:plugins PLUGIN=sourdough
 
 == Changing Design ==
@@ -35,7 +62,7 @@ Suppose you want to overwrite a default view used in Sourdough such as the login
  * cp /vendor/plugins/sourdough/app/views/session/new.rhtml
  * Edit the file in the app directory as much as you want.
 
-== Changing controller or model behavior ==
+== Changing Controller or Model Behavior ==
 
 Let's say we want to change the behavior of the user controller to add a method that implements OpenID
 
