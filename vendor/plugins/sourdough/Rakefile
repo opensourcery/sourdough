@@ -7,9 +7,17 @@ task :default => :test
 
 desc 'Test the sourdough plugin.'
 Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
   t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
+end
+
+namespace :test do
+  desc 'Measures test coverage'
+  task :coverage do
+    rm_f "coverage"
+    rm_f "coverage.data"
+    rcov = "rcov --rails --text-summary -Ilib"
+    system("#{rcov} --html test/**/*_test.rb")
+  end
 end
 
 desc 'Generate documentation for the sourdough plugin.'
