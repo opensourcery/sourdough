@@ -13,7 +13,7 @@ class CreateUsers < ActiveRecord::Migration
       t.column :remember_token_expires_at, :datetime
       t.column :visits_count,              :integer, :default => 0
       t.column :time_zone,                 :string,  :default => 'Pacific Time (US & Canada)'
-      t.column :photo_id,                 :integer
+      t.column :photo_id,                  :integer
     end
   end
 
