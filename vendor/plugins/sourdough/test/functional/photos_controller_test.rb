@@ -30,9 +30,9 @@ class PhotosControllerTest < Test::Unit::TestCase
     assert_redirected_to new_user_photos_path(users(:quentin))
     assert_valid assigns(:photo)
     assert_equal 'rails.png', assigns(:photo).filename
-    assert_equal 2, Photo.count
+    assert_equal 4, Photo.count
     assert_equal 'rails.png', Photo.find(:all)[0].filename
-    assert_equal 'rails_thumb.png', Photo.find(:all)[1].filename
+    assert_equal 'rails_bigthumb.png', Photo.find(:all)[1].filename
   end
 
   def test_should_not_upload_file

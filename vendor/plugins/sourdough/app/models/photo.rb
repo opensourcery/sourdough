@@ -18,12 +18,13 @@
 class Photo < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
   belongs_to :user
+  belongs_to :attachable, :polymorphic => true
 
   has_attachment :content_type => :image,
                  :storage => :file_system,
-                 :max_size => 500.kilobytes,
+                 :max_size => 10.megabytes,
                  :resize_to => '320x200>',
-                 :thumbnails => { :thumb => '100x100>' }
+                 :thumbnails => { :bigthumb => '400>', :thumb => '120>', :tiny => '50>' } 
 
   validates_presence_of :size, :content_type, :filename
   validate              :attachment_attributes_valid?
