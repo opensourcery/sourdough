@@ -81,5 +81,3 @@ class UsersController < ApplicationController
 
 end
 }}}
-
-This is a test commit for svnmerge
