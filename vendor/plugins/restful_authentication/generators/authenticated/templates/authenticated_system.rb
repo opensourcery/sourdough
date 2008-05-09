@@ -3,19 +3,19 @@ module AuthenticatedSystem
     # Returns true or false if the <%= file_name %> is logged in.
     # Preloads @current_<%= file_name %> with the <%= file_name %> model if they're logged in.
     def logged_in?
-      current_<%= file_name %> != :false
+      !!current_<%= file_name %>
     end
 
-    # Accesses the current <%= file_name %> from the session.  Set it to :false if login fails
-    # so that future calls do not hit the database.
+    # Accesses the current <%= file_name %> from the session. 
+    # Future calls avoid the database because nil is not equal to false.
     def current_<%= file_name %>
-      @current_<%= file_name %> ||= (login_from_session || login_from_basic_auth || login_from_cookie || :false)
+      @current_<%= file_name %> ||= (login_from_session || login_from_basic_auth || login_from_cookie) unless @current_<%= file_name %> == false
     end
 
     # Store the given <%= file_name %> id in the session.
     def current_<%= file_name %>=(new_<%= file_name %>)
-      session[:<%= file_name %>_id] = (new_<%= file_name %>.nil? || new_<%= file_name %>.is_a?(Symbol)) ? nil : new_<%= file_name %>.id
-      @current_<%= file_name %> = new_<%= file_name %> || :false
+      session[:<%= file_name %>_id] = new_<%= file_name %> ? new_<%= file_name %>.id : nil
+      @current_<%= file_name %> = new_<%= file_name %> || false
     end
 
     # Check if the <%= file_name %> is authorized
@@ -108,7 +108,6 @@ module AuthenticatedSystem
     def login_from_cookie
       <%= file_name %> = cookies[:auth_token] && <%= class_name %>.find_by_remember_token(cookies[:auth_token])
       if <%= file_name %> && <%= file_name %>.remember_token?
-        <%= file_name %>.remember_me
         cookies[:auth_token] = { :value => <%= file_name %>.remember_token, :expires => <%= file_name %>.remember_token_expires_at }
         self.current_<%= file_name %> = <%= file_name %>
       end
