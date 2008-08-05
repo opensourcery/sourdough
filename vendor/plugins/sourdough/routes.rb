@@ -22,6 +22,9 @@ logout '/logout', :controller => 'sessions', :action => 'destroy'
 connect ':controller/service.wsdl', :action => 'wsdl'
 connect '', :controller => 'home'
 
+connect '/pages/:page', :controller => 'pages'
+
 # Install the default route as the lowest priority.
 connect ':controller/:action/:id.:format'
 connect ':controller/:action/:id'
+
