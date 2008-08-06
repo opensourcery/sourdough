@@ -13,7 +13,6 @@ resource :admin, :controller => 'admin/home' do |admin|
 end
 
 terms 'terms', :controller => 'home', :action => 'terms'
-edit_profile  '/users/:login/edit', :controller => 'users', :action => 'edit'
 home '/', :controller => 'home'
 activate "/users/activate/:activation_code", :controller => 'users', :action => 'activate'
 signup '/signup', :controller => 'users', :action => 'new'
@@ -21,8 +20,6 @@ login  '/login', :controller => 'sessions', :action => 'new'
 logout '/logout', :controller => 'sessions', :action => 'destroy'
 connect ':controller/service.wsdl', :action => 'wsdl'
 connect '', :controller => 'home'
-
-connect '/pages/:page', :controller => 'pages'
 
 # Install the default route as the lowest priority.
 connect ':controller/:action/:id.:format'

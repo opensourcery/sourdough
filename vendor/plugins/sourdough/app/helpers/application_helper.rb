@@ -1,9 +1,5 @@
 # This file is part of Sourdough.  Copyright 2006,2007 OpenSourcery, LLC.  This program is free software, licensed under the terms of the GNU General Public License.  Please see the COPYING file in this distribution for more information, or see http://www.gnu.org/copyleft/gpl.html.
 module ApplicationHelper
-  # Show the local time
-  def tz(time_at)
-    TzTime.zone.utc_to_local(time_at.utc)
-  end
 
   def can_edit?( model = nil )
     owner = @user || (model.user unless model.nil?)

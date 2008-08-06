@@ -64,7 +64,7 @@ class UserTest < Test::Unit::TestCase
     after = 1.week.from_now.utc
     assert_not_nil users(:quentin).remember_token
     assert_not_nil users(:quentin).remember_token_expires_at?
-    assert users(:quentin).remember_token_expires_at.between?(before, after)
+    assert users(:quentin).remember_token_expires_at.between?(before.to_s(:db), after.to_s(:db))
   end
 
   def test_should_remember_me_until_one_week

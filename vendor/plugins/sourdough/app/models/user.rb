@@ -40,10 +40,7 @@ class User < ActiveRecord::Base
     belongs_to :photo
     has_many :photos, :dependent => :destroy
     
-    composed_of :tz, :class_name => 'TzinfoTimezone', :mapping => %w( time_zone time_zone )
-
     # Protect internal methods from mass-update with update_attributes
-    attr_accessible :login, :email, :password, :password_confirmation, :time_zone, :activated_at, :activation_code
     attr_accessor :password
 
     ## Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
@@ -105,9 +102,9 @@ class User < ActiveRecord::Base
     # Activates the user in the database.
     def activate
       @activated = true
-      self.activated_at = Time.now.utc
+      self.activated_at = Time.now
       self.activation_code = nil
-      save(false)
+      self.save!
     end
 
     def activated?

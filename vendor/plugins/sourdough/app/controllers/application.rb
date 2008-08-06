@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :login_from_cookie
 
-  around_filter :set_timezone, :catch_errors
+  before_filter :set_timezone
+  #around_filter :catch_errors
 
   protected
 
@@ -32,9 +33,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_timezone
-    TzTime.zone = logged_in? ? current_user.tz : TimeZone.new('Pacific Time (US & Canada)')
-    yield
-    TzTime.reset!
+    Time.zone = current_user.time_zone if logged_in?
   end
 
   def catch_errors
