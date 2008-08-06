@@ -48,7 +48,7 @@ class UserTest < Test::Unit::TestCase
   def test_should_set_remember_token
     users(:quentin).remember_me
     assert_not_nil users(:quentin).remember_token
-    assert_not_nil users(:quentin).remember_token_expires_at
+    assert_not_nil users(:quentin).remember_token_expires_at?
   end
 
   def test_should_unset_remember_token
@@ -63,7 +63,7 @@ class UserTest < Test::Unit::TestCase
     users(:quentin).remember_me_for 1.week
     after = 1.week.from_now.utc
     assert_not_nil users(:quentin).remember_token
-    assert_not_nil users(:quentin).remember_token_expires_at
+    assert_not_nil users(:quentin).remember_token_expires_at?
     assert users(:quentin).remember_token_expires_at.between?(before, after)
   end
 
@@ -71,7 +71,7 @@ class UserTest < Test::Unit::TestCase
     time = 1.week.from_now.utc
     users(:quentin).remember_me_until time
     assert_not_nil users(:quentin).remember_token
-    assert_not_nil users(:quentin).remember_token_expires_at
+    assert_not_nil users(:quentin).remember_token_expires_at?
     assert_equal users(:quentin).remember_token_expires_at, time
   end
 
@@ -80,7 +80,7 @@ class UserTest < Test::Unit::TestCase
     users(:quentin).remember_me
     after = 2.weeks.from_now.utc
     assert_not_nil users(:quentin).remember_token
-    assert_not_nil users(:quentin).remember_token_expires_at
+    assert_not_nil users(:quentin).remember_token_expires_at?
     assert users(:quentin).remember_token_expires_at.between?(before, after)
   end
 
@@ -110,22 +110,22 @@ class UserTest < Test::Unit::TestCase
   def test_should_ban_user
     quentin = users(:quentin)
     quentin.ban!
-    assert_not_nil quentin.banned_at
+    assert_equal true, quentin.banned_at?
   end
 
   def test_should_ban_invalid_user
     quentin = users(:quentin)
     quentin.login = nil
     quentin.ban!
-    assert_not_nil quentin.banned_at
+    assert_equal true, quentin.banned_at?
   end
 
   def test_should_revoke_ban
     quentin = users(:quentin)
     banned = users(:banned)
     quentin.remove_ban!
-    assert_nil quentin.banned_at
-    assert_not_nil banned.banned_at
+    assert_equal false, quentin.banned_at?
+    assert_equal true, banned.banned_at?
   end
 
   def test_should_revoke_ban_on_invalid_user
@@ -133,15 +133,15 @@ class UserTest < Test::Unit::TestCase
     banned = users(:banned)
     quentin.login = nil
     quentin.remove_ban!
-    assert_nil quentin.banned_at
-    assert_not_nil banned.banned_at
+    assert_equal false, quentin.banned_at?
+    assert_equal true,  banned.banned_at?
   end
 
   def test_should_activate_a_user
     not_activated = users(:not_activated)
     not_activated.activate
-    assert_not_nil not_activated.activated_at
-    assert_nil not_activated.activation_code
+    assert_equal true, not_activated.activated_at?
+    assert_equal false, not_activated.activation_code?
   end
 
   def test_should_turn_a_user_into_an_admin

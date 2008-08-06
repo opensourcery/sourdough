@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
 
     def self.activated?(login)
       u = find_by_login(login)
-      u && u.activated_at
+      u && u.activated_at?
     end
 
     # Encrypts some data with the salt.
@@ -105,7 +105,8 @@ class User < ActiveRecord::Base
     # Activates the user in the database.
     def activate
       @activated = true
-      self.attributes = {:activated_at => Time.now.utc, :activation_code => nil}
+      self.activated_at = Time.now.utc
+      self.activation_code = nil
       save(false)
     end
 
@@ -138,7 +139,7 @@ class User < ActiveRecord::Base
     # Useful place to put the login methods
     def remember_me_until(time)
       self.visits_count = visits_count.to_i + 1
-      self.last_login_at = Time.now
+      self.last_login_at = Time.now.utc
       self.remember_token_expires_at = time
       self.remember_token = encrypt("#{email}--#{remember_token_expires_at}")
       save(false)
@@ -166,8 +167,8 @@ class User < ActiveRecord::Base
 
     def status
       return 'Admin' if admin?
-      return 'Not Activated' if activation_code
-      return 'Banned' if banned_at
+      return 'Not Activated' if activation_code?
+      return 'Banned' if banned_at?
       return 'Active'
     end
 

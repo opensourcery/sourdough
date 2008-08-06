@@ -17,11 +17,11 @@
         You can also:
         <br />
         <ul>
-          <% if @user.activation_code %>
+          <% if @user.activation_code? %>
             <li><%= link_to 'Activate this user', admin_activate_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
           <% end %>
           <li><%= link_to 'Reset the password', admin_reset_password_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
-          <% if @user.banned_at %>
+          <% if @user.banned_at? %>
             <li><%= link_to 'Remove the ban on this user', remove_ban_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
           <% else %>
             <% if @user != current_user %>

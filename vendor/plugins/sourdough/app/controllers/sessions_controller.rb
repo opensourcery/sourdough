@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
 
   def resend_activation
     user = User.find_by_login(params[:login])
-    unless user.activated_at
+    unless user.activated_at?
       UserMailer.deliver_signup_notification(user, request.protocol + request.host_with_port + activate_path(user.activation_code))
       flash[:notice] = 'We have resent your activation email'[:resent_activation_email]
     end

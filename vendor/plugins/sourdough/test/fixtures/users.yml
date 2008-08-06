@@ -29,8 +29,8 @@ quentin:
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
   photo_id: 1
   time_zone: US/Eastern
-  created_at: <%= 5.days.ago.to_s :db %>
-  activated_at: <%= 5.days.ago.to_s :db %>
+  created_at: <%= (Time.now - 5.days).to_s :db %>
+  activated_at: <%= (Time.now - 5.days).to_s :db %>
 
 aaron:
   id: 2
@@ -40,7 +40,7 @@ aaron:
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
   time_zone: US/Pacific
   activation_code: activateme
-  created_at: <%= 1.days.ago.to_s :db %>
+  created_at: <%= (Time.now - 1.days).to_s :db %>
 
 sam:
   id: 3
@@ -50,8 +50,8 @@ sam:
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
   time_zone: US/Pacific
   activation_code:
-  activated_at: <%= 5.days.ago.to_s :db %>
-  created_at: <%= 1.days.ago.to_s :db %>
+  created_at: <%= (Time.now - 5.days).to_s :db %>
+  activated_at: <%= (Time.now - 1.days).to_s :db %>
 
 banned:
   id: 4
@@ -61,9 +61,8 @@ banned:
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
   time_zone: US/Pacific
   activation_code:
-  activated_at: <%= 5.days.ago.to_s :db %>
-  created_at: <%= 1.days.ago.to_s :db %>
-  banned_at: <%= 1.days.ago.to_s :db %>
+  created_at: <%= (Time.now - 5.days).to_s :db %>
+  banned_at: <%= (Time.now - 1.days).to_s :db %>
 
 not_activated:
   id: 5
@@ -73,4 +72,4 @@ not_activated:
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
   time_zone: US/Pacific
   activation_code: activate_me
-  created_at: <%= 1.days.ago.to_s :db %>
+  created_at: <%= (Time.now - 1.days).to_s :db %>
