@@ -57,7 +57,7 @@ class UsersController < ApplicationController
   end
 
   def load_user
-    @user = User.find_by_param(params[:id]) 
+   @user = User.find_by_param(params[:id]) or raise ActiveRecord::RecordNotFound
   end
 
   private

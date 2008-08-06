@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   before_filter :login_from_cookie
 
   before_filter :set_timezone
-  #around_filter :catch_errors
+  around_filter :catch_errors
 
   protected
 
