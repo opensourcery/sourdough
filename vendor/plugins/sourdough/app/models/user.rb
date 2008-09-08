@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     validates_length_of       :email,    :within => 3..100
     validates_uniqueness_of   :login, :email, :case_sensitive => false
     validates_format_of       :login, :with => /^\w+$/
-    validates_email_format_of :email
+    validates_format_of :email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :on => :create, :message=>"Invalid email address."
 
     before_save :encrypt_password
     before_create :make_activation_code
