@@ -9,8 +9,8 @@ module ApplicationHelper
   end
 
   def avatar_for(user)
-    if user.photo
-      link_to_unless_current image_tag(user.photo.public_filename(:thumb)), user_path(user)
+    if user.image
+      link_to_unless_current image_tag url_for_file_column(user, "image", "square")
     else
       link_to_unless_current image_tag('no_photo_thumbnail.gif', :plugin => 'sourdough'), user_path(user)
     end

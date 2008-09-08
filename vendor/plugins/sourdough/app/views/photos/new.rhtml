@@ -6,12 +6,12 @@
 
 <%= render :partial => 'users/header' %>
 
-<%= sourdough_error_messages_for :photo %>
+<%= sourdough_error_messages_for :user %>
 
 <div class="form_container photo column span-14 append-5 prepend-5 last">
-  <% form_for(:photo, :url => user_photos_path(@user), :html => { :multipart => true }) do |f| -%>
+  <% form_for(:user, :url => user_photos_path(@user), :html => { :multipart => true }) do |f| -%>
 
-    <% if @user.photo && @photo.errors.blank? %>
+    <% if @user.image %>
       <div class="user_photo">
         <%= avatar_for(@user) %>
         <p class="delete"><%= link_to 'Delete this photo', user_photos_path(@user), :confirm => 'Are you sure?', :method => :delete %></p>
@@ -19,9 +19,10 @@
     <% end %>
 
     <dl>
-      <dt><%= f.label :uploaded_data, 'Upload a new photo to replace this one:' %></dt>
-      <dd><%= f.file_field :uploaded_data %></dd>
+      <dt><%= f.label :image, 'Upload a new photo to replace this one:' %></dt>
+      <dd><%= file_column_field "user", "image" %></dd>
     </dl>
+
     <p><%= submit_tag "Upload", :class => "submit" %></p>
 
   <% end %>

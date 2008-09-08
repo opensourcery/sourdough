@@ -30,15 +30,18 @@ class User < ActiveRecord::Base
     validates_uniqueness_of   :login, :email, :case_sensitive => false
     validates_format_of       :login, :with => /^\w+$/
     validates_format_of :email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :on => :create, :message=>"Invalid email address."
-
+    file_column :image, :magick => {
+        :versions => {
+        :square => {:crop => "1:1", :size => "50x50", :name => "square"},
+        :small => "175x250>"
+      }
+    }
     before_save :encrypt_password
     before_create :make_activation_code
 
     cattr_accessor :current_user
 
     has_and_belongs_to_many :roles
-    belongs_to :photo
-    has_many :photos, :dependent => :destroy
     
     # Protect internal methods from mass-update with update_attributes
     attr_accessor :password

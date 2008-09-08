@@ -4,17 +4,11 @@ class PhotosController < ApplicationController
   before_filter :login_required, :load_user, :check_auth
 
   def new
-    @photo = Photo.new
   end
 
   def create
-    @photo = Photo.new(params[:photo])
-    @photo.user = @user
-    @user.photo.destroy if @user.photo
-    @user.photo = @photo
-
     respond_to do |format|
-      if @photo.valid? and @user.valid? and @user.save
+      if @user.update_attributes(params[:user])
         flash[:notice] = 'Your photo has been uploaded.'
         format.html { redirect_to create_redirection_path}
       else
@@ -24,12 +18,15 @@ class PhotosController < ApplicationController
   end
 
   def destroy
-    @photo = @user.photo
-    @photo.destroy
+    @user.image = nil
 
     respond_to do |format|
-      flash[:notice] = 'Your photo has been deleted'
-      format.html { redirect_to destroy_redirection_path }
+      if @user.save
+        flash[:notice] = 'Your photo has been deleted'
+        format.html { redirect_to destroy_redirection_path }
+      else
+        format.html { render :action => "new" }
+      end
     end
   end
 

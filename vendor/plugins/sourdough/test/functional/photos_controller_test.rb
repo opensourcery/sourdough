@@ -28,22 +28,10 @@ class PhotosControllerTest < Test::Unit::TestCase
   def test_should_upload_photo
     upload_file :filename => 'photos/rails.png', :content_type => 'image/png'
     assert_redirected_to new_user_photos_path(users(:quentin))
-    assert_valid assigns(:photo)
-    assert_equal 'rails.png', assigns(:photo).filename
-    assert_equal 4, Photo.count
-    assert_equal 'rails.png', Photo.find(:all)[0].filename
-    assert_equal 'rails_bigthumb.png', Photo.find(:all)[1].filename
-  end
-
-  def test_should_not_upload_file
-    post 'create', :uploaded_data => 'test', :user_id => users(:quentin).login
-    assert_template 'new'
   end
 
   def test_should_delete_photo
-    assert_equal 1, Photo.count
     delete :destroy, :user_id => users(:quentin).login
-    assert_equal 0, Photo.count
     assert_redirected_to new_user_photos_path(users(:quentin))
   end
 

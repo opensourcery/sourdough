@@ -1,6 +1,6 @@
 class CreateSourdough < ActiveRecord::Migration
   def self.up
-    Rails.plugins["sourdough"].migrate(6)
+    Rails.plugins["sourdough"].migrate(7)
   end
 
   def self.down

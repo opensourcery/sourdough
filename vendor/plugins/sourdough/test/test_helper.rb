@@ -51,7 +51,7 @@ class Test::Unit::TestCase
   end
 
   def upload_file(options = {})
-    post :create, :user_id => users(:quentin).login, :photo => {:uploaded_data => fixture_file_upload(options[:filename], options[:content_type])}, :html => { :multipart => true}
+    post :create, :user_id => users(:quentin).login, :image => fixture_file_upload(options[:filename], options[:content_type]), :html => { :multipart => true}
   end
 
 end

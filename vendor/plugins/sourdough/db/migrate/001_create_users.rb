@@ -14,6 +14,7 @@ class CreateUsers < ActiveRecord::Migration
       t.column :visits_count,              :integer, :default => 0
       t.column :time_zone,                 :string,  :default => 'Pacific Time (US & Canada)'
       t.column :photo_id,                  :integer
+      t.column :image,                     :string
     end
   end
 
