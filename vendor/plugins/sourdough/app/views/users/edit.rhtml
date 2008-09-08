@@ -11,6 +11,6 @@
 <div class="form_container column span-14 append-5 prepend-5 last">
   <% form_for(:user, :url => user_path(@user), :html => { :method => :put }) do |f| %>
     <%= render :partial => 'form', :object => f %>
-    <p class="update"><%= submit_tag 'Save changes'[] %></p>
+    <p class="update"><%= submit_tag 'Save changes' %></p>
   <% end %>
 </div>

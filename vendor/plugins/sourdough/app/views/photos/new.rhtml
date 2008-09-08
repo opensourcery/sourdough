@@ -14,7 +14,7 @@
     <% if @user.photo && @photo.errors.blank? %>
       <div class="user_photo">
         <%= avatar_for(@user) %>
-        <p class="delete"><%= link_to 'user_delete_photo'[], user_photos_path(@user), :confirm => 'dialog_binary_confirmation'[], :method => :delete %></p>
+        <p class="delete"><%= link_to 'Delete this photo', user_photos_path(@user), :confirm => 'Are you sure?', :method => :delete %></p>
       </div>
     <% end %>
 
@@ -22,7 +22,7 @@
       <dt><%= f.label :uploaded_data, 'Upload a new photo to replace this one:' %></dt>
       <dd><%= f.file_field :uploaded_data %></dd>
     </dl>
-    <p><%= submit_tag "user_upload_new_photo_submit"[], :class => "submit" %></p>
+    <p><%= submit_tag "Upload", :class => "submit" %></p>
 
   <% end %>
 </div>

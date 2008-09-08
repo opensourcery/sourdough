@@ -1,7 +1,7 @@
 <% @page_title = 'User settings' %>
 
 <h3>
-  <%= @user.login == current_user.login ? 'Editing your own'[] : "#{ 'Editing'[]} #{ h @user.login }'s" %>
+  <%= @user.login == current_user.login ? 'Editing your own' : "#{ 'Editing'} #{ h @user.login }'s" %>
   <%= @section_title %>
 </h3>
 

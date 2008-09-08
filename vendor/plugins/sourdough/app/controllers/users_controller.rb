@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        flash[:notice] = 'User was successfully updated.'[:user_updated]
+        flash[:notice] = 'User was successfully updated.'
         format.html { redirect_to update_redirection_path(@user) }
       else
         format.html { render :action => update_render_action }
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     if logged_in? && !current_user.activated?
       current_user.activate
       UserMailer.deliver_activation(current_user, request.protocol + request.host_with_port + home_path)
-      flash[:notice] = "Signup complete!"[:user_activated]
+      flash[:notice] = "Signup complete!"
     end
     redirect_back_or_default(activation_redirection_path)
   end
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   protected
 
   def after_user_save
-    flash[:notice] = "Thank you for signing up!  We just sent you a confirmation email to #{@user.email}.  Please click on the activation link in the email to complete your sign up."[:user_created]
+    flash[:notice] = "Thank you for signing up!  We just sent you a confirmation email to #{@user.email}.  Please click on the activation link in the email to complete your sign up."
     UserMailer.deliver_signup_notification(@user, request.protocol + request.host_with_port + activate_path(@user.activation_code))
   end
 
