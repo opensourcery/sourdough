@@ -8,7 +8,7 @@
   <div class="form_container">  
     <dl class="inline">
       <% form_for(:user, :url => admin_user_path(@user), :html => { :method => :put }) do |f| %>
-        <dt><%= label_for :user, :email %></dt>
+        <dt><%= f.label :email %></dt>
         <dd><%= f.text_field :email %></dd>
         <p></p>
         <%= submit_tag 'Update user information' %>

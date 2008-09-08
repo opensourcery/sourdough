@@ -19,7 +19,7 @@
     <% end %>
 
     <dl>
-      <dt><%= label_for :user, 'Upload a new photo to replace this one:' %></dt>
+      <dt><%= f.label :uploaded_data, 'Upload a new photo to replace this one:' %></dt>
       <dd><%= f.file_field :uploaded_data %></dd>
     </dl>
     <p><%= submit_tag "user_upload_new_photo_submit"[], :class => "submit" %></p>

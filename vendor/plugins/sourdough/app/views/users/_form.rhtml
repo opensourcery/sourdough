@@ -1,19 +1,19 @@
 <dl class="inline">
-  <dt><%= label_for :user, :login %></dt>
+  <dt><%= label :user, :login %></dt>
   <dd><%= form.text_field :login %></dd>
 
-  <dt><%= label_for :user, :email %></dt>
+  <dt><%= label :user, :email %></dt>
   <dd><%= form.text_field :email %></dd>
 
-  <dt><%= label_for :user, :password %></dt>
+  <dt><%= label :user, :password %></dt>
   <dd><%= form.password_field :password %></dd>
 
-  <dt><%= label_for :user, :confirm_password %></dt>
+  <dt><%= label :user, :confirm_password %></dt>
   <dd><%= form.password_field :password_confirmation %></dd>
 
   <%= render :partial => 'optional_form_fields', :locals => { :form => form }  %>
 
-  <dt><%= label_for :user, :time_zone %></dt>
+  <dt><%= label :user, :time_zone %></dt>
   <dd><%= form.time_zone_select :time_zone, TimeZone.us_zones %></dd>
 
 </dl>
