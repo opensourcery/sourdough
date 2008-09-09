@@ -3,19 +3,19 @@ class UserMailer < ActionMailer::Base
 
   def signup_notification(user, url)
     setup_email(user)
-    @subject     += "Please activate your new Sourdough account"
+    @subject     += "Please activate your new #{Sourdough.site_name} account"
     @body[:url]  = url
   end
 
   def activation(user, url)
     setup_email(user)
-    @subject     += "Your Sourdough account has been activated!"
+    @subject     += "Your #{Sourdough.site_name} account has been activated!"
     @body[:url]  = url
   end
 
   def forgotten_password(user, url)
     setup_email(user)
-    @subject     += "Your new Sourdough password"
+    @subject     += "Your new #{Sourdough.site_name} password"
     @body[:url]  = url
   end
 
