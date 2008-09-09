@@ -30,12 +30,6 @@ class PhotosController < ApplicationController
     end
   end
 
-  protected
-
-  def find_user
-    @user = User.find_by_param(params[:user_id]) or raise ActiveRecord::RecordNotFound
-  end
-
   private
 
   def create_redirection_path
