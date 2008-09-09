@@ -8,8 +8,8 @@ module Administration #:nodoc:
   module ClassMethods
     def acts_as_administration
       before_filter  :login_required
+      before_filter  :check_admin
       before_filter  :set_administration_area
-      access_control :DEFAULT => 'admin'
       include Administration::InstanceMethods
       extend Administration::SingletonMethods
     end
@@ -21,6 +21,12 @@ module Administration #:nodoc:
   module InstanceMethods
     def set_administration_area
       @administration_area = true
+    end
+
+    def check_admin
+      unless logged_in? and current_user.is_admin?
+        permission_denied
+      end
     end
   end
 

@@ -1,10 +1,9 @@
 # This file is part of Sourdough.  Copyright 2006,2007 OpenSourcery, LLC.  This program is free software, licensed under the terms of the GNU General Public License.  Please see the COPYING file in this distribution for more information, or see http://www.gnu.org/copyleft/gpl.html.
 class UsersController < ApplicationController
 
-  @protected_actions = [ :edit, :update, :destroy ]
   before_filter :login_required, :except => [:new, :create, :activate, :show]
   before_filter :load_user, :except => [ :index, :create, :new, :activate ]
-  before_filter :check_auth, :only => @protected_actions
+  before_filter :check_auth, :only => [ :edit, :update, :destroy ]
 
   def show
   end

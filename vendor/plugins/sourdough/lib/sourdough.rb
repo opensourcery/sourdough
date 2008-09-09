@@ -6,7 +6,7 @@ require_dependency 'authentication/authenticated_system'
 require_dependency 'authentication/authenticated_test_helper'
 
 # Specifies order to load fixtures to prevent foreign key problems
-ENV['SOURDOUGH_FIXTURES'] ||= 'users,roles,roles_users'
+ENV['SOURDOUGH_FIXTURES'] ||= 'users'
 
 ActionController::Base.send(:include, Administration)
 

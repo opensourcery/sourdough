@@ -41,8 +41,6 @@ class User < ActiveRecord::Base
 
     cattr_accessor :current_user
 
-    has_and_belongs_to_many :roles
-    
     # Protect internal methods from mass-update with update_attributes
     attr_accessor :password
 
@@ -77,11 +75,13 @@ class User < ActiveRecord::Base
     end
 
     def make_admin!
-      self.roles << Role.find_by_title('admin')
+      self.is_admin = true
+      self.save!
     end
 
     def revoke_admin!
-      self.roles.delete(Role.find_by_title('admin'))
+      self.is_admin = false
+      self.save!
     end
 
     def to_xml
@@ -92,10 +92,6 @@ class User < ActiveRecord::Base
       temporary_password = create_temporary_password
       self.password, self.password_confirmation = temporary_password, temporary_password
       save_with_validation(false)
-    end
-
-    def admin?
-      roles.map{ |role| role.title}.include? 'admin'
     end
 
     def to_param
@@ -166,7 +162,7 @@ class User < ActiveRecord::Base
     end
 
     def status
-      return 'Admin' if admin?
+      return 'Admin' if is_admin?
       return 'Not Activated' if activation_code?
       return 'Banned' if banned_at?
       return 'Active'

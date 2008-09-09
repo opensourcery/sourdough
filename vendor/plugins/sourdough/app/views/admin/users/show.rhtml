@@ -28,7 +28,7 @@
               <li><%= link_to 'Ban this user', ban_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
             <% end %>
           <% end %>
-          <% if @user.admin? %>
+          <% if @user.is_admin? %>
             <% if @user != current_user %>
               <li><%= link_to 'Revoke administrator access for this user', revoke_admin_admin_user_path(@user), :confirm => 'Are you sure?', :method => :post %></li>
             <% end %>

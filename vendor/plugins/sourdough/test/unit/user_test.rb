@@ -147,20 +147,20 @@ class UserTest < Test::Unit::TestCase
   def test_should_turn_a_user_into_an_admin
     sam = users(:sam)
     aaron = users(:aaron)
-    assert_equal false, sam.admin?
+    assert_equal false, sam.is_admin?
     sam.make_admin!
-    assert_equal true, sam.admin?
-    assert_equal false, aaron.admin?
+    assert_equal true, sam.is_admin?
+    assert_equal false, aaron.is_admin?
   end
   
   def test_should_revoke_admin_from_a_user
     sam = users(:sam)
     quentin = users(:quentin)
     sam.make_admin!
-    assert_equal true, sam.admin?
+    assert_equal true, sam.is_admin?
     sam.revoke_admin!
-    assert_equal false, sam.admin?
-    assert_equal true, quentin.admin?
+    assert_equal false, sam.is_admin?
+    assert_equal true, quentin.is_admin?
   end
 
   protected

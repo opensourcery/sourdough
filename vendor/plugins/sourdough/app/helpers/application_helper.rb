@@ -3,14 +3,14 @@ module ApplicationHelper
 
   def can_edit?( model = nil )
     owner = @user || (model.user unless model.nil?)
-    if current_user == owner or (logged_in? and current_user.admin?)
+    if current_user == owner or (logged_in? and current_user.is_admin?)
       yield
     end
   end
 
   def avatar_for(user)
     if user.image
-      link_to_unless_current image_tag url_for_file_column(user, "image", "square")
+      link_to_unless_current image_tag(url_for_file_column(user, "image", "square"))
     else
       link_to_unless_current image_tag('no_photo_thumbnail.gif', :plugin => 'sourdough'), user_path(user)
     end
@@ -21,13 +21,13 @@ module ApplicationHelper
   end
 
   def administration_area_only
-   if logged_in? and current_user.admin? and (!@administration_area.nil? and @administration_area == true)
+   if logged_in? and current_user.is_admin? and (!@administration_area.nil? and @administration_area == true)
      yield
    end
   end
 
   def in_administration_area?
-    return true if logged_in? and current_user.admin? and (!@administration_area.nil? and @administration_area == true)
+    return true if logged_in? and current_user.is_admin? and (!@administration_area.nil? and @administration_area == true)
     return false
   end
 

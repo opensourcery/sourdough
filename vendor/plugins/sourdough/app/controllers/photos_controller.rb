@@ -1,7 +1,7 @@
 # This file is part of Sourdough.  Copyright 2006,2007 OpenSourcery, LLC.  This program is free software, licensed under the terms of the GNU General Public License.  Please see the COPYING file in this distribution for more information, or see http://www.gnu.org/copyleft/gpl.html.
 class PhotosController < ApplicationController
 
-  before_filter :login_required, :load_user, :check_auth
+  before_filter :login_required, :find_user, :check_auth
 
   def new
   end
@@ -32,7 +32,7 @@ class PhotosController < ApplicationController
 
   protected
 
-  def load_user
+  def find_user
     @user = User.find_by_param(params[:user_id]) or raise ActiveRecord::RecordNotFound
   end
 

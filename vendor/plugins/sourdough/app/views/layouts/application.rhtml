@@ -27,7 +27,7 @@
         <% if logged_in? %>
           Logged in as <%= link_to current_user.login, edit_profile_path(current_user) %>
           <%= link_to "Logout", logout_path, :method => :delete %>
-          <% restrict_to "admin" do %>
+          <% if current_user.is_admin? %>
             | <%= link_to "Site Administration", admin_path %>
           <% end %>
         <% else %>

@@ -12,22 +12,24 @@ class ApplicationController < ActionController::Base
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_sourdough_session_id', :secret => 'Shoow2Qu thae2eeJ uiri7OoH Chu5shoz oom6Phei ithier5P Oohei7Ee naesh8Xe'
 
-  before_filter :login_from_cookie
-
-  before_filter :set_timezone
+  before_filter :login_from_cookie, :set_timezone
   around_filter :catch_errors
 
   protected
 
   def check_auth
-    unless current_user == @user or (logged_in? and current_user.admin?)
-      raise AccessDenied
+    unless current_user == @user or (logged_in? and current_user.is_admin?)
+      permission_denied
     end
   end
 
   def permission_denied
     flash[:notice] = "You don't have privileges to access that area"
     access_denied
+  end
+
+  def set_administration_area
+    @administration_area = true
   end
 
   private
@@ -49,3 +51,4 @@ class ApplicationController < ActionController::Base
   end
 
 end
+
