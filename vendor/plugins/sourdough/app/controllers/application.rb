@@ -7,13 +7,11 @@ class ApplicationController < ActionController::Base
   include ExceptionNotifiable
   include ApplicationHelper
 
-  class AccessDenied < StandardError; end
-
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_sourdough_session_id', :secret => 'Shoow2Qu thae2eeJ uiri7OoH Chu5shoz oom6Phei ithier5P Oohei7Ee naesh8Xe'
 
   before_filter :login_from_cookie, :set_timezone
-  around_filter :catch_errors
+  filter_parameter_logging "password"
 
   protected
 
@@ -36,18 +34,6 @@ class ApplicationController < ActionController::Base
 
   def set_timezone
     Time.zone = current_user.time_zone if logged_in?
-  end
-
-  def catch_errors
-    begin
-      yield
-
-    rescue AccessDenied
-      permission_denied
-    rescue ActiveRecord::RecordNotFound
-      flash[:notice] = "That item does not exist"
-      redirect_to '/'
-    end
   end
 
 end
