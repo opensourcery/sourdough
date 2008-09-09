@@ -13,8 +13,7 @@ ActionController::Base.send(:include, Administration)
 ExceptionNotifier.exception_recipients = %w( alex@opensourcery.com )
 
 module Sourdough
-  mattr_accessor :from_address
-  mattr_accessor :site_name
+  mattr_accessor :from_address, :site_name, :tag_line
   email_config = Hash.new
   yaml = YAML.load_file("#{RAILS_ROOT}/config/email.yml")
   yaml.each_pair {|k,v| email_config[k.to_sym] = v}

@@ -1,45 +1,52 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <title><%= 'Sourdough' %> | <%= @page_title || 'Home' %></title>
+  <head>
+    <title><%= 'Sourdough' %> | <%= @page_title || 'Home' %></title>
 
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Language" content="en-us" />
-  <meta http-equiv="imagetoolbar" content="false" />
-  <meta name="MSSmartTagsPreventParsing" content="true" />
-  <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <meta http-equiv="imagetoolbar" content="false" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="ROBOTS" content="ALL" />
+    <%= render :partial => 'layouts/blueprint', :locals => { :media => 'screen,projection', :styles => [ 'reset', 'typography', 'grid' ]} %>
+    <%= stylesheet_link_tag 'blueprint/print', :media => 'print', :plugin => 'sourdough' %>
+    <%= stylesheet_link_tag 'theme', :media => 'screen, projection', :plugin => 'sourdough' %>
+    <%= stylesheet_link_tag 'content', :media => 'screen, projection', :plugin => 'sourdough' %>
+    <%= stylesheet_link_tag 'theme', :media => 'screen, projection' %>
+    <%= stylesheet_link_tag 'content', :media => 'screen, projection' %>
+    <%= stylesheet_link_tag @controller.controller_name, :media => 'screen, projection' %>
+    <%= javascript_include_tag 'jquery', :plugin => 'sourdough' %>
+    <%= javascript_include_tag 'common/jquery.OpenSourceryRails.js' %>
+    <%= javascript_include_tag 'common/jquery.OpenSourceryCommon.js', :plugin => 'sourdough' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
 
-  <%= render :partial => 'layouts/blueprint', :locals => { :media => 'screen,projection', :styles => [ 'reset', 'typography', 'grid' ]} %>
-  <%= stylesheet_link_tag 'blueprint/print', :media => 'print', :plugin => 'sourdough' %>
-  <%= stylesheet_link_tag 'theme', :media => 'screen, projection', :plugin => 'sourdough' %>
-  <%= stylesheet_link_tag 'content', :media => 'screen, projection', :plugin => 'sourdough' %>
-  <%= javascript_include_tag 'jquery', 'common/jquery.OpenSourceryCommon.js', 'application', :plugin => 'sourdough' %>
-</head>
+  <body class="<%= @controller.controller_name %>">
+    <div id="header" class="frame container">
 
-<body>
-  <div id="page" class="container">
+      <div class="column span-24">
+        <h1><a href="/"><%= Sourdough.site_name %></a></h1>
+        <h2><%= Sourdough.tag_line %></h2>
 
-    <div id="header" class="column span-24">
-      <h1><a href="/"><%= Sourdough.site_name %></a></h1>
-
-      <div id="user_tools">
-        <p>
-        <% if logged_in? %>
-          Logged in as <%= link_to current_user.login, edit_profile_path(current_user) %>
-          <%= link_to "Logout", logout_path, :method => :delete %>
-          <% if current_user.is_admin? %>
-            | <%= link_to "Site Administration", admin_path %>
+        <div id="user_tools">
+          <p>
+          <% if logged_in? %>
+            Logged in as <%= link_to current_user.login, edit_profile_path(current_user) %>
+            <%= link_to "Logout", logout_path, :method => :delete %>
+            <% if current_user.is_admin? %>
+              | <%= link_to "Site Administration", admin_path %>
+            <% end %>
+          <% else %>
+            <%= link_to "Login", login_path %>
+            or
+            <%= link_to "Sign up today!", signup_path %>
           <% end %>
-        <% else %>
-          <%= link_to "Login", login_path %>
-          or
-          <%= link_to "Sign up today!", signup_path %>
-        <% end %>
-        </p>
+          </p>
+        </div>
       </div>
-    </div>
+    </div> <!-- header container -->
 
-    <div id="body" class="column span-24">
+    <div id="body" class="container">
 
       <%- if flash[:notice] %>
       <div class="flash">
@@ -58,14 +65,15 @@
       </div>
       <%- end %>
 
-        <%= yield %>
+      <%= yield %>
 
     </div>
 
-    <div id="footer" class="column span-24">
-      <p>&copy; 2007 <%= Sourdough.site_name %>; all rights reserved.</p>
+    <div id="footer" class="frame container">
+      <div class="column span-24">
+        <p>&copy; <%= Date.today.year %> <%= Sourdough.site_name %>; all rights reserved.</p>
+      </div>
     </div>
 
-  </div>
 </body>
 </html>

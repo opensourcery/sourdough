@@ -8,18 +8,63 @@
  * Do not use for:  styles which affect the entire site; use theme.css instead.
  *
  */
-/* admin, user {{{*/
-#user_list td {
-  padding-right : 1em;
+/* create team {{{*/
+dl.create_team dt {
+  width : 10em;
+}
+dl.create_team dt.invitees {
+  padding-top : .25em;
+}
+dl.create_team dd.invitees table,
+dl.create_team dd.invitees td,
+dl.create_team dd.invitees th {
+  padding-left : 0;
+}
+dl.create_team dd.invitees th {
+  font-size : 1.2em;
+  font-weight : normal;
+  border : 0;
+}
+dl.create_team dd div.content {
+  background : #efefef;
+  padding : .5em;
+  margin : 0 0 0 11em;
+  width : 40em;
+}
+dl.create_team dd div.content p {
+  margin : 0;
 }
 /*}}}*/
-/* user, photo {{{*/
-div.form_container.photo div.user_photo {
-  border-bottom : 1px solid #fc6;
-  margin-bottom : 1.5em;
+/* join team {{{*/
+dl.join_team dt {
+  width : 15em;
 }
-div.form_container.photo div.user_photo p.delete {
+.footnote.join_team {
+  margin : 5em 0 0 0;
+}
+.footnote.join_team h5 {
+  text-decoration : underline;
+  margin : 1em 0 0 0;
 }
 /*}}}*/
-/* empty {{{*/
+/* leave team {{{*/
+dl.leave_team dt {
+  width : 15em;
+}
+/*}}}*/
+/* manage team {{{*/
+dl.manage_team dt {
+  width : 15em;
+}
+table.manage_team {
+  margin-left : 10em;
+}
+/*}}}*/
+/* team home {{{*/
+#team_settings {
+  font-size : .8em;
+  text-align : right;
+  margin : 1em 3em 0 3em;
+  display : block;
+}
 /*}}}*/

@@ -20,10 +20,10 @@ medium:
 light:
   color : #ffe5b2;
 }}}*/
-/* global {{{*/
+/* global, blueprint overrides {{{*/
 body {
-  font-size : 107%;
-  background : url( /plugin_assets/sourdough/images/body_bg.png ) repeat-x;
+  font-size : 100%;
+  font-family : Georgia;
   margin : 0;
 }
 a:link,
@@ -36,69 +36,58 @@ a:hover {
   color : #6cf;
   text-decoration : underline;
 }
-table,
-th,
-td {
+em { /* our local meaning for "em" is "pretty plain" */
+  color : #666;
+  font-weight : normal !important;
+  font-style : normal !important;
   background : transparent;
-  border : 0;
-}
-th {
-  border-bottom : 2px solid #333;
 }
 /*}}}*/
 /* header {{{*/
 #header {
-  padding : 0 0 1em 0;
-  border-bottom : 2px solid #fc6;
-  margin : 50px 0 1em 0;
+  border-bottom : 1px solid red;
+  margin-bottom : 2em;
+  height : 2em;
+  position : relative;
 }
-h1 a,
-h2 a  {
-  text-align : left;
-  width : 497px;
-  height : 0px;
-}
+h1,
 h2 {
-  margin : -25px 0 0 115px;
+  font-size : 1em;
+  line-height : 2em;
+  float : left;
+  height : 1em;
+  margin : 0;
 }
-h2 a {
-  width : 310px;
-  height : 0px;
+h1 {
+  margin-right : 1em;
 }
-#user_tools { /* FIXME: blueprint may have a better way to do this */
+#user_tools {
   position : absolute;
-  top : 3px;
-  right : 10px;
+  top : 10px;
+  right : 0;
 }
 #user_tools p {
-  color : #fff;
-}
-#user_tools a {
-  color : #6cf;
-  padding : 0 .2em;
-}
-#user_time_zone {
-  width:300px;
+  font-size : .8em;
 }
 /*}}}*/
-/* headings, etc {{{*/
-h3 a.edit {
-  font-size : .7em;
+/* headings {{{*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family : Georgia;
 }
-/*}}}*/
-/* errors & notices {{{*/
-div.flash,
-div.flash h6 {
-  border-bottom : 1px solid #900;
+h3 {
+  font-size : 2em;
+  text-align : center;
 }
-div.flash {
-  margin-bottom : 1.5em;
+h4 {
+  margin : 1em 0 .25em 10em;
 }
-div.flash h6 {
-  font-weight : bold;
-}
-.fieldWithErrors * { /* FIXME when dl_form_for works, make this better */
-  background : pink;
+h5 {
+  font-weight : normal;
 }
 /*}}}*/
 /* navigation {{{*/
@@ -113,95 +102,98 @@ ul.navigation li {
 }
 /*}}}*/
 /* footer {{{*/
-#footer {
-  margin : 5em 0 0 0;
-  border-top : 2px solid #fc6;
-}
-#footer p {
-  float : left;
-  margin-right : 2em;
-}
 /*}}}*/
 /* lists {{{*/
 dl.inline dt {
+  font-style : italic;
     text-align : right;
     padding-right : 1em;
     margin : 0 0 5px 0;
-    height : 1.5em;
+    height : 1.8em;
     float : left;
     clear : left;
 }
 dl.inline dd {
     margin : 0 0 5px 0px;
-    height : 1.5em;
+    height : auto;
 }
-dl.inline dd.double {
-  height : 3.5em;
+dl.inline.static dd {
+  font-size : 1.2em;
+  padding-bottom : .5em;
 }
-dl.inline dd.triple {
-  height : 5em;
+/*}}}*/
+/* tables {{{*/
+table,
+th,
+td {
+  background : transparent;
+  padding-left : 1em;
+  border : 0;
 }
-ul.radio {
-  list-style : none;
-  margin-right : 0;
-  margin-bottom : 0;
+th {
+  border-bottom : 1px solid #333;
 }
-dl.inline dd ul.radio {
-  margin-left : 0;
+tr.even td {
+  background : #e9ddc0;
+  background : #efe6d2;
 }
 /*}}}*/
 /* forms {{{*/
-div.form_container form {
-  background-color : #ffe5b2;
-  background-color : #ffffe0;
-  padding : 1em;
-  border : 1px solid #fc6;
+div.form_container {
+  padding : 0 0 1em 0;
+  background : #ffb;
+  background : #dfcea5;
+  margin : 0 2em;
 }
-div.form_container form dl {
-  margin : 0;
-  clear : both;
+div.form_container .keynote {
+  font-size : 1.5em;
+  font-family : Georgia;
+  padding : 1em 4em;
+  background : #b4a685;
+  margin : 0 0 2em 0;
 }
-div.form_container form dl.inline dt {
-  width : 10em;
+div.form_container .keynote h3 {
+  font-size : 1.5em;
 }
-div.form_container form dd {
-  margin-left: 0px;
-  height: auto;
+div.form_container .keynote p {
+  font-size : 1em;
 }
-div.form_container ul.navigation {
-  border-top : 1px solid #fc6;
-  margin-top : 1.5em;
+div.form_container .keynote h3,
+div.form_container .keynote p {
+  display : inline;
 }
-div.form_container ul.navigation li {
-  float : none;
+div.form_container .footnote {
+  padding : 0em 4em;
+  border-top : 1px solid #b4a685;
 }
-div.form_container p.send,
-div.form_container p.save,
-div.form_container p.update {
-  margin : 0 0 0 10em;
-  clear : both;
+label,
+dt label,
+dt.label {
+  font-size : 1.2em;
+  font-weight : normal;
 }
-
-/*}}}*/
-/* icons {{{*/
-.ban a {
-  color : #900;
-  padding-left : 18px;
-  background : url( /plugin_assets/sourdough/images/icon_delete.gif ) no-repeat center left;
+input,
+textarea {
+  font-family : "Lucida Grande", Tahoma, sans-serif;
 }
-.edit a {
-  color : #090;
-  padding-left : 18px;
-  background : url( /plugin_assets/sourdough/images/icon_edit.gif ) no-repeat center left;
+input[type="text"],
+textarea {
+  font-size : 1.1em;
+  padding : 0 .2em;
 }
-.reset-password a {
-  color : #900;
-  padding-left : 18px;
-  width: 200px;
-  background : url( /plugin_assets/sourdough/images/icon_delete.gif ) no-repeat center left;
+textarea {
+  padding : .2em;
 }
-#user_list tr.selected {
-  background-color:#FFCC66;
+dt.form_submit label,
+dt.notes label {
+  display : none;
+}
+dd.form_submit input {
+  font-size : 1.2em;
+}
+dl.inline dd.notes {
+  font-size : .9em;
+  font-style : italic;
 }
 /*}}}*/
 /* empty {{{*/
