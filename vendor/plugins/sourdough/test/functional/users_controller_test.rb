@@ -88,9 +88,9 @@ class UsersControllerTest < Test::Unit::TestCase
   end
 
   def test_should_not_find_user
-    get 'show', :id => 'nobody'
-    assert_equal "That item does not exist", flash[:notice]
-    assert_redirected_to '/'
+    assert_raise ActiveRecord::RecordNotFound do
+      get 'show', :id => 'nobody'
+    end
   end
 
   def test_should_activate_user
