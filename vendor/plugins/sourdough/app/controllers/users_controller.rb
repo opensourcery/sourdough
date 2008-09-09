@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
 
   before_filter :login_required, :except => [:new, :create, :activate, :show]
-  before_filter :load_user, :except => [ :index, :create, :new, :activate ]
+  before_filter :find_user, :except => [ :index, :create, :new, :activate ]
   before_filter :check_auth, :only => [ :edit, :update, :destroy ]
 
   def show
@@ -53,10 +53,6 @@ class UsersController < ApplicationController
   def after_user_save
     flash[:notice] = "Thank you for signing up!  We just sent you a confirmation email to #{@user.email}.  Please click on the activation link in the email to complete your sign up."
     UserMailer.deliver_signup_notification(@user, request.protocol + request.host_with_port + activate_path(@user.activation_code))
-  end
-
-  def load_user
-   @user = User.find_by_param(params[:id]) or raise ActiveRecord::RecordNotFound
   end
 
   private

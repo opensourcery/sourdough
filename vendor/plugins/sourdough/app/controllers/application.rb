@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def find_user
+    @user = User.find_by_param(params[:id]) or raise ActiveRecord::RecordNotFound
+  end
+
   def permission_denied
     flash[:notice] = "You don't have privileges to access that area"
     access_denied

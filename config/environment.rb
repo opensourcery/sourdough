@@ -70,4 +70,4 @@ Rails::Initializer.run do |config|
 end
 
 Sourdough.site_name = 'Sourdough'
-Sourdough.tag_line = 'Getting all your duckies in a row.'
+Sourdough.tag_line = 'This is the tagline'
