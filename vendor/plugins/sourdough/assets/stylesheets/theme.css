@@ -176,6 +176,7 @@ input,
 textarea {
   font-family : "Lucida Grande", Tahoma, sans-serif;
 }
+input[type="password"],
 input[type="text"],
 textarea {
   font-size : 1.1em;

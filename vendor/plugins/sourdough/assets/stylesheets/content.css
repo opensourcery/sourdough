@@ -8,63 +8,18 @@
  * Do not use for:  styles which affect the entire site; use theme.css instead.
  *
  */
-/* create team {{{*/
-dl.create_team dt {
+/* login {{{*/
+div.login {
+  padding : 1em 0;
+  margin : 0 10em;
+}
+div.login dl.inline dt {
   width : 10em;
 }
-dl.create_team dt.invitees {
-  padding-top : .25em;
+div.login dd.notes ul {
+  margin-top : 1em;
 }
-dl.create_team dd.invitees table,
-dl.create_team dd.invitees td,
-dl.create_team dd.invitees th {
-  padding-left : 0;
-}
-dl.create_team dd.invitees th {
-  font-size : 1.2em;
-  font-weight : normal;
-  border : 0;
-}
-dl.create_team dd div.content {
-  background : #efefef;
-  padding : .5em;
-  margin : 0 0 0 11em;
-  width : 40em;
-}
-dl.create_team dd div.content p {
-  margin : 0;
-}
-/*}}}*/
-/* join team {{{*/
-dl.join_team dt {
-  width : 15em;
-}
-.footnote.join_team {
-  margin : 5em 0 0 0;
-}
-.footnote.join_team h5 {
-  text-decoration : underline;
-  margin : 1em 0 0 0;
-}
-/*}}}*/
-/* leave team {{{*/
-dl.leave_team dt {
-  width : 15em;
-}
-/*}}}*/
-/* manage team {{{*/
-dl.manage_team dt {
-  width : 15em;
-}
-table.manage_team {
-  margin-left : 10em;
-}
-/*}}}*/
-/* team home {{{*/
-#team_settings {
-  font-size : .8em;
-  text-align : right;
-  margin : 1em 3em 0 3em;
-  display : block;
+div.login ul.navigation li {
+  float : none;
 }
 /*}}}*/
