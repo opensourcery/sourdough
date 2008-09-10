@@ -16,14 +16,14 @@ class ApplicationController < ActionController::Base
   protected
 
   def check_auth
-    unless current_user == @user or (logged_in? and current_user.is_admin?)
+    unless current_user == @user or (logged_in? && current_user.is_admin?)
       permission_denied
     end
   end
 
   def find_user
     id = params[:user_id] ? params[:user_id] : params[:id]
-    @user = User.find_by_param(id) or raise ActiveRecord::RecordNotFound if id
+    @user = User.find_by_param(id) or raise ActiveRecord::RecordNotFound
   end
 
   def permission_denied
