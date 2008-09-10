@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def find_user
     id = params[:user_id] ? params[:user_id] : params[:id]
-    @user = User.find_by_param(id) or raise ActiveRecord::RecordNotFound
+    @user = User.find_by_param(id) or raise ActiveRecord::RecordNotFound if id
   end
 
   def permission_denied
