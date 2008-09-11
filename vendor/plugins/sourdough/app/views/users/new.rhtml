@@ -6,15 +6,22 @@
 
 <%= sourdough_error_messages_for :user %>
 
-<div class="form_container column span-14 append-5 prepend-5 last">
+<div class="form_container signup">
   <h3><%= @page_title %></h3>
+
   <% form_for :user, :url => users_path do |f| -%>
-    <%= render :partial => 'form', :object => f %>
+    <dl class="inline">
+      <%= render :partial => 'form', :object => f %>
 
-    <p class="save"><%= submit_tag 'I accept. Create my account' %></p>
+      <dt class="form_submit"><label for="create_account_affordance">I accept. Create my account.</label></dt>
+      <dd class="form_submit"><%= submit_tag 'I accept. Create my account', :id => 'create_account_affordance' %></dd>
 
-    <ul class="navigation">
-        <li>By clicking 'I accept' you agree to our <%= link_to 'terms and conditions', terms_path %>.</li>
-    </ul>
+      <dt class="notes"><label>Terms &amp; Conditions</label></dt>
+      <dd class="notes">
+        <ul>
+          <li>By clicking 'I accept' you agree to our <%= link_to 'terms and conditions', terms_path %>.</li>
+        </ul>
+      </dd>
+    </dl>
   <% end -%>
 </div>

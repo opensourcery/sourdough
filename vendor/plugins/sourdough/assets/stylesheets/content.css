@@ -23,3 +23,18 @@ div.login ul.navigation li {
   float : none;
 }
 /*}}}*/
+/* signup {{{*/
+div.signup {
+  padding : 1em 0;
+  margin : 0 7em;
+}
+div.signup dl.inline dt {
+  width : 15em;
+}
+div.signup dd.notes ul {
+  margin-top : 1em;
+}
+div.signup ul.navigation li {
+  float : none;
+}
+/*}}}*/

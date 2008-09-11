@@ -1,11 +1,10 @@
-<dl class="inline">
-  <dt><%= label :user, :login %></dt>
-  <dd><%= form.text_field :login %></dd>
+  <dt><%= label :user, :login, 'Choose a login' %></dt>
+  <dd><%= form.text_field :login, :class => 'autofocus' %></dd>
 
-  <dt><%= label :user, :email %></dt>
+  <dt><%= label :user, :email, 'Your email' %></dt>
   <dd><%= form.text_field :email %></dd>
 
-  <dt><%= label :user, :password %></dt>
+  <dt><%= label :user, :password, 'Choose a password' %></dt>
   <dd><%= form.password_field :password %></dd>
 
   <dt><%= label :user, :confirm_password %></dt>
@@ -13,7 +12,5 @@
 
   <%= render :partial => 'optional_form_fields', :locals => { :form => form }  %>
 
-  <dt><%= label :user, :time_zone %></dt>
+  <dt><%= label :user, :time_zone, 'Your time zone' %></dt>
   <dd><%= form.time_zone_select :time_zone, TimeZone.us_zones %></dd>
-
-</dl>
