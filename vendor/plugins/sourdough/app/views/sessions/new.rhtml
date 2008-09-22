@@ -6,7 +6,7 @@
   <% form_tag(session_path) do -%>
     <dl class="inline">
       <dt><%= label(:user, :login) %></dt>
-      <dd><%= text_field_tag 'login', nil, :class => 'autofocus', :size => 20 %></dd>
+      <dd><%= text_field_tag 'login', @login, :class => 'autofocus', :size => 20 %></dd>
 
       <dt><%= label(:user, :password) %></dt>
       <dd><%= password_field_tag 'password', nil, :size => 20 %></dd>

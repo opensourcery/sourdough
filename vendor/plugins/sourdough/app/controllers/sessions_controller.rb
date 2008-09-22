@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
   before_filter :login_required, :only => 'destroy'
 
   def new
+    @login = params[:login]
   end
 
   def create
