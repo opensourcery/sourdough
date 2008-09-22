@@ -1,30 +1,23 @@
-<% @page_title = 'Login' %>
+<% @page_title = 'Please login' %>
 
 <div class="form_container login">
   <h3><%= @page_title %></h3>
 
   <% form_tag(session_path) do -%>
     <dl class="inline">
-      <dt><%= label(:user, :login) %></dt>
+      <dt><%= label(:user, :email) %></dt>
       <dd><%= text_field_tag 'login', @login, :class => 'autofocus', :size => 20 %></dd>
 
       <dt><%= label(:user, :password) %></dt>
       <dd><%= password_field_tag 'password', nil, :size => 20 %></dd>
 
-      <dt></dt>
-      <dd><%= check_box_tag 'remember_me' %> <label for="remember_me"><%= 'Remember me next time?' %></label></dd>
-
       <dt class="form_submit"><label for="login_affordance">Login</label></dt>
       <dd class="form_submit"><%= submit_tag 'Login', :id => 'login_affordance' %></dd>
-
-      <dt class="notes"><label>Need help?</label></dt>
-      <dd class="notes">
-        <ul>
-          <li>We can help if you've <%= link_to 'forgotten your password', forgotten_password_session_path %>.</li>
-          <li>If you don't have an account you can <%= link_to "create one", new_user_path %>.</li>
-        </ul>
-      </dd>
-
     </dl>
   <% end -%>
+
+  <ul class="notes">
+    <li>We can help if you've <%= link_to 'forgotten your password', forgotten_password_session_path %>.</li>
+    <li>If you don't have an account you can <%= link_to "create one", new_user_path %>.</li>
+  </ul>
 </div>
