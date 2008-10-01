@@ -20,10 +20,10 @@
 
 require 'digest/sha1'
 class User < ActiveRecord::Base
-    validates_presence_of     :login 
-    validates_length_of       :login,    :within => 3..40
-    validates_uniqueness_of   :login, :email, :case_sensitive => false
-    validates_format_of       :login, :with => /^\w+$/
+    validates_presence_of     :login, :if => :using_login?
+    validates_length_of       :login,    :within => 3..40, :if => :using_login?
+    validates_uniqueness_of   :login, :email, :case_sensitive => false, :if => :using_login?
+    validates_format_of       :login, :with => /^\w+$/, :if => :using_login?
     validates_presence_of     :email
     validates_length_of       :email,    :within => 3..100
     validates_format_of :email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :on => :create, :message=>"Invalid email address."
@@ -170,6 +170,10 @@ class User < ActiveRecord::Base
     end
 
     private
+
+    def using_login?
+      true
+    end
 
     def create_temporary_password
       chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
