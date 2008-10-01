@@ -20,16 +20,17 @@
 
 require 'digest/sha1'
 class User < ActiveRecord::Base
-    validates_presence_of     :login, :email
+    validates_presence_of     :login 
+    validates_length_of       :login,    :within => 3..40
+    validates_uniqueness_of   :login, :email, :case_sensitive => false
+    validates_format_of       :login, :with => /^\w+$/
+    validates_presence_of     :email
+    validates_length_of       :email,    :within => 3..100
+    validates_format_of :email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :on => :create, :message=>"Invalid email address."
     validates_presence_of     :password,                   :if => :password_required?
     validates_presence_of     :password_confirmation,      :if => :password_required?
     validates_length_of       :password, :within => 4..40, :if => :password_required?
     validates_confirmation_of :password,                   :if => :password_required?
-    validates_length_of       :login,    :within => 3..40
-    validates_length_of       :email,    :within => 3..100
-    validates_uniqueness_of   :login, :email, :case_sensitive => false
-    validates_format_of       :login, :with => /^\w+$/
-    validates_format_of :email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :on => :create, :message=>"Invalid email address."
     file_column :image, :magick => {
         :versions => {
         :square => {:crop => "1:1", :size => "50x50", :name => "square"},
