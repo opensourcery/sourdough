@@ -5,7 +5,7 @@ resources :users do |users|
   users.resource :photos
 end
 
-resource :session, :member => { :forgotten_password => :get, :reset_password => :put, :resend_activation => :put}
+resource :session, :member => { :forgotten_password => :get, :reset_password => :put, :resend_activation => :get}
 
 resource :admin, :controller => 'admin/home' do |admin|
   admin.resources :users, :member => { :make_admin => :post, :revoke_admin => :post, :remove_ban => :post, :ban => :post, :admin_activate => :post, :admin_reset_password => :post }, :controller => 'admin/users', :name_prefix => 'admin_' do |users|
