@@ -50,46 +50,47 @@ class UsersControllerTest < Test::Unit::TestCase
 
   def test_should_update_user
     login_as(:aaron)
-    update_user('aaron', :email => 'updated@email.com', :login => 'aaron')
+    user = users(:aaron)
+    update_user(user, :email => 'updated@email.com', :login => 'aaron')
     assert assigns(:user)
-    assert_redirected_to edit_user_path(User.find_by_login('aaron'))
+    assert_redirected_to edit_user_path(User.find_by_param('aaron'))
   end
 
   def test_should_not_update_user_because_of_missing_login
     login_as(:aaron)
-    update_user('aaron', :email => '')
+    update_user(users(:aaron), :email => '')
     assert_template 'edit'
   end
 
   def test_should_not_update_user_because_of_bad_permissions
     login_as(:aaron)
-    update_user('quentin', :email => 'updated@email.com')
+    update_user(users(:quentin), :email => 'updated@email.com')
     assert_equal "You don't have privileges to access that area", flash[:notice]
     assert_redirected_to new_session_path
   end
 
   def test_should_update_user_because_they_are_admin
     login_as(:quentin)
-    update_user('aaron', :email => 'updated@email.com')
+    update_user(users(:aaron), :email => 'updated@email.com')
     assert assigns(:user)
   end
 
   def test_should_display_user
     login_as(:quentin)
-    get 'show', :id => 'quentin'
+    get 'show', :id => users(:quentin).to_param
     assert_response :success
     assert_template 'show'
   end
 
   def test_should_display_user_without_avatar
-    get 'show', :id => 'aaron'
+    get 'show', :id => users(:aaron).to_param
     assert_response :success
     assert_template 'show'
   end
 
   def test_should_not_find_user
     assert_raise ActiveRecord::RecordNotFound do
-      get 'show', :id => 'nobody'
+      get 'show', :id => 100
     end
   end
 

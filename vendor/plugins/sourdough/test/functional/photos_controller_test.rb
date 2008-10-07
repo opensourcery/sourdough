@@ -21,7 +21,7 @@ class PhotosControllerTest < Test::Unit::TestCase
   end
 
   def test_should_get_new
-    get 'new', :user_id => users(:quentin).login
+    get 'new', :user_id => users(:quentin).to_param
     assert_template 'new'
   end
 
@@ -31,7 +31,7 @@ class PhotosControllerTest < Test::Unit::TestCase
   end
 
   def test_should_delete_photo
-    delete :destroy, :user_id => users(:quentin).login
+    delete :destroy, :user_id => users(:quentin).to_param
     assert_redirected_to new_user_photos_path(users(:quentin))
   end
 

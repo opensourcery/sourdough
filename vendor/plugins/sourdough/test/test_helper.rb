@@ -45,13 +45,13 @@ class Test::Unit::TestCase
          :password => 'quire', :password_confirmation => 'quire'}.merge(options)
   end
 
-  def update_user(login, options = {})
-    post :update, :id => login, :user => { :login => 'quire', :email => 'quire@example.com',
+  def update_user(user, options = {})
+    post :update, :id => user.to_param, :user => { :login => 'quire', :email => 'quire@example.com',
          :password => 'quire', :password_confirmation => 'quire' }.merge(options)
   end
 
   def upload_file(options = {})
-    post :create, :user_id => users(:quentin).login, :image => fixture_file_upload(options[:filename], options[:content_type]), :html => { :multipart => true}
+    post :create, :user_id => users(:quentin).to_param, :image => fixture_file_upload(options[:filename], options[:content_type]), :html => { :multipart => true}
   end
 
 end
