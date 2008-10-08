@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
       if @user = User.find_by_login(params[:login]) and !@user.activated?
         flash.now[:error] = "The email address you have entered has already been registered, but your account has not been activated.  You will get an email shortly telling you how to confirm your account. You can always <a href=\"/session/resend_activation?login=#{params[:login]}\">resend the activation email</a>."
       else
-        flash.now[:error] = "Login failed.  Are you sure your username and password are correct?"
+        flash.now[:error] = "Login failed.  Are you sure your email and password are correct?"
       end
       render :action => 'new'
     end

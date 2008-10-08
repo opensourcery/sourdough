@@ -28,7 +28,7 @@ class SessionsControllerTest < Test::Unit::TestCase
     post :create, :login => 'quentin', :password => 'bad password'
     assert_nil session[:user]
     assert_response :success
-    assert_select '.flash ul li',  'Login failed.  Are you sure your username and password are correct?'
+    assert_select '.flash ul li',  'Login failed.  Are you sure your email and password are correct?'
   end
 
   def test_should_fail_login_and_warn_that_the_user_is_not_activated

@@ -49,11 +49,11 @@ class UsersControllerTest < Test::Unit::TestCase
   end
 
   def test_should_update_user
-    login_as(:aaron)
-    user = users(:aaron)
-    update_user(user, :email => 'updated@email.com', :login => 'aaron')
+    login_as(:quentin)
+    aaron = users(:aaron)
+    update_user(aaron, :email => 'updated@email.com', :login => 'aaron')
     assert assigns(:user)
-    assert_redirected_to edit_user_path(User.find_by_param('aaron'))
+    assert_redirected_to edit_user_path(aaron)
   end
 
   def test_should_not_update_user_because_of_missing_login
