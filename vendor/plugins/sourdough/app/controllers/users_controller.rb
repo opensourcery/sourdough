@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_filter :login_required, :except => [:new, :create, :activate, :show]
   before_filter :find_user, :except => [ :index, :create, :new, :activate ]
   before_filter :check_auth, :only => [ :edit, :update, :destroy ]
+  before_filter :can_register?, :only => [ :new, :create ]
 
   def show
   end
@@ -57,6 +58,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def can_register?
+    true
+  end
+
 
   def activation_redirection_path
     home_path
