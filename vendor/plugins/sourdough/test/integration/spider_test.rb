@@ -2,7 +2,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class SpiderTest < ActionController::IntegrationTest
-  fixtures :users, :photos, :roles
+  fixtures :users
 
   include Caboose::SpiderIntegrator
 

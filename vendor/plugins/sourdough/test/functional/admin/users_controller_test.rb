@@ -7,7 +7,7 @@ class Admin::UsersController; def rescue_action(e) raise e end; end
 
 class Admin::UsersControllerTest < Test::Unit::TestCase
 
-  fixtures :users, :roles, :roles_users
+  fixtures :users
 
   def setup
     @controller = Admin::UsersController.new

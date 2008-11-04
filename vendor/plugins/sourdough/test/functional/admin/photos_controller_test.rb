@@ -7,7 +7,7 @@ class Admin::PhotosController; def rescue_action(e) raise e end; end
 
 class Admin::PhotosControllerTest < Test::Unit::TestCase
 
-  fixtures :users, :roles, :roles_users, :photos
+  fixtures :users
 
   def setup
     @controller = Admin::PhotosController.new

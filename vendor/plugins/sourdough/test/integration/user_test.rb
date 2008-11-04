@@ -2,7 +2,7 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
 class UserIntegrationTest < ActionController::IntegrationTest
-  fixtures :users, :roles, :roles_users 
+  fixtures :users
 
   # Replace this with your real tests.
   def test_sign_up_and_log_in
