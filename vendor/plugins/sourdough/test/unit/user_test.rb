@@ -32,6 +32,22 @@ class UserTest < Test::Unit::TestCase
     assert u.errors.on(:email)
   end
 
+  def test_should_validate_email
+    u = create_user(:email => 'aaaaaaaaaa')
+    assert u.errors.on(:email)
+  end
+
+  def test_should_be_a_valid_email
+    u = create_user(:email => 'alex@alex.com')
+    assert_nil u.errors.on(:email)
+  end
+
+  def test_should_not_be_able_to_create_accounts_with_different_case_emails
+    u = create_user(:email => 'alex@alex.com')
+    x = create_user(:email => 'ALEX@ALEX.com')
+    assert x.errors.on(:email)
+  end
+
   def test_should_not_rehash_password
     users(:quentin).update_attributes(:login => 'quentin2')
     assert_equal users(:quentin), User.authenticate('quentin2', 'test')
@@ -43,6 +59,10 @@ class UserTest < Test::Unit::TestCase
 
   def test_should_authenticate_user_with_email_address
     assert_equal users(:quentin), User.authenticate('quentin@example.com', 'test')
+  end
+
+  def test_should_authenticate_user_with_email_address
+    assert_equal users(:quentin), User.authenticate('QUENTIN@example.com', 'test')
   end
 
   def test_should_set_remember_token

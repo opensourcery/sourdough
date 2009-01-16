@@ -22,11 +22,11 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
     validates_presence_of     :login, :if => :using_login?
     validates_length_of       :login,    :within => 3..40, :if => :using_login?
-    validates_uniqueness_of   :login, :email, :case_sensitive => false, :if => :using_login?
+    validates_uniqueness_of   :login, :case_sensitive => false, :if => :using_login?
+    validates_uniqueness_of   :email, :case_sensitive => false
     validates_format_of       :login, :with => /^\w+$/, :if => :using_login?
-    validates_presence_of     :email
     validates_length_of       :email,    :within => 3..100
-    validates_format_of :email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :on => :create, :message=>"Invalid email address."
+    validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create, :message=>"Invalid email address."
     validates_presence_of     :password,                   :if => :password_required?
     validates_presence_of     :password_confirmation,      :if => :password_required?
     validates_length_of       :password, :within => 4..40, :if => :password_required?
@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
 
     ## Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
     def self.authenticate(login, password)
-      u = find :first, :conditions => ['(login = ? or email = ?) and activated_at IS NOT NULL and banned_at IS NULL', login, login] # need to get the salt
+      u = find :first, :conditions => ['(lower(login) = ? or lower(email) = ?) and activated_at IS NOT NULL and banned_at IS NULL', login.downcase, login.downcase] # need to get the salt
       u && u.authenticated?(password) ? u : nil
     end
 
