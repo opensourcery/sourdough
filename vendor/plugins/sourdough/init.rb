@@ -2,5 +2,5 @@
 # Include hook code here
 require 'sourdough'
 load_paths.each do |path|
-  Dependencies.load_once_paths.delete(path)
+  ActiveSupport::Dependencies.load_once_paths.delete(path)
 end
