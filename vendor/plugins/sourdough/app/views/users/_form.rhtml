@@ -13,4 +13,4 @@
   <%= render :partial => 'optional_form_fields', :locals => { :form => form }  %>
 
   <dt><%= label :user, :time_zone, 'Your time zone' %></dt>
-  <dd><%= form.time_zone_select :time_zone, TimeZone.us_zones %></dd>
+  <dd><%= form.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %></dd>
