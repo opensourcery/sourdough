@@ -17,7 +17,8 @@ class PhotosControllerTest < Test::Unit::TestCase
   end
 
   def test_should_find_rmagick
-    assert require('RMagick')
+    require 'RMagick'
+    assert(!$".grep(/rmagick/i).empty?)
   end
 
   def test_should_get_new
