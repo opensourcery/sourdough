@@ -1,0 +1,28 @@
+There are a set of Vim files here that are the start of a useful collection of vim plugins for rails development.
+
+The plugins that currently are included are:
+
+ * rails.vim - http://rails.vim.tpope.net/
+ * ack.vim - http://blog.ant0ine.com/2007/03/ack_and_vim_integration.html (haven't played with this enough to decide if it's useful)
+ * bufexplorer.vim 
+ * matchit.vim
+ * gnupg.vim
+
+bufexplorer, matchit, gnupg are all from the Gutsy Ubuntu vim-scripts package.
+
+The are currently kept in:
+
+.vim/doc
+.vim/autoload
+.vim/plugin
+
+These can be copied into your ~/.vim/ directory.
+
+We can easily add others and update to later versions for bufexplorer/matchit/gnupg.
+
+There is also a .vimrc file that currently just provides shortcut keys for running tests in vim.
+There are shortcuts for running the entire test file and also for running just the test case
+that your cursor is currently sitting in.  Doing this for a basic Test::Unit test case is
+simple.  Doing it for a Shoulda test case with nested contexts is more complex because the 
+test method needs to be reconstructed from the various contexts.  This requires the
+matchit.vim plugin to find the enclosing groups.
