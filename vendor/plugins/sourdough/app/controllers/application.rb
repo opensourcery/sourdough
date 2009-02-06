@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   include ExceptionNotifiable
   include ApplicationHelper
 
+  # See ActionController::RequestForgeryProtection for details
+  # Uncomment the :secret if you're not using the cookie session store
+  protect_from_forgery # :secret => '40f18bcc756373b81240a7d9ab7cae5c'
+  
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_sourdough_session_id', :secret => 'Shoow2Qu thae2eeJ uiri7OoH Chu5shoz oom6Phei ithier5P Oohei7Ee naesh8Xe'
 
