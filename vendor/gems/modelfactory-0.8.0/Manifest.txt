@@ -1,0 +1,15 @@
+History.txt
+License.txt
+Manifest.txt
+README.txt
+Rakefile
+lib/fixture_converter.rb
+lib/model_factory.rb
+lib/model_factory/version.rb
+script/destroy
+script/fixtures2factories
+script/generate
+script/txt2html
+setup.rb
+test/model_factory_test.rb
+test/test_helper.rb
