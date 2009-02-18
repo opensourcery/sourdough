@@ -20,6 +20,7 @@
  * mv email.example to email.yml and edit it with the name of the email account you want your server to be using
  * rake db:migrate
  * modify the language files in the lang/ directory to reflect the language of your application
+ * NOTE: nokogiri must be installed locally for the webrat gem to function.  nokogiri requires native extensions, which is why it is not bundled.
 
 == Upgrading ==
 
