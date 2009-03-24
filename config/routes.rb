@@ -1,46 +1,25 @@
-ActionController::Routing::Routes.draw do |map|
-  # The priority is based upon order of creation: first created -> highest priority.
+# This file is part of Sourdough.  Copyright 2006,2007 OpenSourcery, LLC.  This program is free software, licensed under the terms of the GNU General Public License.  Please see the COPYING file in this distribution for more information, or see http://www.gnu.org/copyleft/gpl.html.
 
-  # Sample of regular route:
-  #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   map.resources :products
-
-  # Sample resource route with options:
-  #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
-
-  # Sample resource route with sub-resources:
-  #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-  
-  # Sample resource route with more complex sub-resources
-  #   map.resources :products do |products|
-  #     products.resources :comments
-  #     products.resources :sales, :collection => { :recent => :get }
-  #   end
-
-  # Sample resource route within a namespace:
-  #   map.namespace :admin do |admin|
-  #     # Directs /admin/products/* to Admin::ProductsController (app/controllers/admin/products_controller.rb)
-  #     admin.resources :products
-  #   end
-
-  # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  # map.root :controller => "welcome"
-
-  # See how all your routes lay out with "rake routes"
-
-  # routes implicit in Sourdough
-  map.from_plugin :sourdough
-
-  # Install the default routes as the lowest priority.
-  # Note: These default routes make all actions in every controller accessible via GET requests. You should
-  # consider removing the them or commenting them out if you're using named routes and resources.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+#  resource :admin, :member => { :users => :get }
+resources :users do |users|
+  users.resource :photos
 end
+
+resource :session, :member => { :forgotten_password => :get, :reset_password => :put, :resend_activation => :get}
+
+resource :admin, :controller => 'admin/home' do |admin|
+  admin.resources :users, :member => { :make_admin => :post, :revoke_admin => :post, :remove_ban => :post, :ban => :post, :admin_activate => :post, :admin_reset_password => :post }, :controller => 'admin/users', :name_prefix => 'admin_' do |users|
+    users.resource :photos, :controller => 'admin/photos', :name_prefix => 'admin_'
+  end
+end
+
+edit_profile '/users/:id/edit', :controller => 'users', :action => 'edit'
+terms 'terms', :controller => 'home', :action => 'terms'
+home '/', :controller => 'home'
+activate "/users/activate/:activation_code", :controller => 'users', :action => 'activate'
+signup '/signup', :controller => 'users', :action => 'new'
+login  '/login', :controller => 'sessions', :action => 'new'
+logout '/logout', :controller => 'sessions', :action => 'destroy'
+connect ':controller/service.wsdl', :action => 'wsdl'
+connect '', :controller => 'home'
+

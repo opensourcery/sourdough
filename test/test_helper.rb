@@ -1,7 +1,17 @@
+# This file is part of Sourdough.  Copyright 2006,2007 OpenSourcery, LLC.  This program is free software, licensed under the terms of the GNU General Public License.  Please see the COPYING file in this distribution for more information, or see http://www.gnu.org/copyleft/gpl.html.
 ENV["RAILS_ENV"] = "test"
-require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
+require File.expand_path(File.dirname(__FILE__) + "/../../../../config/environment")
+
 require 'test_help'
 require File.expand_path(File.dirname(__FILE__) + '/helper_testcase')
+
+# Load the schema - if migrations have been performed, this will be up to date.
+load(File.dirname(__FILE__) + "/../../../../db/schema.rb")
+
+# set up the fixtures location
+Test::Unit::TestCase.fixture_path = File.dirname(__FILE__)  + "/fixtures/"
+
+$LOAD_PATH.unshift(Test::Unit::TestCase.fixture_path)
 
 class Test::Unit::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
@@ -16,10 +26,6 @@ class Test::Unit::TestCase
   # in MySQL.  Turn off transactional fixtures in this case; however, if you
   # don't care one way or the other, switching from MyISAM to InnoDB tables
   # is recommended.
-  #
-  # The only drawback to using transactional fixtures is when you actually 
-  # need to test transactions.  Since your test is bracketed by a transaction,
-  # any transactions started in your code will be automatically rolled back.
   self.use_transactional_fixtures = true
 
   # Instantiated fixtures are slow, but give you @david where otherwise you
@@ -29,30 +35,23 @@ class Test::Unit::TestCase
   # then set this back to true.
   self.use_instantiated_fixtures  = false
 
-  # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
-  #
-  # Note: You'll currently still have to declare fixtures explicitly in integration tests
-  # -- they do not yet inherit this setting
-  fixtures :all
-
   # Add more helper methods to be used by all tests here...
   include AuthenticatedTestHelper
-
 
   protected
 
   def create_user(options = {})
     post :create, :user => { :login => 'quire', :email => 'quire@example.com',
-         :password => 'quire', :password_confirmation => 'quire' }.merge(options)
+         :password => 'quire', :password_confirmation => 'quire'}.merge(options)
   end
 
-  def update_user(login, options = {})
-    post :update, :id => login, :user => { :login => 'quire', :email => 'quire@example.com',
+  def update_user(user, options = {})
+    post :update, :id => user.to_param, :user => { :login => 'quire', :email => 'quire@example.com',
          :password => 'quire', :password_confirmation => 'quire' }.merge(options)
   end
 
   def upload_file(options = {})
-    post :create, :user_id => users(:quentin).login, :photo => {:uploaded_data => fixture_file_upload(options[:filename], options[:content_type])}, :html => { :multipart => true}
+    post :create, :user_id => users(:quentin).to_param, :image => fixture_file_upload(options[:filename], options[:content_type]), :html => { :multipart => true}
   end
 
 end
