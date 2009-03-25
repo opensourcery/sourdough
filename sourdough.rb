@@ -37,7 +37,6 @@ end
 # }}}
 
 # example database config {{{
-File.unlink 'config/development.yml'
 file 'config/database.yml.example', %{
 login: &login
   adapter: postgresql
