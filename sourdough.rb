@@ -35,6 +35,9 @@ environment :env => 'production', %{
 environment %{
   config.plugins = [ :sourdough, :all ]
 }
+file 'config/email.yml.example', %{
+from_address: test@example.com
+}
 run 'cp vendor/plugins/sourdough/README README'
 run 'mkdir -p db/migrate'
 run 'cp vendor/plugins/sourdough/db/migrate/*.rb db/migrate'
@@ -183,14 +186,22 @@ log
 db/*.db
 db/*.sqlite3
 db/schema.rb
+*.sw[pon]
+*~
 .DS_Store
 doc/api
 doc/app
 config/database.yml
+config/email.yml
 }
 
 git :add => "."
 git :commit => "-a -m 'Initial commit'"
 # }}}
+
+# Helpfully copy the config templates for the developer,
+# this should always be done after .gitignore is created.
+run 'cp config/database.yml.example config/database.yml'
+run 'cp config/email.yml.example config/email.yml'
 
 # vi:foldmethod=marker:
