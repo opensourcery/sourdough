@@ -4,21 +4,42 @@
 
 app_name = File.split(root).last
 
-plugin 'annotate_models',        :git => 'git://github.com/rotuka/annotate_models.git'
-plugin 'assert_valid_markup',    :git => 'git://github.com/wireframe/assert_valid_markup.git'
-plugin 'exception_notification', :git => 'git://github.com/rails/exception_notification.git'
-plugin 'sourdough',              :git => 'git://github.com/zenhob/sourdough.git -r rails2.3'
+gem 'thoughtbot-shoulda', :lib => false, :source => "http://gems.github.com"
+gem 'webrat',             :lib => false, :source => "http://gems.github.com"
+gem 'mislav-hanna',       :lib => false, :source => "http://gems.github.com"
+gem 'modelfactory',       :lib => false
+gem 'unit_record',        :lib => false
+gem 'unit_controller',    :lib => false
 
-plugin 'file_column', :git => 'git://github.com/kch/file_column.git' if yes? 'Attachment support?'
+rake "gems:install", :sudo => true
+
+git :init
+
+plugin 'annotate_models',        :git => 'git://github.com/rotuka/annotate_models.git',        :submodule => true
+plugin 'assert_valid_markup',    :git => 'git://github.com/wireframe/assert_valid_markup.git', :submodule => true
+plugin 'exception_notification', :git => 'git://github.com/rails/exception_notification.git',  :submodule => true
+plugin 'file_column',            :git => 'git://github.com/kch/file_column.git',               :submodule => true
+plugin 'spider_test',            :git => 'git://github.com/courtenay/spider_test.git',         :submodule => true
+plugin 'sourdough',              :git => '-b rails2.3 git://github.com/zenhob/sourdough.git',  :submodule => true
+
+git :submodule => 'init'
 
 environment %{
   config.plugins = [ :sourdough, :all ]
 }
 
-# test setup: thoughbot and model factory # {{{
-gem "thoughtbot-shoulda", :lib => false, :source => "http://gems.github.com"
-gem "modelfactory",       :lib => false
+capify!
 
+# Use the sourdough README
+run 'cp vendor/plugins/sourdough/README README'
+
+# Delete unnecessary files {{{
+run 'rm public/index.html'
+run 'rm public/favicon.ico'
+run 'rm public/robots.txt'
+# }}}
+
+# Test setup # {{{
 Dir.rmdir 'test/fixtures'
 
 file 'test/factory.rb', %{
@@ -36,7 +57,8 @@ require File.dirname(__FILE__) + '/factory.rb'
 end
 # }}}
 
-# example database config {{{
+# Example database config {{{
+run 'rm config/database.yml'
 file 'config/database.yml.example', %{
 login: &login
   adapter: postgresql
@@ -104,11 +126,8 @@ end
 
 # }}}
 
-if yes? 'True unit and functional tests?' # {{{
-  gem "unit_record",        :lib => false
-  gem "unit_controller",    :lib => false
-
-  file 'test/unit/unit_test_helper.rb', %{
+# Test helpers {{{
+file 'test/unit/unit_test_helper.rb', %{
 require File.dirname(__FILE__) + '/../test_helper.rb'
 require 'unit_record'
 require 'unit_controller'
@@ -132,51 +151,39 @@ class ActionController::TestCase
 end
 }
 
-  file 'test/functional/functional_test_helper.rb', %{
+file 'test/functional/functional_test_helper.rb', %{
 require File.dirname(__FILE__) + '/../test_helper.rb'
 }
-end
-# }}}
 
-if yes? 'Integration testing support?' # {{{
-  plugin 'spider_test', :git => 'git://github.com/courtenay/spider_test.git'
-  gem    'webrat',      :lib => false, :source => "http://gems.github.com"
-
-  file 'test/integration/integration_test_helper.rb', %{
+file 'test/integration/integration_test_helper.rb', %{
 require File.dirname(__FILE__) + '/../test_helper.rb'
 require 'webrat'
 }
-end # }}}
+# }}}
 
-if yes? 'Enable Amazon S3?' # {{{
-  file 'config/amazon_s3.yml.example', %{
-access_key: &access_key
-  access_key_id:
-  secret_access_key:
-
-development:
-  bucket_name: #{app_name}_development
-  <<: *access_key
-
-test:
-  bucket_name: #{app_name}_test
-  <<: *access_key
-
-production:
-  bucket_name: #{app_name}
-  <<: *access_key
-}
+# Enable the hanna RDoc template {{{
+gsub_file "Rakefile", /(#{Regexp.escape("require 'rake/rdoctask'")})/ do |match|
+  "require 'hanna/rdoctask'"
 end
 # }}}
 
-if yes? 'Use hanna RDoc template?' # {{{
-  gem "mislav-hanna", :lib => false, :source => "http://gems.github.com"
-  gsub_file "Rakefile", /(#{Regexp.escape("require 'rake/rdoctask'")})/ do |match|
-    "require 'hanna/rdoctask'"
-  end
-  warn 'NOTE that rake will fail unless hanna is installed: sudo gem install mislav-hanna --source=http://gems.github.com'
-end # }}}
+# Git setup and initial commit {{{
+run 'rm -rf tmp'
+run 'find . \( -type d -empty \) -and \( -not -regex ./\.git.* \) -exec touch {}/.gitignore \;'
+file '.gitignore', %{
+tmp
+log
+db/*.db
+db/*.sqlite3
+db/schema.rb
+.DS_Store
+doc/api
+doc/app
+config/database.yml
+}
 
-capify!
+git :add => "."
+git :commit => "-a -m 'Initial commit'"
+# }}}
 
 # vi:foldmethod=marker:
