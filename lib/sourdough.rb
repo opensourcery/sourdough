@@ -10,8 +10,6 @@ ENV['SOURDOUGH_FIXTURES'] ||= 'users'
 
 ActionController::Base.send(:include, Administration)
 
-ExceptionNotifier.exception_recipients = %w( alex@opensourcery.com )
-
 module Sourdough
   mattr_accessor :from_address, :site_name, :tag_line
   email_config = Hash.new

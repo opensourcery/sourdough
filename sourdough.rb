@@ -26,6 +26,11 @@ git :submodule => 'init'
 
 capify!
 
+environment :env => 'production', %{
+# Configure exception notification by email
+#ExceptionNotifier.exception_recipients = %w[ dev@example.com ]
+}
+
 # Sourdough setup {{{
 environment %{
   config.plugins = [ :sourdough, :all ]
