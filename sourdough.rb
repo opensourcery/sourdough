@@ -26,10 +26,10 @@ git :submodule => 'init'
 
 capify!
 
-environment :env => 'production', %{
+environment %{
 # Configure exception notification by email
 #ExceptionNotifier.exception_recipients = %w[ dev@example.com ]
-}
+}, :env => 'production'
 
 # Sourdough setup {{{
 environment %{
@@ -41,6 +41,8 @@ from_address: test@example.com
 run 'cp vendor/plugins/sourdough/README README'
 run 'mkdir -p db/migrate'
 run 'cp vendor/plugins/sourdough/db/migrate/*.rb db/migrate'
+run 'rm -rf public/images public/javascripts public/stylesheets'
+run 'cp -r vendor/plugins/sourdough/assets/* public'
 # }}}
 
 # Delete unnecessary files {{{
