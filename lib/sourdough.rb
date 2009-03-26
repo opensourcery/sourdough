@@ -9,6 +9,7 @@ require_dependency 'authentication/authenticated_test_helper'
 ENV['SOURDOUGH_FIXTURES'] ||= 'users'
 
 ActionController::Base.send(:include, Administration)
+ActionView::Base.send(:include, AuthenticatedSystem)
 
 module Sourdough
   mattr_accessor :from_address, :site_name, :tag_line

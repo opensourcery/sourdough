@@ -1,6 +1,5 @@
 # This file is part of Sourdough.  Copyright 2006,2007 OpenSourcery, LLC.  This program is free software, licensed under the terms of the GNU General Public License.  Please see the COPYING file in this distribution for more information, or see http://www.gnu.org/copyleft/gpl.html.
 module AuthenticatedSystem
-  protected
     # Returns true or false if the user is logged in.
     # Preloads @current_user with the user model if they're logged in.
     def logged_in?
@@ -12,6 +11,7 @@ module AuthenticatedSystem
       @current_user ||= (session[:user] && User.find_by_id(session[:user])) || :false
     end
     
+  protected
     # Store the given user in the session.
     def current_user=(new_user)
       session[:user] = (new_user.nil? || new_user.is_a?(Symbol)) ? nil : new_user.id
@@ -91,12 +91,6 @@ module AuthenticatedSystem
       session[:return_to] = nil
     end
     
-    # Inclusion hook to make #current_user and #logged_in?
-    # available as ActionView helper methods.
-    def self.included(base)
-      base.send :helper_method, :current_user, :logged_in?
-    end
-
     # When called with before_filter :login_from_cookie will check for an :auth_token
     # cookie and log the user back in if apropriate
     def login_from_cookie
