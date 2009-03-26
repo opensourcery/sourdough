@@ -24,14 +24,16 @@ plugin 'sourdough',              :git => '-b rails2.3 git://github.com/zenhob/so
 
 git :submodule => 'init'
 
+capify!
+
+# Sourdough setup {{{
 environment %{
   config.plugins = [ :sourdough, :all ]
 }
-
-capify!
-
-# Use the sourdough README
 run 'cp vendor/plugins/sourdough/README README'
+run 'mkdir -p db/migrate'
+run 'cp vendor/plugins/sourdough/db/migrate/*.rb db/migrate'
+# }}}
 
 # Delete unnecessary files {{{
 run 'rm public/index.html'
